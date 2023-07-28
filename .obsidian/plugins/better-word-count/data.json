@@ -1,0 +1,33 @@
+{
+  "statusBar": [
+    {
+      "prefix": "共有",
+      "suffix": "字",
+      "metric": {
+        "type": 2,
+        "counter": 0
+      }
+    },
+    {
+      "prefix": " ",
+      "suffix": " characters",
+      "metric": {
+        "type": 0,
+        "counter": 1
+      }
+    }
+  ],
+  "altBar": [
+    {
+      "prefix": "",
+      "suffix": "文件",
+      "metric": {
+        "type": 2,
+        "counter": 6
+      }
+    }
+  ],
+  "countComments": false,
+  "collectStats": true,
+  "pageWords": 300
+}
