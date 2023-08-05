@@ -13,3 +13,5 @@
 .history
 # 针对Mac系统的忽略
 .DS_Store
+
+.gitmodules
