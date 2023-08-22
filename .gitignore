@@ -1,3 +1,7 @@
+# 首先排除自己, 每个人情况不一样,单独配置
+.gitignore
+
+# 同步.obsidian文件夹下指定的子文件夹, 这些插件都暂时没有用到, 将来找机会剔除
 .obsidian/*
 !.obsidian/plugins
 .obsidian/plugins/*
@@ -10,8 +14,17 @@
 !.obsidian/plugins/obsidian-latex-suite/
 !.obsidian/plugins/templater-obsidian
 !.obsidian/app.json
+!.obsidian/snippets
+
+# 其他ob相关文件夹
 .history
+.trash
+
 # 针对Mac系统的忽略
 .DS_Store
 
+# 子模块相关, 暂时没有用到
 .gitmodules
+
+# vscode配置文件夹
+.vscode
