@@ -32171,8 +32171,8 @@ var ObsidianGitSettingsTab = class extends import_obsidian8.PluginSettingTab {
         })
       );
       if (!plugin.settings.setLastSaveToLastCommit)
-        new import_obsidian8.Setting(containerEl).setName(`Auto Backup after file change`).setDesc(
-          `If turned on, do auto ${commitOrBackup} every ${plugin.settings.autoSaveInterval} minutes after last change. This also prevents auto ${commitOrBackup} while editing a file. If turned off, it's independent from the last change.`
+        new import_obsidian8.Setting(containerEl).setName(`Auto Backup after stop editing any file`).setDesc(
+          `Requires the ${commitOrBackup} interval not to be 0. If turned on, do auto ${commitOrBackup} every ${plugin.settings.autoSaveInterval} minutes after stop editing any file. This also prevents auto ${commitOrBackup} while editing a file. If turned off, it's independent from the last change.`
         ).addToggle(
           (toggle) => toggle.setValue(plugin.settings.autoBackupAfterFileChange).onChange((value) => {
             plugin.settings.autoBackupAfterFileChange = value;
@@ -35939,8 +35939,10 @@ var DiffView = class extends import_obsidian17.ItemView {
   }
   async setState(state, result) {
     this.state = state;
+    if (import_obsidian17.Platform.isMobile) {
+      this.leaf.view.titleEl.textContent = this.getDisplayText();
+    }
     await this.refresh();
-    return;
   }
   getState() {
     return this.state;
@@ -42478,8 +42480,8 @@ function instance9($$self, $$props, $$invalidate) {
   plugin.app.workspace.onLayoutReady(() => {
     window.setTimeout(
       () => {
-        buttons.forEach((btn) => (0, import_obsidian28.setIcon)(btn, btn.getAttr("data-icon"), 16));
-        (0, import_obsidian28.setIcon)(layoutBtn, showTree ? "list" : "folder", 16);
+        buttons.forEach((btn) => (0, import_obsidian28.setIcon)(btn, btn.getAttr("data-icon")));
+        (0, import_obsidian28.setIcon)(layoutBtn, showTree ? "list" : "folder");
       },
       0
     );
@@ -42522,6 +42524,21 @@ function instance9($$self, $$props, $$invalidate) {
         $$invalidate(6, status2 = void 0);
         return;
       }
+      const unPushedCommits = yield plugin.gitManager.getUnpushedCommits();
+      buttons.forEach((btn) => {
+        var _a2, _b;
+        if (import_obsidian28.Platform.isMobile) {
+          btn.removeClass("button-border");
+          if (btn.id == "push" && unPushedCommits > 0) {
+            btn.addClass("button-border");
+          }
+        } else {
+          (_a2 = btn.firstElementChild) === null || _a2 === void 0 ? void 0 : _a2.removeAttribute("color");
+          if (btn.id == "push" && unPushedCommits > 0) {
+            (_b = btn.firstElementChild) === null || _b === void 0 ? void 0 : _b.setAttr("color", "var(--text-accent)");
+          }
+        }
+      });
       $$invalidate(6, status2 = plugin.cachedStatus);
       if (plugin.lastPulledFiles && plugin.lastPulledFiles != lastPulledFiles) {
         $$invalidate(7, lastPulledFiles = plugin.lastPulledFiles);
@@ -42674,7 +42691,7 @@ function instance9($$self, $$props, $$invalidate) {
       $: {
         if (layoutBtn) {
           layoutBtn.empty();
-          (0, import_obsidian28.setIcon)(layoutBtn, showTree ? "list" : "folder", 16);
+          (0, import_obsidian28.setIcon)(layoutBtn, showTree ? "list" : "folder");
         }
       }
     }
@@ -42962,6 +42979,11 @@ var ObsidianGit = class extends import_obsidian30.Plugin {
       id: "pull",
       name: "Pull",
       callback: () => this.promiseQueue.addTask(() => this.pullChangesFromRemote())
+    });
+    this.addCommand({
+      id: "fetch",
+      name: "fetch",
+      callback: () => this.promiseQueue.addTask(() => this.fetch())
     });
     this.addCommand({
       id: "switch-to-remote-branch",
@@ -43750,6 +43772,15 @@ var ObsidianGit = class extends import_obsidian30.Plugin {
       this.lastPulledFiles = pulledFiles;
     }
     return pulledFiles.length != 0;
+  }
+  async fetch() {
+    if (!await this.remotesAreSet()) {
+      return;
+    }
+    await this.gitManager.fetch();
+    this.displayMessage(`Fetched from remote`);
+    this.offlineMode = false;
+    dispatchEvent(new CustomEvent("git-refresh"));
   }
   async mayDeleteConflictFile() {
     const file = this.app.vault.getAbstractFileByPath(
