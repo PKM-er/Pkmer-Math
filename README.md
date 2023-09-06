@@ -25,7 +25,7 @@ PKMer知识管理交流群(QQ): 825255377
 如果有多个分支需要合并, 以下是合并步骤:
 
 1. 首先切换到自己主要开发的分支, 比如我在main开发, 就先切换到master
-2. 执行命令 `git pull origin master` 将master合并到main (大概吧,我也没太搞懂)
+2. 执行命令 `git pull origin master` 将master合并到main (大概吧,我也没太搞懂谁合并到谁= =)
 3. 解决冲突, 这个如果有的话比较麻烦, 没有就不管
 4. 将合并后的内容推送到指定分支main,  `git push origin master` 
 
