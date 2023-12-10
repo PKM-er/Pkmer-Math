@@ -1,5 +1,6 @@
-#markdown 
-
+---
+tags:
+  - markdown
 ---
 ## 行内与独行
 1. 行内公式：将公式插入到本行内, 符号：`$公式内容$`, 如：$xyz$、$0$、$\mathbf{0}_{m \times n}$、$\emptyset$、$\boldsymbol{0}$、$\vec{0}$
