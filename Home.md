@@ -22,6 +22,7 @@ dlink:
 >
 
 > [!tip]+ 网页工具
+>- [[Markdown数学公式]]
 >- [[WolframAlpha]]
 >- [[公式编辑器]]
 
