@@ -1,6 +1,6 @@
 {
   "command_timeout": 5,
-  "templates_folder": "Config/Template",
+  "templates_folder": "_config_/Template",
   "templates_pairs": [
     [
       "",
@@ -24,6 +24,7 @@
     }
   ],
   "syntax_highlighting": true,
+  "syntax_highlighting_mobile": false,
   "enabled_templates_hotkeys": [
     ""
   ],
