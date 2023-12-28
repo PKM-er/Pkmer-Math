@@ -9,7 +9,7 @@
   "refreshEnabled": true,
   "refreshInterval": 2500,
   "defaultDateFormat": "MMMM dd, yyyy",
-  "defaultDateTimeFormat": "h:mm a - MMMM dd, yyyy",
+  "defaultDateTimeFormat": "yyyy-MM-dd HH:mm:ss",
   "maxRecursiveRenderDepth": 4,
   "tableIdColumnName": "File",
   "tableGroupColumnName": "Group",
@@ -22,5 +22,6 @@
   "enableDataviewJs": true,
   "enableInlineDataviewJs": false,
   "prettyRenderInlineFields": false,
+  "prettyRenderInlineFieldsInLivePreview": true,
   "dataviewJsKeyword": "dataviewjs"
 }
