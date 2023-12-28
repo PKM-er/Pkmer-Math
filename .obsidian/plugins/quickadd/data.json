@@ -68,7 +68,7 @@
   ],
   "inputPrompt": "single-line",
   "devMode": false,
-  "templateFolderPath": "Config/QuickAdd",
+  "templateFolderPath": "_config_/QuickAdd",
   "announceUpdates": true,
   "version": "1.4.0",
   "disableOnlineFeatures": true,
