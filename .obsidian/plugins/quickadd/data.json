@@ -70,7 +70,7 @@
   "devMode": false,
   "templateFolderPath": "_config_/QuickAdd",
   "announceUpdates": true,
-  "version": "1.4.0",
+  "version": "1.6.1",
   "disableOnlineFeatures": true,
   "ai": {
     "OpenAIApiKey": "",
