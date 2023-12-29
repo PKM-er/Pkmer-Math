@@ -21,6 +21,10 @@
     {
       "folder": "Math",
       "template": "Config/Template/template-math.md"
+    },
+    {
+      "folder": "微积分",
+      "template": "_config_/Template/template-微积分.md"
     }
   ],
   "syntax_highlighting": true,
