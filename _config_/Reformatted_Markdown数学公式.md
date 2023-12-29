@@ -88,15 +88,29 @@
 > \Delta
 > ```
 
-
-
 |Symbol|Script|
 |---|---|
-|$\frac{n!}{k!(n-k)!}$|\frac{n!}{k!(n-k)!}|
-|$\binom{n}{k}$|\binom{n}{k}|
-|$\frac{\frac{x}{1}}{x - y}$|\frac{\frac{x}{1}}{x - y}|
-|$^3/_7$|^3/_7|
-
+|$\sum_{i=1}^{10} t_i$|\sum_{i=1}^{10} t_i|
+|$\int_0^\infty \mathrm{e}^{-x},\mathrm{d}x$|\int_0^\infty \mathrm{e}^{-x},\mathrm{d}x|
+|$\sum$|\sum|
+|$\prod$|\prod|
+|$\coprod$|\coprod|
+|$\bigoplus$|\bigoplus|
+|$\bigotimes$|\bigotimes|
+|$\bigodot$|\bigodot|
+|$\bigcup$|\bigcup|
+|$\bigcap$|\bigcap|
+|$\biguplus$|\biguplus|
+|$\bigsqcup$|\bigsqcup|
+|$\bigvee$|\bigvee|
+|$\bigwedge$|\bigwedge|
+|$\int$|\int|
+|$\oint$|\oint|
+|$\iint$|\iint|
+|$\iiint$|\iiint|
+|$\idotsint$|\idotsint|
+|$\sum_{\substack{0<i<m\0<j<n}} P(i, j)$|\sum_{\substack{0<i<m\0<j<n}} P(i, j)|
+|$\int\limits_a^b$|\int\limits_a^b|
 
 
 > [!note] 括号
