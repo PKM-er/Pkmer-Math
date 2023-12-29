@@ -21,8 +21,11 @@ dlink:
 >```
 >
 
-> [!tip]+ 网页工具
+> [!tip]+ 工具
+>- [[Callouts Syntax]]
 >- [[Markdown数学公式]]
+>- [[Markdown数学公式_Callouts]]
+>- [[Markdown数学公式_ArcherReilly]]
 >- [[WolframAlpha]]
 >- [[公式编辑器]]
 
