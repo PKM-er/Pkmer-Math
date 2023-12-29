@@ -1,145 +1,184 @@
-> [!note] 行内公式
->
->```md
->
+
+> [!note] 分数表示
+> ```md
+> \frac{}{}
 >```
 
-> [!note] 独行公式
->
->```md
->
+> [!note] 根号表示
+> ```md
+> \sqrt{}
+>```
+> ```md
+> \sqrt[]{}
 >```
 
-> [!note] 上标符号, 符号
->
->```md
->^
+---
+> [!note] 上下标
+> ```
+> _{}^{}
+> ```
+
+> [!note] 极限表示
+> ```
+> \lim_{}^{}
+> ```
+
+> [!note] 积分运算
+>$$\int_{a}^{b}$$
+> ```md
+> \int_{a}^{b}
+>```
+>$$\intop_{a}^{b}$$
+> ```md
+> \intop_{a}^{b}
+>```
+>$$\oint_{a}^{b}$$
+> ```md
+> \oint_{a}^{b}
+>```
+>$$\smallint_{a}^{b}$$
+> ```md
+> \smallint_{}^{}
+>```
+>$$\iint_{a}^{b}$$
+> ```md
+> \iint_{a}^{b}
+>```
+>$$\oiint_{a}^{b}$$
+> ```md
+> \oiint_{a}^{b}
+>```
+>$$\iiint_{a}^{b}$$
+> ```md
+> \iiint_{a}^{b}
+>```
+>$$\oiiint_{a}^{b}$$
+> ```md
+> \oiiint_{a}^{b}
 >```
 
-> [!note] 下标符号, 符号
+
+
+
+> [!note] 微分运算
+> $\partial$
+> ```md
+> \partial
+> ```
+> $\nabla$
+> \partial
+> \nabla
+> ```
+> $\mathrm{d}$
+> \nabla
+> \mathrm{d}
+> ```
+> $\dot$
+> \mathrm{d}
+> \dot
+> ```
+> $\ddot$
+> \dot
+> \ddot
+> ```
+> $\Delta$
+> \ddot
+> \Delta
+> ```
+> \Delta
+> ```
+
+
+
+|Symbol|Script|
+|---|---|
+|$\frac{n!}{k!(n-k)!}$|\frac{n!}{k!(n-k)!}|
+|$\binom{n}{k}$|\binom{n}{k}|
+|$\frac{\frac{x}{1}}{x - y}$|\frac{\frac{x}{1}}{x - y}|
+|$^3/_7$|^3/_7|
+
+
+
+> [!note] 括号
+>小括号
+>```md
+>()
+>```
+>```md
+>\big(\big)
+>```
+>```md
+>\Big(\Big)
+>```
+>```md
+>\bigg(\bigg)
+>```
+>```md
+>\Bigg(\Bigg)
+>```
+> 自适应括号, 符号
+>```md
+>\left \right
+>```
+>大括号, 符号
 >
 >```md
->_
+>\{ \}
 >```
-
-> [!note] 组合符号, 符号
->
 >```md
->{}
+>\big{\big}
+>```
+>```md
+>\Big{\Big}
+>```
+>```md
+>\bigg{\bigg}
+>```
+>```md
+>\Bigg{\Bigg}
 >```
 
-> [!note] 汉字形式, 符号
+
+> [!note] 矩阵(此处仅作展示,使用Obsidian Matrix插件更方便)
+>```md
+>\begin{matrix}
+>\end{matrix}
+>```
+
+
+> [!note] 汉字形式
 >
 >```md
 >\mbox{}
 >```
 
-> [!note] 字体控制, 符号
+> [!note] 字体控制
 >
 >```md
->\displaystyle
+>\displaystyle{}
 >```
 
-> [!note] 下划线符号, 符号
+> [!note] 下划线符号
 >
 >```md
->\underline
+>\underline{}
 >```
 
-> [!note] 标签, 符号`\tag{数字}`, 如
->
+> [!note] quad空格
 >```md
->4. 标签, 符号
+>\quad
 >```
-
-> [!note] 两个quad空格, 符号
->
 >```md
 >\qquad
 >```
 
-> [!note] quad空格, 符号
+
+> [!note] 汉字形式
+	```md
+	\mbox{}
+	```
 >
->```md
->\quad
->```
-
-> [!note] 大空格, 符号`\`, 如
->
->```md
->3. 大空格, 符号
->```
-
-> [!note] 中空格, 符号`\:`, 如
->
->```md
->4. 中空格, 符号
->```
-
-> [!note] 括号, 符号
->
->```md
->（）\big(\big) \Big(\Big) \bigg(\bigg) \Bigg(\Bigg)
->```
-
-> [!note] 中括号, 符号
->
->```md
->[]
->```
-
-> [!note] 大括号, 符号
->
->```md
->\{ \}
->```
-
-> [!note] 自适应括号, 符号
->
->```md
->\left \right
->```
 
 
-> [!note] 矩阵表示, 符号
->
->```md
->\begin{matrix} \end{matrix}
->```
 
-
-> [!note] 分数表示法
-> 
-> mdCopy code
-> 
-> `\frac{}{}`
-
-> [!note] 根号表示法
-> 
-> mdCopy code
-> 
-> `\sqrt{}`
-
-> [!note] 矩阵表示法
-> 
-> mdCopy code
-> 
-> `\begin{matrix} & \end{matrix}`
-
-> [!note] 积分表示法
-> 
-> mdCopy code
-> 
-> `\int_{}^{}`
-
-> [!note] 求和表示法
-> 
-> mdCopy code
-> 
-> `\sum_{}^{}`
-
-> [!note] 极限表示法
-> ```
-> \lim_{}^{}
-> ```
 
