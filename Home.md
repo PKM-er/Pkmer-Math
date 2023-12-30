@@ -4,17 +4,38 @@ tags:
 dlink:
   - "[[-高等数学-]]"
 ---
-> [!example]+ 目录
->```dataview
->list 
->from ""
->where regexmatch("-.*-" ,file.name)
->sort file.name desc
->```
+> [!example] [[-高等数学-|目录]]
+> > [!example]+ 微积分
+> >```dataview
+> >list 
+> >from ""
+> >where regexmatch("-.*-" ,file.name)
+> >and contains(file.path, "微积分")
+> >sort file.name desc
+> >```
+> 
+> > [!example]- 线性代数
+> >```dataview
+> >list 
+> >from ""
+> >where regexmatch("-.*-" ,file.name)
+> >and contains(file.path, "线性代数")
+> >sort file.name desc
+> >```
+> 
+> > [!example]- 概率论
+> >```dataview
+> >list 
+> >from ""
+> >where regexmatch("-.*-" ,file.name)
+> >and contains(file.path, "概率论")
+> >sort file.name desc
+> >```
+
 
 > [!note]+ 最近编辑
 >```dataview
->table WITHOUT ID file.link AS "标题",file.mtime as "时间"
+>table WITHOUT ID file.link AS "标题",file.size AS "字数",file.mtime AS "修改时间"
 >from !"模板" and !"kanban"
 >sort file.mtime desc
 >limit 8
