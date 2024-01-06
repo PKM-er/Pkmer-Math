@@ -4,33 +4,34 @@ tags:
 dlink:
   - "[[-高等数学-]]"
 ---
-> [!example] [[-高等数学-|目录]]
-> > [!example]+ 微积分
-> >```dataview
-> >list 
-> >from ""
-> >where regexmatch("-.*-" ,file.name)
-> >and contains(file.path, "微积分")
-> >sort file.name desc
-> >```
-> 
-> > [!example]- 线性代数
-> >```dataview
-> >list 
-> >from ""
-> >where regexmatch("-.*-" ,file.name)
-> >and contains(file.path, "线性代数")
-> >sort file.name desc
-> >```
-> 
-> > [!example]- 概率论
-> >```dataview
-> >list 
-> >from ""
-> >where regexmatch("-.*-" ,file.name)
-> >and contains(file.path, "概率论")
-> >sort file.name desc
-> >```
+> [!example] [[-高等数学-|总目录]]
+
+> [!example]+ [[--微积分--]]
+>```dataview
+>list 
+>from ""
+>where regexmatch("-.*-" ,file.name)
+>and contains(file.path, "微积分")
+>sort file.name desc
+>```
+
+> [!example]- [[--线性代数--]]
+>```dataview
+>list 
+>from ""
+>where regexmatch("-.*-" ,file.name)
+>and contains(file.path, "线性代数")
+>sort file.name desc
+>```
+
+> [!example]- [[--概率论--]]
+>```dataview
+>list 
+>from ""
+>where regexmatch("-.*-" ,file.name)
+>and contains(file.path, "概率论")
+>sort file.name desc
+>```
 
 
 > [!note]+ 最近编辑
