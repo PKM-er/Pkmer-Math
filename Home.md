@@ -44,10 +44,11 @@ dlink:
 >
 
 > [!tip]+ 工具
->- [[Callouts Syntax]]
+> - [[高等数学 第7版 上册 同济大学.pdf]]
 >- [[Markdown数学公式]]
 >- [[Markdown数学公式_Callouts]]
 >- [[Markdown数学公式_ArcherReilly]]
+>- [[Callouts Syntax]]
 >- [[WolframAlpha]]
 >- [[公式编辑器]]
 

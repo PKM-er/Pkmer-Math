@@ -1,6 +1,6 @@
 {
   "command_timeout": 5,
-  "templates_folder": "_config_/Quote",
+  "templates_folder": "_config_/Template",
   "templates_pairs": [
     [
       "",
@@ -15,16 +15,12 @@
   "enable_folder_templates": true,
   "folder_templates": [
     {
-      "folder": "10-Obsidian/Obsidian社区插件",
-      "template": "Config/Template/template-plugin.md"
-    },
-    {
-      "folder": "Math",
-      "template": "Config/Template/template-math.md"
-    },
-    {
       "folder": "微积分",
       "template": "_config_/Template/template-微积分.md"
+    },
+    {
+      "folder": "/",
+      "template": "_config_/Template/template-default.md"
     }
   ],
   "syntax_highlighting": true,
@@ -33,7 +29,7 @@
     ""
   ],
   "startup_templates": [
-    ""
+    "_config_/Template/template-default.md"
   ],
   "enable_ribbon_icon": true
 }
