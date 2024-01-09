@@ -4,8 +4,3 @@ tags:
 dlink:
   - "[[-高等数学-]]"
 ---
->[!info]+
-
-
->[!example]+
-
