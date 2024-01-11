@@ -13,7 +13,7 @@
     },
     "format-yaml-array": {
       "enabled": false,
-      "alias-key": true,
+      "alias-key": false,
       "tag-key": false,
       "default-array-style": "single-line",
       "default-array-keys": false,
@@ -41,10 +41,10 @@
     },
     "yaml-timestamp": {
       "enabled": false,
-      "date-created": true,
+      "date-created": false,
       "date-created-key": "create_time",
       "force-retention-of-create-value": false,
-      "date-modified": true,
+      "date-modified": false,
       "date-modified-key": "edit_time",
       "format": "YYYY-MM-DD HH:mm:ss"
     },
@@ -159,7 +159,7 @@
     "heading-blank-lines": {
       "enabled": false,
       "bottom": false,
-      "empty-line-after-yaml": true
+      "empty-line-after-yaml": false
     },
     "line-break-at-document-end": {
       "enabled": false
@@ -168,7 +168,7 @@
       "enabled": false
     },
     "paragraph-blank-lines": {
-      "enabled": true
+      "enabled": false
     },
     "remove-empty-lines-between-list-markers-and-checklists": {
       "enabled": true
@@ -248,8 +248,7 @@
   "displayLintOnFileChangeNotice": false,
   "settingsConvertedToConfigKeyValues": true,
   "foldersToIgnore": [
-    "Resource",
-    "Config"
+    "_config_"
   ],
   "linterLocale": "system-default",
   "logLevel": "ERROR",
