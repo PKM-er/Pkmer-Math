@@ -27,7 +27,7 @@ Aliases: `summary`, `tldr`
 
 ---
 
->[!abstract] Todo
+>[!todo] Todo
 >
 >```md
 >> [!todo]
