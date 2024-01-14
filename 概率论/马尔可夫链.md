@@ -1,5 +1,6 @@
 ---
 tags: 
+  - 数学
 dlink:
   - "[[--概率论--]]"
 author: Cyletix
