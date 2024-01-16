@@ -47,7 +47,11 @@ PKMer-Math开发者交流群(QQ): 782017903
 ## 开发原则
 1. 尽可能简洁, 让人能够快速理解
 2. 对自己写的东西的正确性负责, 多改几次也没有关系
-3. 
+3. 奥卡姆剃刀原理：如无必要 勿增实体. 尽可能在Obsidian的原生功能基础上进行开发
+5. 严禁使用任何破坏性插件(quickadd,Linter等需要谨慎操作, 每次用完后需要关闭插件)
+6. 允许使用轻量级插件(如快捷表格操作, 数学公式等)
+7. 除了Home主页, 必要的流程中严禁使用css,javascript
+8. 只能在每章的目录文件中使用dataview查询, 但需要同时保留手写的目录
 
 ## 规范
 
@@ -100,15 +104,33 @@ PKMer-Math开发者交流群(QQ): 782017903
 
 ## 子模块
 
-对于不想在整个项目中开发, 想在自己的项目中开发的情况, 可以创建子模块: 
+如果你想把Math库作为子文件夹放在自己的库中使用, 并且希望Math能够实时更新, 不影响你自己的库, 则可以创建子模块submodule
+比如你的笔记目录为Note, 这个Note已经与GitHub上的仓库绑定, 你希望把Math库放到Note/Math位置并且能够实时更新, 则
 
-```cmd
-cd "Pkmer-Math路径"
-git submodule add "你的项目下的Math文件夹" Math
+
+### 情况一
+本地Math库不存在，Note库存在且已经是GitHub仓库
+1. cd到你的Note目录
+```shell
+cd "E:\Note"
+git submodule add ./Math Math
 
 git submodule update --init
+	
+git add .
+git commit -m "Add Math as a submodule"
 
 ```
+
+### 情况二：本地Math库存在，Note库不存在
+
+```shell
+cd "E:\Note"
+```
+
+这样，`Math` 仓库就作为一个子模块被添加到了 `Note` 仓库中。你可以在 `Academics` 仓库中看到一个名为 `.gitmodules` 的文件，这个文件会记录子模块的相关信息。
+
+
 
 ~~不再用子模块了, 子模块的更改不能在父项目直接提交~~
 ~~不过仍然可以将此项目引入你的项目当作子模块，只是需要单独对子目录拉取更新~~
