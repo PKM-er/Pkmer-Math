@@ -22,7 +22,7 @@
     },
     "insert-yaml-attributes": {
       "enabled": true,
-      "text-to-insert": "tags: 数学\ndlink:\nauthor: Cyletix\n"
+      "text-to-insert": "tags: 数学\ndlink:\nauthor: \n  - Cyletix\n"
     },
     "move-tags-to-yaml": {
       "enabled": false,
