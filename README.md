@@ -53,12 +53,11 @@ PKMer-Math开发者交流群(QQ): 782017903
 7. 除了Home主页, 必要的流程中严禁使用css,javascript
 8. 只能在每章的目录文件中使用dataview查询, 但需要同时保留手写的目录
 
-## 规范
-
-所有词条都要按顺序添加上级目录的双链, 如:
-积分表属于微积分的不定积分章节, 则需要添加名为dlink的property, 类型为list, 
-值要依次添加--高等数学--, 微积分, 不定积分, 共计三项
-如果是时间来不及则先将文件放到对应的文件夹下, 有时间再做整理
+## 内容规范
+- 所有词条都要按顺序添加上级目录的双链, 如:
+- 积分表属于微积分的不定积分章节, 则需要添加名为dlink的property, 类型为list, 
+- 值要依次添加--高等数学--, 微积分, 不定积分, 共计三项
+- 如果是时间来不及则先将文件放到对应的文件夹下, 有时间再做整理
 
 ## 准备条件
 大致分为几个部分: 
@@ -106,36 +105,89 @@ PKMer-Math开发者交流群(QQ): 782017903
 
 如果你想把Math库作为子文件夹放在自己的库中使用, 并且希望Math能够实时更新, 不影响你自己的库, 则可以创建子模块submodule
 比如你的笔记目录为Note, 这个Note已经与GitHub上的仓库绑定, 你希望把Math库放到Note/Math位置并且能够实时更新, 则
-
-
 ### 情况一
-本地Math库不存在，Note库存在且已经是GitHub仓库
-1. cd到你的Note目录
+Note库存在且已经是GitHub仓库, 本地Math库不存在
+1. **添加一个新的子模块**
 ```shell
 cd "E:\Note"
-git submodule add ./Math Math
-
+git submodule add https://github.com/PKM-er/Pkmer-Math.git Math
+```
+2. **初始化和更新子模块**
+```shell
+git submodule init
 git submodule update --init
-	
-git add .
-git commit -m "Add Math as a submodule"
-
 ```
-
-### 情况二：本地Math库存在，Note库不存在
-
+3. 提交更改
 ```shell
-cd "E:\Note"
+git add .
+git commit -m "Add Math submodule"
+git push
 ```
 
-这样，`Math` 仓库就作为一个子模块被添加到了 `Note` 仓库中。你可以在 `Academics` 仓库中看到一个名为 `.gitmodules` 的文件，这个文件会记录子模块的相关信息。
+### 情况二
+Note库还不存在, Math库已克隆至本地
+上传你的 `E:\Note` 仓库到 GitHub 需要以下步骤：
 
+1. **创建一个新的 GitHub 仓库**:
+    - 登录你的 GitHub 账户。
+    - 在 GitHub 的首页或仓库页面，点击“New repository”（新建仓库）。
+    - 为你的仓库命名（例如 `Note`），可以选择添加描述。
+    - 选择仓库的可见性（公开或私有）。
+    - 点击“Create repository”（创建仓库）。
+2. **连接本地仓库到 GitHub 仓库**:
+    - 在创建的 GitHub 仓库页面，找到“Quick setup”区域，复制提供的 URL（HTTPS 或 SSH）。
+    - 回到命令行界面，在 `E:\Note` 目录下运行以下命令，将你的本地仓库与 GitHub 仓库关联起来（这里以 HTTPS URL 为例）：
+        `git remote add origin https://github.com/your-username/Note.git`
+        把 `https://github.com/your-username/Note.git` 替换成你的 GitHub 仓库 URL。
+3. **上传你的仓库到 GitHub**:
+    - 首先，上传你的本地更改：
+        `git push -u origin master`
+        这个命令会将你的 `master` 分支的内容推送到 GitHub 仓库。
+4. **处理子模块**:
+	1. **初始化Note仓库**
+	```shell
+	cd "E:\Note"#改成你自己Note的路径
+	git init
+	```
 
-
-~~不再用子模块了, 子模块的更改不能在父项目直接提交~~
-~~不过仍然可以将此项目引入你的项目当作子模块，只是需要单独对子目录拉取更新~~
-
-现在可以使用子模块了, 按照上述步骤正常操作即可. 
+	2. **将 Math 仓库添加为子模块**
+	```shell
+	git submodule add ./Math Math
+	```
+	这里的 `./Math` 是 `Math` 仓库的本地路径
+	`Math` 是你希望在 `Note` 仓库中显示的子模块目录名
+	
+	3. **提交更改**
+	```shell
+	git add .
+	git commit -m "Add Math as a submodule"
+	```
+	`Math` 文件夹已经被正确地添加为子模块。但是这个地址只是你本地的Math文件夹位置, 你的Note项目的GitHub端并不知道这个路径, 所以需要告诉它从哪找到这个Math项目
+	
+	4. 修改Math作为子模块的url
+	将 `Note/.gitmodules` 文件中的 URL 改为这个地址：
+	```gitmodules
+	[submodule "Math"]
+	 	path = Math	
+	 	url = https://github.com/PKM-er/Pkmer-Math.git
+	```
+	这里的配置说明：
+	- **[submodule "Math"]**: 表示这是一个名为 "Math" 的子模块。
+	- **path = Math**: 指定了子模块在 `Note` 仓库中的相对路径，这里是 `Math` 目录。
+	- **url = ./Math**: 指定了子模块的源 URL。在这个例子中，使用了相对路径 `./Math`。
+	这个配置通常用于当子模块仓库位于与父仓库相同的物理位置时。
+	然而，当你准备将 `Note` 仓库推送到 GitHub 时，这里可能需要更改。
+	
+	这样，当其他人克隆你的 `Note` 仓库并初始化子模块时，Git 会知道从哪里克隆 `Math` 子模块。
+	
+	5. 提交更改
+	完成更改后，记得在 `Note` 仓库中提交这些更改：
+	```
+	git add .gitmodules git commit -m "Update Math submodule URL" git push
+	```
+	这会确保 `.gitmodules` 文件中的更改被推送到你的远程 `Note` 仓库。
+	
+	这样，`Math` 仓库就作为一个子模块被添加到了 `Note` 仓库中。你可以在 `Note` 仓库中看到一个名为 `.gitmodules` 的文件，这个文件会记录子模块的相关信息。
 
 ## .gitignore构建
 
