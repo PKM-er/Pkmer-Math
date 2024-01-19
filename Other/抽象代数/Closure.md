@@ -5,5 +5,6 @@ dlink:
   - "[[群|group]]"
 aliases:
   - 闭合性
+  - 封闭性
 ---
 for all $g,h \in G$ , $g\cdot h \in G$

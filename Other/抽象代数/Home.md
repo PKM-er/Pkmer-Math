@@ -33,21 +33,19 @@ dlink:
 >sort file.name desc
 >```
 
-
 > [!note]+ 最近编辑
 >```dataview
->table WITHOUT ID file.link AS "标题",file.size AS "字数",file.mtime AS "修改时间"
+>table WITHOUT ID file.link AS "标题", file.mtime
 >from !"模板" and !"kanban"
 >sort file.mtime desc
 >limit 8
 >```
->
 
-> [!tip]+ 工具
+> [!tip]+ 参考
 > - [[高等数学 第7版 上册 同济大学.pdf]]
+> - [[高等数学 第7版 下册 同济大学.pdf]]
+> - [[线性代数 第5版 同济大学.pdf]]
 >- [[Markdown数学公式]]
->- [[Markdown数学公式_Callouts]]
->- [[Markdown数学公式_ArcherReilly]]
 >- [[Callouts Syntax]]
 >- [[WolframAlpha]]
 >- [[公式编辑器]]

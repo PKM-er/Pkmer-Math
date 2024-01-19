@@ -12,4 +12,5 @@ where a="[[group]]"
 
 Where file.aliases="群"
 
-[[せきりつぼかんすう]]
+
+[[群|group]]
