@@ -4,10 +4,10 @@ tags:
 dlink: []
 ---
 ```dataview
-table a
+table alias,aliases
 from "Other"
-flatten file.aliases AS a
-where a="[[group]]"
+flatten file.aliases AS alias
+limit 8
 ```
 
 Where file.aliases="群"
