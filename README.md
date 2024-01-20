@@ -19,6 +19,7 @@ PKMer-Math开发者交流群(QQ): 782017903
 ## 其他Obsidian数学库
 1. [基于Obsidian的新型考研数学笔记原子分子树的构建](https://www.bilibili.com/video/BV1dp4y1d7NQ)
 2. [MathWiki: An Obsidian.md vault for my math course notes in university](https://github.com/zhaoshenzhai/MathWiki)
+3. [09-22年考研数学一真题](https://www.bilibili.com/video/BV1ta4y1Q75u)
 
 ---
 # 目录:
