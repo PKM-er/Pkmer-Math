@@ -1,11 +1,14 @@
 ---
 tags:
   - markdown
+references:
+  - https://www.jianshu.com/p/e74eb43960a1
+  - https://blog.csdn.net/m0_37167788/article/details/78603307
 ---
+# 一、基本符号
 ## 行内与独行
 1. 行内公式：将公式插入到本行内, 符号：`$公式内容$`, 如：$xyz$、$0$、$\mathbf{0}_{m \times n}$、$\emptyset$、$\boldsymbol{0}$、$\vec{0}$
 2. 独行公式：将公式插入到新的一行内, 并且居中, 符号：`$$公式内容$$`, 如：$$xyz$$
-
 ## 上标、下标与组合
 1. 上标符号, 符号：`^`, 如：$x^4$
 		1. 下标符号, 符号：`_`, 如：$x_1$
@@ -46,11 +49,7 @@ z & =  \frac xy
 \end{aligned}
 \right.
 $$
-
-
-
-
-## 组合数
+8. 组合数
 ```
 \binom{n}{k}  
 \tbinom{n}{k}
@@ -59,9 +58,6 @@ $$
 \binom{n}{k}
 \tbinom{n}{k}
 $$
-
-
-
 ## 四则运算
  1. 加法运算, 符号：`+`, 如：$x+y=z$
  2. 减法运算, 符号：`-`, 如：$x-y=z$
@@ -85,17 +81,24 @@ $$
  7. 极限运算, 符号：`\displaystyle \lim`, 如：$\displaystyle \lim^{x \to \infty}_{y \to 0}{\frac{x}{y}}$
  8. 求和运算, 符号：`\sum`, 如：$\sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$
  9. 求和运算, 符号：`\displaystyle \sum`, 如：$\displaystyle \sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$
- 10. 积分运算, 符号：`\int`, 如：$\int^{\infty}_{0}{xdx}$
+ 10. 积分运算, 符号：`\int`, 如：$\int^{\infty}_{0}{xdx}$ $\smallint$
 $$
+定积分:
 \int_{1}^{2}
 \intop_{2}^{1}
-\oint
-\smallint
 \\
+$$
+$$
+重积分:
 \iint
-\oiint
 \iiint
+$$
+$$
+线积分:
+\oint
+\oiint
 \oiiint
+(似乎需要额外的Latex符号包)
 $$
  11. 微分运算, 符号：`\partial`, 如：$\frac{\partial x}{\partial y}$
 $$
@@ -106,16 +109,14 @@ $$
 \ddot y     
 \Delta
 $$
-## 导数
- `a'  a''  a^{\prime}`
+12. 矩阵表示，符号：`\begin{matrix} \end{matrix}`，如：
+$$\left[ \begin{matrix} 1 &2 &\cdots &4\5 &6 &\cdots &8\\vdots &\vdots &\ddots &\vdots\13 &14 &\cdots &16\end{matrix} \right]$$
+13. 导数 `a'  a''  a^{\prime}`
 $$
 a'
 a''
 a^{\prime}
 $$
-
-
-4. 矩阵表示, 符号：`\begin{matrix} \end{matrix}`, 如：$\left[ \begin{matrix} 1 &2 &\cdots &4 &5 &6 &\cdots &8\\vdots &\vdots &\ddots &\vdots 13 &14 &\cdots &16\end{matrix} \right]$
 
 
 
@@ -267,6 +268,44 @@ $$\lim\nolimits_{k \to \infty}$$
 
 
 
+## 希腊字母
+
+|字母|实现|字母|实现|
+|-|-|-|-|
+|A|`A`|α|`\alhpa`|
+|B|`B`|β|`\beta`|
+|Γ|`\Gamma`|γ|`\gamma`|
+|Δ|`\Delta`|δ|`\delta`|
+|E|`E`|ϵ|`\epsilon`|
+|Z|`Z`|ζ|`\zeta`|
+|H|`H`|η|`\eta`|
+|Θ|`\Theta`|θ|`\theta`|
+|I|`I`|ι|`\iota`|
+|K|`K`|κ|`\kappa`|
+|Λ|`\Lambda`|λ|`\lambda`|
+|M|`M`|μ|`\mu`|
+|N|`N`|ν|`\nu`|
+|Ξ|`\Xi`|ξ|`\xi`|
+|O|`O`|ο|`\omicron`|
+|Π|`\Pi`|π|`\pi`|
+|P|`P`|ρ|`\rho`|
+|Σ|`\Sigma`|σ|`\sigma`|
+|T|`T`|τ|`\tau`|
+|Υ|`\Upsilon`|υ|`\upsilon`|
+|Φ|`\Phi`|ϕ|`\phi`|
+|X|`X`|χ|`\chi`|
+|Ψ|`\Psi`|ψ|`\psi`|
+|Ω|`\v`|ω|`\omega`|
+
+| 代码 | 功能 |
+| :--: | :--: |
+| \uline | 单下划线  |
+| \uuline | 双下划线 |
+| \uwave | 波浪线 |
+| \sout | 删除线 |
+| \xout |  斜删除线 |
+
+---
 # 二、修饰符号
 
 ## 1\. 简单的帽子
@@ -318,7 +357,7 @@ $$
 
 ## 3\. 盒子和帽子
 
-a + b + c ⏞ note a + b + c ⏟ note π = 3.14 \\overbrace{a+b+c}^{\\text{note}} \\\\ \\underbrace{a+b+c}\_{\\text{note}} \\\\ \\boxed{\\pi=3.14} a+b+c ​note​note a+b+c​​π\=3.14​
+$$a + b + c ⏞ note a + b + c ⏟ note π = 3.14 \\overbrace{a+b+c}^{\\text{note}} \\\\ \\underbrace{a+b+c}\_{\\text{note}} \\\\ \\boxed{\\pi=3.14} a+b+c ​note​note a+b+c​​π\=3.14​$$
 
 ```
 $$
@@ -331,8 +370,7 @@ $$
 ```
 
 ## 4\. 各种括号
-
-( ( ( ( ( ( \\big( \\Big( \\bigg( \\Bigg( (((((
+$$\big( \Big( \bigg( \Bigg($$
 
 ```
 $$
@@ -344,7 +382,7 @@ $$
 $$
 ```
 
-\[ \] < > ∣ − 2 ∣ { } \[\] <> |-2| \\{\\} \[\]<\>∣−2∣{}
+$$\[ \] < > ∣ − 2 ∣ { } \[\] <> |-2| \\{\\} \[\]<\>∣−2∣{}$$
 
 ```
 $$
@@ -355,7 +393,7 @@ $$
 $$
 ```
 
-⟮ x ⟯ ∥ a ∥ ⌈ 2.6 ⌉ ⌊ 1.2 ⌋ \\lgroup x \\rgroup \\lVert a \\rVert \\lceil 2.6 \\rceil \\lfloor 1.2 \\rfloor ⟮x⟯∥a∥⌈2.6⌉⌊1.2⌋
+$$⟮ x ⟯ ∥ a ∥ ⌈ 2.6 ⌉ ⌊ 1.2 ⌋ \\lgroup x \\rgroup \\lVert a \\rVert \\lceil 2.6 \\rceil \\lfloor 1.2 \\rfloor ⟮x⟯∥a∥⌈2.6⌉⌊1.2⌋$$
 
 ```
 $$
@@ -365,7 +403,7 @@ $$
 \lfloor 1.2 \rfloor
 ```
 
-┌ ┐ └ ┘ \\ulcorner \\urcorner \\llcorner \\lrcorner ┌┐└┘
+$$┌ ┐ └ ┘ \\ulcorner \\urcorner \\llcorner \\lrcorner ┌┐└┘$$
 
 ```
 \ulcorner
@@ -375,45 +413,204 @@ $$
 ```
 
 
-## 希腊字母
 
-|字母|实现|字母|实现|
-|-|-|-|-|
-|A|`A`|α|`\alhpa`|
-|B|`B`|β|`\beta`|
-|Γ|`\Gamma`|γ|`\gamma`|
-|Δ|`\Delta`|δ|`\delta`|
-|E|`E`|ϵ|`\epsilon`|
-|Z|`Z`|ζ|`\zeta`|
-|H|`H`|η|`\eta`|
-|Θ|`\Theta`|θ|`\theta`|
-|I|`I`|ι|`\iota`|
-|K|`K`|κ|`\kappa`|
-|Λ|`\Lambda`|λ|`\lambda`|
-|M|`M`|μ|`\mu`|
-|N|`N`|ν|`\nu`|
-|Ξ|`\Xi`|ξ|`\xi`|
-|O|`O`|ο|`\omicron`|
-|Π|`\Pi`|π|`\pi`|
-|P|`P`|ρ|`\rho`|
-|Σ|`\Sigma`|σ|`\sigma`|
-|T|`T`|τ|`\tau`|
-|Υ|`\Upsilon`|υ|`\upsilon`|
-|Φ|`\Phi`|ϕ|`\phi`|
-|X|`X`|χ|`\chi`|
-|Ψ|`\Psi`|ψ|`\psi`|
-|Ω|`\v`|ω|`\omega`|
+---
+# 三、箭头
+### 箭头符号
+| 符号 | MarkDown |
+| ---- | ---- |
+| ↑ | \uparrow |
+| ⇑ | \Uparrow |
+| ↓ | \downarrow |
+| ⇓ | \Downarrow |
+| ← | \leftarrow |
+| ⇐ | \Leftarrow |
+| → | \rightarrow |
+| ⇒ | \Rightarrow |
+| ↕ | \updownarrow |
+| ⇕ | \Updownarrow |
+| ↔ | \leftrightarrow |
+| ⇔ | \Leftrightarrow |
+### 长箭头表示
+| 符号 | MarkDown |
+| ---- | ---- |
+| ⟵ | \longleftarrow |
+| ⟸ | \Longleftarrow |
+| ⟶ | \longrightarrow |
+| ⟹ | \Longrightarrow |
+| ⟷ | \longleftrightarrow |
+| ⟺ | \Longleftrightarrow |
+### 更多的箭头符号
+| 符号 | MarkDown |
+| ---- | ---- |
+| ↠ | \twoheadrightarrow |
+| ↣ | \rightarrowtail |
+| ↬ | \looparrowright |
+| ↷ | \curvearrowright |
+| ↻ | \circlearrowright |
+| ↱ | \Rsh |
+| ⊸ | \multimap |
+| ↭ | \leftrightsquigarrow |
+| ⇝ | \rightsquigarrow |
+| ⇝ | \leadsto |
+| ↗ | \nearrow |
+| ↘ | \searrow |
+| ↙ | \swarrow |
+| ↖ | \nwarrow |
+| ↚ | \nleftarrow |
+| ↛ | \nrightarrow |
+| ⇍ | \nLeftarrow |
+| ⇏ | \nRightarrow |
+| ↮ | \nleftrightarrow |
+| ⇎ | \nLeftrightarrow |
+| ⇢ | \dashrightarrow |
+| ⇠ | \dashleftarrow |
+| ⇇ | \leftleftarrows |
+| ⇆ | \leftrightarrows |
+| ⇚ | \Lleftarrow |
+| ↞ | \twoheadleftarrow |
+| ↢ | \leftarrowtail |
+| ↫ | \looparrowleft |
+| ↶ | \curvearrowleft |
+| ↺ | \circlearrowleft |
+| ↰ | \Lsh |
+| ↦ | \mapsto |
+| ↩ | \hookleftarrow |
+| ↪ | \hookrightarrow |
+| ↾ | \upharpoonright |
+| ↿ | \upharpoonleft |
+| ⇂ | \downharpoonright |
+| ⇃ | \downharpoonleft |
+| ↼ | \leftharpoonup |
+| ⇀ | \rightharpoonup |
+| ↽ | \leftharpoondown |
+| ⇁ | \rightharpoondown |
+| ⇈ | \upuparrows |
+| ⇊ | \downdownarrows |
+| ⇉ | \rightrightarrows |
+| ⇄ | \rightleftarrows |
+| ⇉ | \rightrightarrows |
+| ⇄ | \rightleftarrows |
+| ⇌ | \rightleftharpoons |
+| ⇋ | \leftrightharpoons |
 
-作者：DanielGavin
-链接：https://www.jianshu.com/p/e74eb43960a1
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权, 非商业转载请注明出处。
+---
+# 四、ArcherReilly
+### Greek Letters
+|Symbol|Script|
+|---|---|
+|$\alpha$|\alpha|
+|$A$|A|
+|$\beta$|\beta|
+|$B$|B|
+|$\gamma$|\gammma|
+|$\Gamma$|\Gamma|
+|$\pi$|\pi|
+|$\Pi$|\Pi|
+|$\phi$|\phi|
+|$\Phi$|\Phi|
+|$\varphi$|\varphi|
+|$\theta$|\theta|
+### Operators
+|Symbol|Script|
+|---|---|
+|$\cos$|\cos|
+|$\sin$|\sin|
+|$\lim$|\lim|
+|$\exp$|\exp|
+|$\to$|\to|
+|$\infty$|\infty|
+|$\equiv$|\equiv|
+|$\bmod$|\bmod|
+|$\times$|\times|
 
+### Power and Indices
+|Symbol|Script|
+|---|---|
+|$k_{n+1}$|k_{n+1}|
+|$n^2$|n^2|
+|$k_n^2$|k_n^2|
 
-| 代码 | 功能 |
-| :--: | :--: |
-| \uline | 单下划线  |
-| \uuline | 双下划线 |
-| \uwave | 波浪线 |
-| \sout | 删除线 |
-| \xout |  斜删除线 |
+### Fractions and Binomials
+|Symbol|Script|
+|---|---|
+|$\frac{n!}{k!(n-k)!}$|\frac{n!}{k!(n-k)!}|
+|$\binom{n}{k}$|\binom{n}{k}|
+|$\frac{\frac{x}{1}}{x - y}$|\frac{\frac{x}{1}}{x - y}|
+|$^3/_7$|^3/_7|
+
+### Roots
+|Symbol|Script|
+|---|---|
+|$\sqrt{k}$|\sqrt{k}|
+|$\sqrt[n]{k}$|\sqrt[n]{k}|
+
+### Sums and Integrals
+|Symbol|Script|
+|---|---|
+|$\sum_{i=1}^{10} t_i$|\sum_{i=1}^{10} t_i|
+|$\int_0^\infty \mathrm{e}^{-x},\mathrm{d}x$|\int_0^\infty \mathrm{e}^{-x},\mathrm{d}x|
+|$\sum$|\sum|
+|$\prod$|\prod|
+|$\coprod$|\coprod|
+|$\bigoplus$|\bigoplus|
+|$\bigotimes$|\bigotimes|
+|$\bigodot$|\bigodot|
+|$\bigcup$|\bigcup|
+|$\bigcap$|\bigcap|
+|$\biguplus$|\biguplus|
+|$\bigsqcup$|\bigsqcup|
+|$\bigvee$|\bigvee|
+|$\bigwedge$|\bigwedge|
+|$\int$|\int|
+|$\oint$|\oint|
+|$\iint$|\iint|
+|$\iiint$|\iiint|
+|$\idotsint$|\idotsint|
+|$$\sum_{\substack{0<i<m\0<j<n}} P(i, j)$$ |\sum_{\substack{0<i<m\0<j<n}} P(i, j)|
+|$\int\limits_a^b$|\int\limits_a^b|
+
+|Symbol|Script|
+|---|---|
+|$a’$ $a^{\prime}$|a` a^{\prime}|
+|$a’’$|a’’|
+|$\hat{a}$|hat{a}|
+|$\bar{a}$|\bar{a}|
+|$\grave{a}$|\grave{a}|
+|$\acute{a}$|\acute{a}|
+|$\dot{a}|\dot{a}|
+|$\ddot{a}$|\ddot{a}|
+|$\not{a}$|\not{a}|
+|$\mathring{a}$|\mathring{a}|
+|$\overrightarrow{AB}$|\overrightarrow{AB}|
+|$\overleftarrow{AB}$|\overleftarrow{AB}|
+|$a’’’$|a’’’|
+|$\overline{aaa}$|\overline{aaa}|
+|$\check{a}$|\check{a}|
+|$\vec{a}$|\vec{a}|
+|$\underline{a}$|\underline{a}|
+|$\color{red}x$|\color{red}x|
+|$\pm$|\pm|
+|$\mp$|\mp|
+|$\int y \mathrm{d}x$|\int y \mathrm{d}x|
+|$,$|,|
+|$:$|:|
+|$;$|;|
+|$!$|!|
+|$\int y, \mathrm{d}x$|\int y, \mathrm{d}x|
+|$\dots$|\dots|
+|$\ldots$|\ldots|
+|$\cdots$|\cdots|
+|$\vdots$|\vdots|
+|$\ddots$|\ddots|
+
+### Brackets etc
+|Symbol|Script|
+|---|---|
+|$(a)$|(a)|
+|$[a]$|[a]|
+|${a}$|{a}|
+|$\langle f \rangle$|\langle f \rangle|
+|$\lfloor f \rfloor$|\lfloor f \rfloor|
+|$\lceil f \rceil$|\lceil f \rceil|
+|$\ulcorner f \urcorner$|\ulcorner f \urcorner|
