@@ -27,7 +27,7 @@
   "gitDir": "",
   "showFileMenu": true,
   "lineAuthor": {
-    "show": false,
+    "show": true,
     "followMovement": "inactive",
     "authorDisplay": "initials",
     "showCommitHash": false,
