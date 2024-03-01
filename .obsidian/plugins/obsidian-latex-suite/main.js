@@ -43,6 +43,10 @@ var __reExport = (target, module2, desc) => {
 var __toModule = (module2) => {
   return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", module2 && module2.__esModule && "default" in module2 ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
 };
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -73,6 +77,475 @@ var import_obsidian8 = __toModule(require("obsidian"));
 // src/settings/file_watch.ts
 var import_obsidian = __toModule(require("obsidian"));
 
+// node_modules/valibot/dist/index.js
+var ValiError = class extends Error {
+  constructor(issues) {
+    super(issues[0].message);
+    __publicField(this, "issues");
+    this.name = "ValiError";
+    this.issues = issues;
+  }
+};
+var BrandSymbol = Symbol("brand");
+function errorMessage(message) {
+  return typeof message === "function" ? message() : message;
+}
+function defaultArgs(arg1, arg2) {
+  return Array.isArray(arg1) ? [void 0, arg1] : [arg1, arg2];
+}
+function parseResult(typed, output, issues) {
+  return { typed, output, issues };
+}
+function restAndDefaultArgs(arg1, arg2, arg3) {
+  if (!arg1 || typeof arg1 === "object" && !Array.isArray(arg1)) {
+    const [error2, pipe2] = defaultArgs(arg2, arg3);
+    return [arg1, error2, pipe2];
+  }
+  const [error, pipe] = defaultArgs(arg1, arg2);
+  return [void 0, error, pipe];
+}
+function pipeIssue(info, issue) {
+  return {
+    reason: info == null ? void 0 : info.reason,
+    validation: issue.validation,
+    origin: (info == null ? void 0 : info.origin) || "value",
+    message: issue.message,
+    input: issue.input,
+    requirement: issue == null ? void 0 : issue.requirement,
+    path: issue.path,
+    abortEarly: info == null ? void 0 : info.abortEarly,
+    abortPipeEarly: info == null ? void 0 : info.abortPipeEarly,
+    skipPipe: info == null ? void 0 : info.skipPipe
+  };
+}
+function pipeInfo(info, reason) {
+  return {
+    reason,
+    origin: info == null ? void 0 : info.origin,
+    abortEarly: info == null ? void 0 : info.abortEarly,
+    abortPipeEarly: info == null ? void 0 : info.abortPipeEarly,
+    skipPipe: info == null ? void 0 : info.skipPipe
+  };
+}
+function pipeResult(input, pipe, parseInfo, reason, issues) {
+  let info;
+  let output = input;
+  if ((pipe == null ? void 0 : pipe.length) && !(parseInfo == null ? void 0 : parseInfo.skipPipe)) {
+    for (const action of pipe) {
+      const result = action._parse(output);
+      if (result.issues) {
+        info = info || pipeInfo(parseInfo, reason);
+        for (const issueInfo of result.issues) {
+          const issue = pipeIssue(info, issueInfo);
+          issues ? issues.push(issue) : issues = [issue];
+        }
+        if (info.abortEarly || info.abortPipeEarly) {
+          break;
+        }
+      } else {
+        output = result.output;
+      }
+    }
+  }
+  return parseResult(true, output, issues);
+}
+function schemaIssue(info, reason, validation, message, input, issues) {
+  return {
+    typed: false,
+    output: input,
+    issues: [
+      {
+        reason,
+        validation,
+        origin: (info == null ? void 0 : info.origin) || "value",
+        message: errorMessage(message),
+        input,
+        issues,
+        abortEarly: info == null ? void 0 : info.abortEarly,
+        abortPipeEarly: info == null ? void 0 : info.abortPipeEarly,
+        skipPipe: info == null ? void 0 : info.skipPipe
+      }
+    ]
+  };
+}
+function getDefault(schema) {
+  return typeof schema.default === "function" ? schema.default() : schema.default;
+}
+function instance(class_, arg2, arg3) {
+  const [message = "Invalid type", pipe] = defaultArgs(arg2, arg3);
+  return {
+    type: "instance",
+    async: false,
+    class: class_,
+    message,
+    pipe,
+    _parse(input, info) {
+      if (!(input instanceof this.class)) {
+        return schemaIssue(info, "type", "instance", this.message, input);
+      }
+      return pipeResult(input, this.pipe, info, "instance");
+    }
+  };
+}
+function number(arg1, arg2) {
+  const [message = "Invalid type", pipe] = defaultArgs(arg1, arg2);
+  return {
+    type: "number",
+    async: false,
+    message,
+    pipe,
+    _parse(input, info) {
+      if (typeof input !== "number" || isNaN(input)) {
+        return schemaIssue(info, "type", "number", this.message, input);
+      }
+      return pipeResult(input, this.pipe, info, "number");
+    }
+  };
+}
+function object(entries, arg2, arg3, arg4) {
+  const [rest, message = "Invalid type", pipe] = restAndDefaultArgs(arg2, arg3, arg4);
+  let cachedEntries;
+  return {
+    type: "object",
+    async: false,
+    entries,
+    rest,
+    message,
+    pipe,
+    _parse(input, info) {
+      if (!input || typeof input !== "object") {
+        return schemaIssue(info, "type", "object", this.message, input);
+      }
+      cachedEntries = cachedEntries || Object.entries(this.entries);
+      let typed = true;
+      let issues;
+      const output = {};
+      for (const [key, schema] of cachedEntries) {
+        const value2 = input[key];
+        const result = schema._parse(value2, info);
+        if (result.issues) {
+          const pathItem = {
+            type: "object",
+            input,
+            key,
+            value: value2
+          };
+          for (const issue of result.issues) {
+            if (issue.path) {
+              issue.path.unshift(pathItem);
+            } else {
+              issue.path = [pathItem];
+            }
+            issues == null ? void 0 : issues.push(issue);
+          }
+          if (!issues) {
+            issues = result.issues;
+          }
+          if (info == null ? void 0 : info.abortEarly) {
+            typed = false;
+            break;
+          }
+        }
+        if (!result.typed) {
+          typed = false;
+        }
+        if (result.output !== void 0 || key in input) {
+          output[key] = result.output;
+        }
+      }
+      if (this.rest && !((info == null ? void 0 : info.abortEarly) && issues)) {
+        for (const key in input) {
+          if (!(key in this.entries)) {
+            const value2 = input[key];
+            const result = this.rest._parse(value2, info);
+            if (result.issues) {
+              const pathItem = {
+                type: "object",
+                input,
+                key,
+                value: value2
+              };
+              for (const issue of result.issues) {
+                if (issue.path) {
+                  issue.path.unshift(pathItem);
+                } else {
+                  issue.path = [pathItem];
+                }
+                issues == null ? void 0 : issues.push(issue);
+              }
+              if (!issues) {
+                issues = result.issues;
+              }
+              if (info == null ? void 0 : info.abortEarly) {
+                typed = false;
+                break;
+              }
+            }
+            if (!result.typed) {
+              typed = false;
+            }
+            output[key] = result.output;
+          }
+        }
+      }
+      if (typed) {
+        return pipeResult(output, this.pipe, info, "object", issues);
+      }
+      return parseResult(false, output, issues);
+    }
+  };
+}
+function optional(wrapped, default_) {
+  return {
+    type: "optional",
+    async: false,
+    wrapped,
+    default: default_,
+    _parse(input, info) {
+      if (input === void 0) {
+        const override = getDefault(this);
+        if (override === void 0) {
+          return parseResult(true, input);
+        }
+        input = override;
+      }
+      return this.wrapped._parse(input, info);
+    }
+  };
+}
+function string(arg1, arg2) {
+  const [message = "Invalid type", pipe] = defaultArgs(arg1, arg2);
+  return {
+    type: "string",
+    async: false,
+    message,
+    pipe,
+    _parse(input, info) {
+      if (typeof input !== "string") {
+        return schemaIssue(info, "type", "string", this.message, input);
+      }
+      return pipeResult(input, this.pipe, info, "string");
+    }
+  };
+}
+function special(check, arg2, arg3) {
+  const [message = "Invalid type", pipe] = defaultArgs(arg2, arg3);
+  return {
+    type: "special",
+    async: false,
+    check,
+    message,
+    pipe,
+    _parse(input, info) {
+      if (!this.check(input)) {
+        return schemaIssue(info, "type", "special", this.message, input);
+      }
+      return pipeResult(input, this.pipe, info, "special");
+    }
+  };
+}
+function union(options, message = "Invalid type") {
+  return {
+    type: "union",
+    async: false,
+    options,
+    message,
+    _parse(input, info) {
+      let issues;
+      let output;
+      for (const schema of this.options) {
+        const result = schema._parse(input, info);
+        if (result.issues) {
+          if (issues) {
+            for (const issue of result.issues) {
+              issues.push(issue);
+            }
+          } else {
+            issues = result.issues;
+          }
+        } else {
+          output = [result.output];
+          break;
+        }
+      }
+      if (output) {
+        return parseResult(true, output[0]);
+      }
+      return schemaIssue(info, "type", "union", this.message, input, issues);
+    }
+  };
+}
+function parse(schema, input, info) {
+  const result = schema._parse(input, info);
+  if (result.issues) {
+    throw new ValiError(result.issues);
+  }
+  return result.output;
+}
+
+// node_modules/js-base64/base64.mjs
+var _hasbtoa = typeof btoa === "function";
+var _hasBuffer = typeof Buffer === "function";
+var _TD = typeof TextDecoder === "function" ? new TextDecoder() : void 0;
+var _TE = typeof TextEncoder === "function" ? new TextEncoder() : void 0;
+var b64ch = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+var b64chs = Array.prototype.slice.call(b64ch);
+var b64tab = ((a) => {
+  let tab = {};
+  a.forEach((c, i) => tab[c] = i);
+  return tab;
+})(b64chs);
+var _fromCC = String.fromCharCode.bind(String);
+var _U8Afrom = typeof Uint8Array.from === "function" ? Uint8Array.from.bind(Uint8Array) : (it) => new Uint8Array(Array.prototype.slice.call(it, 0));
+var _mkUriSafe = (src) => src.replace(/=/g, "").replace(/[+\/]/g, (m0) => m0 == "+" ? "-" : "_");
+var btoaPolyfill = (bin) => {
+  let u32, c0, c1, c2, asc = "";
+  const pad = bin.length % 3;
+  for (let i = 0; i < bin.length; ) {
+    if ((c0 = bin.charCodeAt(i++)) > 255 || (c1 = bin.charCodeAt(i++)) > 255 || (c2 = bin.charCodeAt(i++)) > 255)
+      throw new TypeError("invalid character found");
+    u32 = c0 << 16 | c1 << 8 | c2;
+    asc += b64chs[u32 >> 18 & 63] + b64chs[u32 >> 12 & 63] + b64chs[u32 >> 6 & 63] + b64chs[u32 & 63];
+  }
+  return pad ? asc.slice(0, pad - 3) + "===".substring(pad) : asc;
+};
+var _btoa = _hasbtoa ? (bin) => btoa(bin) : _hasBuffer ? (bin) => Buffer.from(bin, "binary").toString("base64") : btoaPolyfill;
+var _fromUint8Array = _hasBuffer ? (u8a) => Buffer.from(u8a).toString("base64") : (u8a) => {
+  const maxargs = 4096;
+  let strs = [];
+  for (let i = 0, l = u8a.length; i < l; i += maxargs) {
+    strs.push(_fromCC.apply(null, u8a.subarray(i, i + maxargs)));
+  }
+  return _btoa(strs.join(""));
+};
+var cb_utob = (c) => {
+  if (c.length < 2) {
+    var cc = c.charCodeAt(0);
+    return cc < 128 ? c : cc < 2048 ? _fromCC(192 | cc >>> 6) + _fromCC(128 | cc & 63) : _fromCC(224 | cc >>> 12 & 15) + _fromCC(128 | cc >>> 6 & 63) + _fromCC(128 | cc & 63);
+  } else {
+    var cc = 65536 + (c.charCodeAt(0) - 55296) * 1024 + (c.charCodeAt(1) - 56320);
+    return _fromCC(240 | cc >>> 18 & 7) + _fromCC(128 | cc >>> 12 & 63) + _fromCC(128 | cc >>> 6 & 63) + _fromCC(128 | cc & 63);
+  }
+};
+var re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g;
+var utob = (u) => u.replace(re_utob, cb_utob);
+var _encode = _hasBuffer ? (s) => Buffer.from(s, "utf8").toString("base64") : _TE ? (s) => _fromUint8Array(_TE.encode(s)) : (s) => _btoa(utob(s));
+var encode = (src, urlsafe = false) => urlsafe ? _mkUriSafe(_encode(src)) : _encode(src);
+
+// src/snippets/snippets.ts
+var VISUAL_SNIPPET_MAGIC_SELECTION_PLACEHOLDER = "${VISUAL}";
+var Snippet = class {
+  constructor(type, trigger, replacement, options, priority, description, excludedEnvironments) {
+    this.type = type;
+    this.data = { trigger, replacement };
+    this.options = options;
+    this.priority = priority;
+    this.description = description;
+    this.excludedEnvironments = excludedEnvironments != null ? excludedEnvironments : [];
+  }
+  get trigger() {
+    return this.data.trigger;
+  }
+  get replacement() {
+    return this.data.replacement;
+  }
+  toString() {
+    return serializeSnippetLike({
+      type: this.type,
+      trigger: this.trigger,
+      replacement: this.replacement,
+      options: this.options,
+      priority: this.priority,
+      description: this.description,
+      excludedEnvironments: this.excludedEnvironments
+    });
+  }
+};
+var VisualSnippet = class extends Snippet {
+  constructor({ trigger, replacement, options, priority, description, excludedEnvironments }) {
+    super("visual", trigger, replacement, options, priority, description, excludedEnvironments);
+  }
+  process(effectiveLine, range, sel) {
+    const hasSelection = !!sel;
+    if (!hasSelection) {
+      return null;
+    }
+    if (!effectiveLine.endsWith(this.trigger)) {
+      return null;
+    }
+    const triggerPos = range.from;
+    let replacement;
+    if (typeof this.replacement === "string") {
+      replacement = this.replacement.replace(VISUAL_SNIPPET_MAGIC_SELECTION_PLACEHOLDER, sel);
+    } else {
+      replacement = this.replacement(sel);
+      if (typeof replacement !== "string") {
+        return null;
+      }
+    }
+    return { triggerPos, replacement };
+  }
+};
+var RegexSnippet = class extends Snippet {
+  constructor({ trigger, replacement, options, priority, description, excludedEnvironments }) {
+    super("regex", trigger, replacement, options, priority, description, excludedEnvironments);
+  }
+  process(effectiveLine, range, sel) {
+    const hasSelection = !!sel;
+    if (hasSelection) {
+      return null;
+    }
+    const result = this.trigger.exec(effectiveLine);
+    if (result === null) {
+      return null;
+    }
+    const triggerPos = result.index;
+    let replacement;
+    if (typeof this.replacement === "string") {
+      const nCaptureGroups = result.length - 1;
+      replacement = Array.from({ length: nCaptureGroups }).map((_, i) => i + 1).reduce((replacement2, i) => replacement2.replaceAll(`[[${i - 1}]]`, result[i]), this.replacement);
+    } else {
+      replacement = this.replacement(result);
+      if (typeof replacement !== "string") {
+        return null;
+      }
+    }
+    return { triggerPos, replacement };
+  }
+};
+var StringSnippet = class extends Snippet {
+  constructor({ trigger, replacement, options, priority, description, excludedEnvironments: excludeIn }) {
+    super("string", trigger, replacement, options, priority, description, excludeIn);
+  }
+  process(effectiveLine, range, sel) {
+    const hasSelection = !!sel;
+    if (hasSelection) {
+      return null;
+    }
+    if (!effectiveLine.endsWith(this.trigger)) {
+      return null;
+    }
+    const triggerPos = effectiveLine.length - this.trigger.length;
+    const replacement = typeof this.replacement === "string" ? this.replacement : this.replacement(this.trigger);
+    if (typeof replacement !== "string") {
+      return null;
+    }
+    return { triggerPos, replacement };
+  }
+};
+function replacer(k, v) {
+  if (typeof v === "function") {
+    return "[[Function]]";
+  }
+  if (v instanceof RegExp) {
+    return `[[RegExp]]: ${v.toString()}`;
+  }
+  return v;
+}
+function serializeSnippetLike(snippetLike) {
+  return JSON.stringify(snippetLike, replacer, 2);
+}
+
 // src/snippets/options.ts
 var Options = class {
   constructor() {
@@ -80,6 +553,7 @@ var Options = class {
     this.automatic = false;
     this.regex = false;
     this.onWordBoundary = false;
+    this.visual = false;
   }
   static fromSource(source) {
     const options = new Options();
@@ -94,6 +568,9 @@ var Options = class {
           break;
         case "w":
           options.onWordBoundary = true;
+          break;
+        case "v":
+          options.visual = true;
           break;
       }
     }
@@ -155,108 +632,75 @@ var Mode = class {
   }
 };
 
-// src/snippets/snippets.ts
-var ParsedSnippet = class {
-  constructor(raw) {
-    var _a;
-    const resolved = __spreadProps(__spreadValues({}, raw), { flags: (_a = raw.flags) != null ? _a : "" });
-    if (raw.trigger instanceof RegExp) {
-      resolved.options = `r${raw.options}`;
-      resolved.trigger = raw.trigger.source;
-      resolved.flags = `${raw.trigger.flags}${resolved.flags}`;
-    }
-    const validFlags = [
-      "i",
-      "m",
-      "s",
-      "u",
-      "v"
-    ];
-    resolved.flags = Array.from(new Set(resolved.flags.split(""))).filter((flag) => validFlags.includes(flag)).join("");
-    const parsed = __spreadProps(__spreadValues({}, resolved), { options: Options.fromSource(resolved.options) });
-    Object.assign(this, parsed);
+// src/snippets/sort.ts
+function sortSnippets(snippets2) {
+  return snippets2.map((snippet, i) => [getPriority(snippet), getTriggerLength(snippet), i]).sort(schwartzianSnippetCompare).map(([p, t2, i]) => snippets2[i]);
+}
+function schwartzianSnippetCompare(a, b) {
+  return comparePriority(a[0], b[0]) || compareTriggerLength(a[1], b[1]);
+}
+function compareTriggerLength(a, b) {
+  if (a < b) {
+    return 1;
   }
-};
+  if (a > b) {
+    return -1;
+  }
+  return 0;
+}
+function comparePriority(a, b) {
+  if (a < b) {
+    return 1;
+  }
+  if (a > b) {
+    return -1;
+  }
+  return 0;
+}
+function getPriority(snippet) {
+  return snippet.priority || 0;
+}
+function getTriggerLength(snippet) {
+  return typeof snippet.trigger === "string" ? snippet.trigger.length : snippet.trigger.source.length;
+}
+
+// src/snippets/environment.ts
 var EXCLUSIONS = {
   "([A-Za-z])(\\d)": { openSymbol: "\\pu{", closeSymbol: "}" },
   "->": { openSymbol: "\\ce{", closeSymbol: "}" }
 };
 
-// node_modules/js-base64/base64.mjs
-var _hasbtoa = typeof btoa === "function";
-var _hasBuffer = typeof Buffer === "function";
-var _TD = typeof TextDecoder === "function" ? new TextDecoder() : void 0;
-var _TE = typeof TextEncoder === "function" ? new TextEncoder() : void 0;
-var b64ch = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-var b64chs = Array.prototype.slice.call(b64ch);
-var b64tab = ((a) => {
-  let tab = {};
-  a.forEach((c, i) => tab[c] = i);
-  return tab;
-})(b64chs);
-var _fromCC = String.fromCharCode.bind(String);
-var _U8Afrom = typeof Uint8Array.from === "function" ? Uint8Array.from.bind(Uint8Array) : (it) => new Uint8Array(Array.prototype.slice.call(it, 0));
-var _mkUriSafe = (src) => src.replace(/=/g, "").replace(/[+\/]/g, (m0) => m0 == "+" ? "-" : "_");
-var btoaPolyfill = (bin) => {
-  let u32, c0, c1, c2, asc = "";
-  const pad = bin.length % 3;
-  for (let i = 0; i < bin.length; ) {
-    if ((c0 = bin.charCodeAt(i++)) > 255 || (c1 = bin.charCodeAt(i++)) > 255 || (c2 = bin.charCodeAt(i++)) > 255)
-      throw new TypeError("invalid character found");
-    u32 = c0 << 16 | c1 << 8 | c2;
-    asc += b64chs[u32 >> 18 & 63] + b64chs[u32 >> 12 & 63] + b64chs[u32 >> 6 & 63] + b64chs[u32 & 63];
-  }
-  return pad ? asc.slice(0, pad - 3) + "===".substring(pad) : asc;
-};
-var _btoa = _hasbtoa ? (bin) => btoa(bin) : _hasBuffer ? (bin) => Buffer.from(bin, "binary").toString("base64") : btoaPolyfill;
-var _fromUint8Array = _hasBuffer ? (u8a) => Buffer.from(u8a).toString("base64") : (u8a) => {
-  const maxargs = 4096;
-  let strs = [];
-  for (let i = 0, l = u8a.length; i < l; i += maxargs) {
-    strs.push(_fromCC.apply(null, u8a.subarray(i, i + maxargs)));
-  }
-  return _btoa(strs.join(""));
-};
-var cb_utob = (c) => {
-  if (c.length < 2) {
-    var cc = c.charCodeAt(0);
-    return cc < 128 ? c : cc < 2048 ? _fromCC(192 | cc >>> 6) + _fromCC(128 | cc & 63) : _fromCC(224 | cc >>> 12 & 15) + _fromCC(128 | cc >>> 6 & 63) + _fromCC(128 | cc & 63);
-  } else {
-    var cc = 65536 + (c.charCodeAt(0) - 55296) * 1024 + (c.charCodeAt(1) - 56320);
-    return _fromCC(240 | cc >>> 18 & 7) + _fromCC(128 | cc >>> 12 & 63) + _fromCC(128 | cc >>> 6 & 63) + _fromCC(128 | cc & 63);
-  }
-};
-var re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g;
-var utob = (u) => u.replace(re_utob, cb_utob);
-var _encode = _hasBuffer ? (s) => Buffer.from(s, "utf8").toString("base64") : _TE ? (s) => _fromUint8Array(_TE.encode(s)) : (s) => _btoa(utob(s));
-var encode = (src, urlsafe = false) => urlsafe ? _mkUriSafe(_encode(src)) : _encode(src);
-
 // src/snippets/parse_snippets.ts
-function sortSnippets(snippets2) {
-  function compareTriggerLength(a, b) {
-    const aTriggerLength = a.trigger.length;
-    const bTriggerLength = b.trigger.length;
-    if (aTriggerLength < bTriggerLength) {
-      return 1;
+function parseSnippets(snippetsStr, snippetVariables) {
+  return __async(this, null, function* () {
+    let rawSnippets;
+    try {
+      try {
+        rawSnippets = yield importModuleDefault(`data:text/javascript;base64,${encode(snippetsStr)}`);
+      } catch (e) {
+        rawSnippets = yield importModuleDefault(`data:text/javascript;base64,${encode(`export default ${snippetsStr}`)}`);
+      }
+    } catch (e) {
+      throw "Invalid snippet format.";
     }
-    if (aTriggerLength > bTriggerLength) {
-      return -1;
+    let parsedSnippets;
+    try {
+      rawSnippets = validateRawSnippets(rawSnippets);
+      parsedSnippets = rawSnippets.map((raw) => {
+        try {
+          return parseSnippet(raw, snippetVariables);
+        } catch (e) {
+          throw `${e}
+Erroring snippet:
+${serializeSnippetLike(raw)}`;
+        }
+      });
+    } catch (e) {
+      throw `Invalid snippet format: ${e}`;
     }
-    return 0;
-  }
-  snippets2.sort(compareTriggerLength);
-  function comparePriority(a, b) {
-    const aPriority = a.priority ? a.priority : 0;
-    const bPriority = b.priority ? b.priority : 0;
-    if (aPriority < bPriority) {
-      return 1;
-    }
-    if (aPriority > bPriority) {
-      return -1;
-    }
-    return 0;
-  }
-  snippets2.sort(comparePriority);
+    parsedSnippets = sortSnippets(parsedSnippets);
+    return parsedSnippets;
+  });
 }
 function importModuleDefault(module2) {
   return __async(this, null, function* () {
@@ -272,31 +716,88 @@ function importModuleDefault(module2) {
     return data.default;
   });
 }
-function parseSnippets(snippetsStr) {
-  return __async(this, null, function* () {
-    let rawSnippets;
+var RawSnippetSchema = object({
+  trigger: union([string(), instance(RegExp)]),
+  replacement: union([string(), special((x) => typeof x === "function")]),
+  options: string(),
+  flags: optional(string()),
+  priority: optional(number()),
+  description: optional(string())
+});
+function validateRawSnippets(snippets2) {
+  if (!Array.isArray(snippets2)) {
+    throw "Expected snippets to be an array";
+  }
+  return snippets2.map((raw) => {
     try {
-      try {
-        rawSnippets = yield importModuleDefault(`data:text/javascript;base64,${encode(snippetsStr)}`);
-      } catch (e) {
-        rawSnippets = yield importModuleDefault(`data:text/javascript;base64,${encode(`export default ${snippetsStr}`)}`);
-      }
+      return parse(RawSnippetSchema, raw);
     } catch (e) {
-      throw "Invalid snippet format.";
+      throw `Value does not resemble snippet.
+Erroring snippet:
+${serializeSnippetLike(raw)}`;
     }
-    if (!validateSnippets(rawSnippets)) {
-      throw "Invalid snippet format.";
-    }
-    const parsedSnippets = rawSnippets.map((rawSnippet) => new ParsedSnippet(rawSnippet));
-    sortSnippets(parsedSnippets);
-    return parsedSnippets;
   });
 }
-function validateSnippets(snippets2) {
-  if (!Array.isArray(snippets2)) {
-    return false;
+function parseSnippet(raw, snippetVariables) {
+  var _a;
+  const { replacement, priority, description } = raw;
+  const options = Options.fromSource(raw.options);
+  let trigger;
+  let excludedEnvironments;
+  if (options.regex || raw.trigger instanceof RegExp) {
+    let triggerStr;
+    let flags = (_a = raw.flags) != null ? _a : "";
+    if (raw.trigger instanceof RegExp) {
+      triggerStr = raw.trigger.source;
+      flags = `${raw.trigger.flags}${flags}`;
+    } else {
+      triggerStr = raw.trigger;
+    }
+    flags = filterFlags(flags);
+    triggerStr = insertSnippetVariables(triggerStr, snippetVariables);
+    excludedEnvironments = getExcludedEnvironments(triggerStr);
+    triggerStr = `${triggerStr}$`;
+    trigger = new RegExp(triggerStr, flags);
+    options.regex = true;
+    const normalised = { trigger, replacement, options, priority, description, excludedEnvironments };
+    return new RegexSnippet(normalised);
+  } else {
+    let trigger2 = raw.trigger;
+    trigger2 = insertSnippetVariables(trigger2, snippetVariables);
+    excludedEnvironments = getExcludedEnvironments(trigger2);
+    if (typeof replacement === "string" && replacement.includes(VISUAL_SNIPPET_MAGIC_SELECTION_PLACEHOLDER)) {
+      options.visual = true;
+    }
+    const normalised = { trigger: trigger2, replacement, options, priority, description, excludedEnvironments };
+    if (options.visual) {
+      return new VisualSnippet(normalised);
+    } else {
+      return new StringSnippet(normalised);
+    }
   }
-  return snippets2.every((snippet) => (typeof snippet.trigger === "string" || snippet.trigger instanceof RegExp) && typeof snippet.replacement === "string" && typeof snippet.options === "string" && (typeof snippet.flags === "undefined" || typeof snippet.flags === "string"));
+}
+function filterFlags(flags) {
+  const validFlags = [
+    "i",
+    "m",
+    "s",
+    "u",
+    "v"
+  ];
+  return Array.from(new Set(flags.split(""))).filter((flag) => validFlags.includes(flag)).join("");
+}
+function insertSnippetVariables(trigger, variables) {
+  for (const [variable, replacement] of Object.entries(variables)) {
+    trigger = trigger.replace(variable, replacement);
+  }
+  return trigger;
+}
+function getExcludedEnvironments(trigger) {
+  const result = [];
+  if (EXCLUSIONS.hasOwnProperty(trigger)) {
+    result.push(EXCLUSIONS[trigger]);
+  }
+  return result;
 }
 
 // src/settings/file_watch.ts
@@ -345,12 +846,12 @@ var onFileDelete = (plugin, file) => {
     refreshSnippetsFromFileOrFolder(plugin);
   }
 };
-function getSnippetsFromFile(vault, file) {
+function getSnippetsFromFile(vault, file, snippetVariables) {
   return __async(this, null, function* () {
     const content = yield vault.cachedRead(file);
     let snippets2 = [];
     try {
-      snippets2 = yield parseSnippets(content);
+      snippets2 = yield parseSnippets(content, snippetVariables);
     } catch (e) {
       new import_obsidian.Notice(`Failed to load snippet file ${file.name}`);
       console.log(`Failed to load snippet file ${file.path}:`, e);
@@ -358,32 +859,32 @@ function getSnippetsFromFile(vault, file) {
     return snippets2;
   });
 }
-function getSnippetsWithinFolder(vault, folder) {
+function getSnippetsWithinFolder(vault, folder, snippetVariables) {
   return __async(this, null, function* () {
     const snippets2 = [];
     for (const fileOrFolder of folder.children) {
       if (fileOrFolder instanceof import_obsidian.TFile) {
-        snippets2.push(...yield getSnippetsFromFile(vault, fileOrFolder));
+        snippets2.push(...yield getSnippetsFromFile(vault, fileOrFolder, snippetVariables));
       } else if (fileOrFolder instanceof import_obsidian.TFolder) {
-        const folderSnippets = yield getSnippetsWithinFolder(vault, fileOrFolder);
+        const folderSnippets = yield getSnippetsWithinFolder(vault, fileOrFolder, snippetVariables);
         snippets2.push(...folderSnippets);
       }
     }
     return snippets2;
   });
 }
-function getSnippetsWithinFileOrFolder(vault, path) {
+function getSnippetsWithinFileOrFolder(vault, path, snippetVariables) {
   return __async(this, null, function* () {
     let snippets2;
     const fileOrFolder = vault.getAbstractFileByPath(path);
     if (fileOrFolder instanceof import_obsidian.TFolder) {
-      snippets2 = yield getSnippetsWithinFolder(vault, fileOrFolder);
+      snippets2 = yield getSnippetsWithinFolder(vault, fileOrFolder, snippetVariables);
     } else if (fileOrFolder instanceof import_obsidian.TFile) {
-      snippets2 = yield getSnippetsFromFile(vault, fileOrFolder);
+      snippets2 = yield getSnippetsFromFile(vault, fileOrFolder, snippetVariables);
     } else {
       return [];
     }
-    sortSnippets(snippets2);
+    snippets2 = sortSnippets(snippets2);
     return snippets2;
   });
 }
@@ -394,8 +895,22 @@ var refreshSnippetsFromFileOrFolder = (0, import_obsidian.debounce)((plugin) => 
   new import_obsidian.Notice("Successfully reloaded snippets.", 5e3);
 }), 500, true);
 
-// src/default_snippets.ts
-var DEFAULT_SNIPPETS = '[\n	// Math mode\n	{trigger: "mk", replacement: "$$0$", options: "tA"},\n	{trigger: "dm", replacement: "$$\\n$0\\n$$", options: "tAw"},\n	{trigger: "beg", replacement: "\\\\begin{$0}\\n$1\\n\\\\end{$0}", options: "mA"},\n\n\n	// Dashes\n	// {trigger: "--", replacement: "\u2013", options: "tA"},\n	// {trigger: "\u2013-", replacement: "\u2014", options: "tA"},\n	// {trigger: "\u2014-", replacement: "---", options: "tA"},\n\n\n	// Greek letters\n	{trigger: "@a", replacement: "\\\\alpha", options: "mA"},\n	{trigger: "@A", replacement: "\\\\alpha", options: "mA"},\n	{trigger: "@b", replacement: "\\\\beta", options: "mA"},\n	{trigger: "@B", replacement: "\\\\beta", options: "mA"},\n	{trigger: "@c", replacement: "\\\\chi", options: "mA"},\n	{trigger: "@C", replacement: "\\\\chi", options: "mA"},\n	{trigger: "@g", replacement: "\\\\gamma", options: "mA"},\n	{trigger: "@G", replacement: "\\\\Gamma", options: "mA"},\n	{trigger: "@d", replacement: "\\\\delta", options: "mA"},\n	{trigger: "@D", replacement: "\\\\Delta", options: "mA"},\n	{trigger: "@e", replacement: "\\\\epsilon", options: "mA"},\n	{trigger: "@E", replacement: "\\\\epsilon", options: "mA"},\n	{trigger: ":e", replacement: "\\\\varepsilon", options: "mA"},\n	{trigger: ":E", replacement: "\\\\varepsilon", options: "mA"},\n	{trigger: "@z", replacement: "\\\\zeta", options: "mA"},\n	{trigger: "@Z", replacement: "\\\\zeta", options: "mA"},\n	{trigger: "@t", replacement: "\\\\theta", options: "mA"},\n	{trigger: "@T", replacement: "\\\\Theta", options: "mA"},\n	{trigger: "@k", replacement: "\\\\kappa", options: "mA"},\n	{trigger: "@K", replacement: "\\\\kappa", options: "mA"},\n	{trigger: "@l", replacement: "\\\\lambda", options: "mA"},\n	{trigger: "@L", replacement: "\\\\Lambda", options: "mA"},\n	{trigger: "@m", replacement: "\\\\mu", options: "mA"},\n	{trigger: "@M", replacement: "\\\\mu", options: "mA"},\n	{trigger: "@r", replacement: "\\\\rho", options: "mA"},\n	{trigger: "@R", replacement: "\\\\rho", options: "mA"},\n	{trigger: "@s", replacement: "\\\\sigma", options: "mA"},\n	{trigger: "@S", replacement: "\\\\Sigma", options: "mA"},\n	{trigger: "ome", replacement: "\\\\omega", options: "mA"},\n	{trigger: "@o", replacement: "\\\\omega", options: "mA"},\n	{trigger: "@O", replacement: "\\\\Omega", options: "mA"},\n	{trigger: "@u", replacement: "\\\\upsilon", options: "mA"},\n	{trigger: "@U", replacement: "\\\\Upsilon", options: "mA"},\n	{trigger: "([^\\\\\\\\])(${GREEK}|${SYMBOL})", replacement: "[[0]]\\\\[[1]]", options: "rmA", description: "Add backslash before greek letters and symbols"},\n\n\n	// Insert space after greek letters and symbols, etc\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}|${SHORT_SYMBOL})([A-Za-z])", replacement: "\\\\[[0]] [[1]]", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) sr", replacement: "\\\\[[0]]^{2}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) cb", replacement: "\\\\[[0]]^{3}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) rd", replacement: "\\\\[[0]]^{$0}$1", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) hat", replacement: "\\\\hat{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) dot", replacement: "\\\\dot{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) bar", replacement: "\\\\bar{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) vec", replacement: "\\\\vec{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) tilde", replacement: "\\\\tilde{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) und", replacement: "\\\\underline{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}),\\\\.", replacement: "\\\\boldsymbol{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK})\\\\.,", replacement: "\\\\boldsymbol{\\\\[[0]]}", options: "rmA"},\n\n\n	// Operations\n	{trigger: "te", replacement: "\\\\text{$0}", options: "m"},\n	{trigger: "text", replacement: "\\\\text{$0}", options: "mA"},\n	{trigger: "bf", replacement: "\\\\mathbf{$0}", options: "mA"},\n	{trigger: "sr", replacement: "^{2}", options: "mA"},\n	{trigger: "cb", replacement: "^{3}", options: "mA"},\n	{trigger: "rd", replacement: "^{$0}$1", options: "mA"},\n	{trigger: "_", replacement: "_{$0}$1", options: "mA"},\n	{trigger: "sts", replacement: "_\\\\text{$0}", options: "rmA"},\n	{trigger: "sq", replacement: "\\\\sqrt{ $0 }$1", options: "mA"},\n	{trigger: "//", replacement: "\\\\frac{$0}{$1}$2", options: "mA"},\n	{trigger: "ee", replacement: "e^{ $0 }$1", options: "mA"},\n	{trigger: "rm", replacement: "\\\\mathrm{$0}$1", options: "mA"},\n	{trigger: "conj", replacement: "^{*}", options: "mA"},\n	{trigger: "trace", replacement: "\\\\mathrm{Tr}", options: "mA"},\n	{trigger: "det", replacement: "\\\\det", options: "mA"},\n	{trigger: "re", replacement: "\\\\mathrm{Re}", options: "mA"},\n	{trigger: "im", replacement: "\\\\mathrm{Im}", options: "mA"},\n\n	{trigger: "([a-zA-Z]),\\\\.", replacement: "\\\\mathbf{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])\\\\.,", replacement: "\\\\mathbf{[[0]]}", options: "rmA"},\n	{trigger: "([A-Za-z])(\\\\d)", replacement: "[[0]]_{[[1]]}", options: "rmA", description: "Auto letter subscript", priority: -1},\n	{trigger: "([A-Za-z])_(\\\\d\\\\d)", replacement: "[[0]]_{[[1]]}", options: "rmA"},\n	{trigger: "\\\\hat{([A-Za-z])}(\\\\d)", replacement: "hat{[[0]]}_{[[1]]}", options: "rmA"},\n	{trigger: "\\\\\\\\mathbf{([A-Za-z])}(\\\\d)", replacement: "\\\\mathbf{[[0]]}_{[[1]]}", options: "rmA"},\n	{trigger: "\\\\\\\\vec{([A-Za-z])}(\\\\d)", replacement: "\\\\vec{[[0]]}_{[[1]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])bar", replacement: "\\\\bar{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])hat", replacement: "\\\\hat{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])ddot", replacement: "\\\\ddot{[[0]]}", options: "rmA", priority: 3},\n	{trigger: "([a-zA-Z])dot", replacement: "\\\\dot{[[0]]}", options: "rmA", priority: 1},\n	{trigger: "([a-zA-Z])vec", replacement: "\\\\vec{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])tilde", replacement: "\\\\tilde{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])und", replacement: "\\\\underline{[[0]]}", options: "rmA"},\n	{trigger: "bar", replacement: "\\\\bar{$0}$1", options: "mA"},\n	{trigger: "hat", replacement: "\\\\hat{$0}$1", options: "mA"},\n	{trigger: "dot", replacement: "\\\\dot{$0}$1", options: "mA"},\n	{trigger: "ddot", replacement: "\\\\ddot{$0}$1", options: "mA", priority: 2},\n	{trigger: "cdot", replacement: "\\\\cdot", options: "mA", priority: 2},\n	{trigger: "vec", replacement: "\\\\vec{$0}$1", options: "mA"},\n	{trigger: "tilde", replacement: "\\\\tilde{$0}$1", options: "mA"},\n	{trigger: "und", replacement: "\\\\underline{$0}$1", options: "mA"},\n\n	{trigger: "([^\\\\\\\\])(arcsin|arccos|arctan|arccot|arccsc|arcsec|sin|cos|tan|cot|csc|sec)", replacement: "[[0]]\\\\[[1]]", options: "rmA"},\n	{trigger: "\\\\\\\\(arcsin|arccos|arctan|arccot|arccsc|arcsec|sin|cos|tan|cot|csc|sec)([A-Za-gi-z])", replacement: "\\\\[[0]] [[1]]", options: "rmA"}, // Insert space after trig funcs. Skips letter "h" to allow sinh, cosh, etc.\n	{trigger: "\\\\\\\\(arcsinh|arccosh|arctanh|arccoth|arcsch|arcsech|sinh|cosh|tanh|coth|csch|sech)([A-Za-z])", replacement: "\\\\[[0]] [[1]]", options: "rmA"}, // Insert space after trig funcs\n	{trigger: "\\\\\\\\(neq|geq|leq|gg|ll|sim)([0-9]+)", replacement: "\\\\[[0]] [[1]]", options: "rmA"}, // Insert space after inequality symbols\n\n\n	// Visual operations\n	{trigger: "U", replacement: "\\\\underbrace{ ${VISUAL} }_{ $0 }", options: "mA"},\n	{trigger: "B", replacement: "\\\\underset{ $0 }{ ${VISUAL} }", options: "mA"},\n	{trigger: "C", replacement: "\\\\cancel{ ${VISUAL} }", options: "mA"},\n	{trigger: "K", replacement: "\\\\cancelto{ $0 }{ ${VISUAL} }", options: "mA"},\n	{trigger: "S", replacement: "\\\\sqrt{ ${VISUAL} }", options: "mA"},\n\n\n	// Symbols\n	{trigger: "ooo", replacement: "\\\\infty", options: "mA"},\n	{trigger: "sum", replacement: "\\\\sum", options: "mA"},\n	{trigger: "prod", replacement: "\\\\prod", options: "mA"},\n	{trigger: "lim", replacement: "\\\\lim_{ ${0:n} \\\\to ${1:\\\\infty} } $2", options: "mA"},\n	{trigger: "([^\\\\\\\\])pm", replacement: "[[0]]\\\\pm", options: "rm"},\n	{trigger: "([^\\\\\\\\])mp", replacement: "[[0]]\\\\mp", options: "rm"},\n	{trigger: "+-", replacement: "\\\\pm", options: "mA"},\n	{trigger: "-+", replacement: "\\\\mp", options: "mA"},\n	{trigger: "...", replacement: "\\\\dots", options: "mA"},\n	{trigger: "<->", replacement: "\\\\leftrightarrow ", options: "mA"},\n	{trigger: "->", replacement: "\\\\to", options: "mA"},\n	{trigger: "!>", replacement: "\\\\mapsto", options: "mA"},\n	{trigger: "invs", replacement: "^{-1}", options: "mA"},\n	{trigger: "\\\\\\\\\\\\", replacement: "\\\\setminus", options: "mA"},\n	{trigger: "||", replacement: "\\\\mid", options: "mA"},\n	{trigger: "and", replacement: "\\\\cap", options: "mA"},\n	{trigger: "orr", replacement: "\\\\cup", options: "mA"},\n	{trigger: "inn", replacement: "\\\\in", options: "mA"},\n	{trigger: "notin", replacement: "\\\\not\\\\in", options: "mA"},\n	{trigger: "\\\\subset eq", replacement: "\\\\subseteq", options: "mA"},\n	{trigger: "eset", replacement: "\\\\emptyset", options: "mA"},\n	{trigger: "set", replacement: "\\\\{ $0 \\\\}$1", options: "mA"},\n	{trigger: "=>", replacement: "\\\\implies", options: "mA"},\n	{trigger: "=<", replacement: "\\\\impliedby", options: "mA"},\n	{trigger: "iff", replacement: "\\\\iff", options: "mA"},\n	{trigger: "e\\\\xi sts", replacement: "\\\\exists", options: "mA", priority: 1},\n	{trigger: "===", replacement: "\\\\equiv", options: "mA"},\n	{trigger: "Sq", replacement: "\\\\square", options: "mA"},\n	{trigger: "!=", replacement: "\\\\neq", options: "mA"},\n	{trigger: ">=", replacement: "\\\\geq", options: "mA"},\n	{trigger: "<=", replacement: "\\\\leq", options: "mA"},\n	{trigger: ">>", replacement: "\\\\gg", options: "mA"},\n	{trigger: "<<", replacement: "\\\\ll", options: "mA"},\n	{trigger: "~~", replacement: "\\\\sim", options: "mA"},\n	{trigger: "\\\\sim ~", replacement: "\\\\approx", options: "mA"},\n	{trigger: "prop", replacement: "\\\\propto", options: "mA"},\n	{trigger: "nabl", replacement: "\\\\nabla", options: "mA"},\n	{trigger: "del", replacement: "\\\\nabla", options: "mA"},\n	{trigger: "xx", replacement: "\\\\times", options: "mA"},\n	{trigger: "**", replacement: "\\\\cdot", options: "mA"},\n	{trigger: "para", replacement: "\\\\parallel", options: "mA"},\n\n	{trigger: "xnn", replacement: "x_{n}", options: "mA"},\n	{trigger: "xii", replacement: "x_{i}", options: "mA"},\n	{trigger: "xjj", replacement: "x_{j}", options: "mA"},\n	{trigger: "xp1", replacement: "x_{n+1}", options: "mA"},\n	{trigger: "ynn", replacement: "y_{n}", options: "mA"},\n	{trigger: "yii", replacement: "y_{i}", options: "mA"},\n	{trigger: "yjj", replacement: "y_{j}", options: "mA"},\n\n	{trigger: "mcal", replacement: "\\\\mathcal{$0}$1", options: "mA"},\n	{trigger: "mbb", replacement: "\\\\mathbb{$0}$1", options: "mA"},\n	{trigger: "ell", replacement: "\\\\ell", options: "mA"},\n	{trigger: "lll", replacement: "\\\\ell", options: "mA"},\n	{trigger: "LL", replacement: "\\\\mathcal{L}", options: "mA"},\n	{trigger: "HH", replacement: "\\\\mathcal{H}", options: "mA"},\n	{trigger: "CC", replacement: "\\\\mathbb{C}", options: "mA"},\n	{trigger: "RR", replacement: "\\\\mathbb{R}", options: "mA"},\n	{trigger: "ZZ", replacement: "\\\\mathbb{Z}", options: "mA"},\n	{trigger: "NN", replacement: "\\\\mathbb{N}", options: "mA"},\n	{trigger: "II", replacement: "\\\\mathbb{1}", options: "mA"},\n	{trigger: "\\\\mathbb{1}I", replacement: "\\\\hat{\\\\mathbb{1}}", options: "mA"},\n	{trigger: "AA", replacement: "\\\\mathcal{A}", options: "mA"},\n	{trigger: "BB", replacement: "\\\\mathbf{B}", options: "mA"},\n	{trigger: "EE", replacement: "\\\\mathbf{E}", options: "mA"},\n\n\n	// Unit vectors\n	{trigger: ":i", replacement: "\\\\mathbf{i}", options: "mA"},\n	{trigger: ":j", replacement: "\\\\mathbf{j}", options: "mA"},\n	{trigger: ":k", replacement: "\\\\mathbf{k}", options: "mA"},\n	{trigger: ":x", replacement: "\\\\hat{\\\\mathbf{x}}", options: "mA"},\n	{trigger: ":y", replacement: "\\\\hat{\\\\mathbf{y}}", options: "mA"},\n	{trigger: ":z", replacement: "\\\\hat{\\\\mathbf{z}}", options: "mA"},\n\n\n	// Derivatives\n	{trigger: "par", replacement: "\\\\frac{ \\\\partial ${0:y} }{ \\\\partial ${1:x} } $2", options: "m"},\n	{trigger: "pa2", replacement: "\\\\frac{ \\\\partial^{2} ${0:y} }{ \\\\partial ${1:x}^{2} } $2", options: "mA"},\n	{trigger: "pa3", replacement: "\\\\frac{ \\\\partial^{3} ${0:y} }{ \\\\partial ${1:x}^{3} } $2", options: "mA"},\n	{trigger: "pa([A-Za-z])([A-Za-z])", replacement: "\\\\frac{ \\\\partial [[0]] }{ \\\\partial [[1]] } ", options: "rm"},\n	{trigger: "pa([A-Za-z])([A-Za-z])([A-Za-z])", replacement: "\\\\frac{ \\\\partial^{2} [[0]] }{ \\\\partial [[1]] \\\\partial [[2]] } ", options: "rm"},\n	{trigger: "pa([A-Za-z])([A-Za-z])2", replacement: "\\\\frac{ \\\\partial^{2} [[0]] }{ \\\\partial [[1]]^{2} } ", options: "rmA"},\n	{trigger: "de([A-Za-z])([A-Za-z])", replacement: "\\\\frac{ d[[0]] }{ d[[1]] } ", options: "rm"},\n	{trigger: "de([A-Za-z])([A-Za-z])2", replacement: "\\\\frac{ d^{2}[[0]] }{ d[[1]]^{2} } ", options: "rmA"},\n	{trigger: "ddt", replacement: "\\\\frac{d}{dt} ", options: "mA"},\n\n\n	// Integrals\n	{trigger: "oinf", replacement: "\\\\int_{0}^{\\\\infty} $0 \\\\, d${1:x} $2", options: "mA"},\n	{trigger: "infi", replacement: "\\\\int_{-\\\\infty}^{\\\\infty} $0 \\\\, d${1:x} $2", options: "mA"},\n	{trigger: "dint", replacement: "\\\\int_{${0:0}}^{${1:\\\\infty}} $2 \\\\, d${3:x} $4", options: "mA"},\n	{trigger: "oint", replacement: "\\\\oint", options: "mA"},\n	{trigger: "iiint", replacement: "\\\\iiint", options: "mA"},\n	{trigger: "iint", replacement: "\\\\iint", options: "mA"},\n	{trigger: "int", replacement: "\\\\int $0 \\\\, d${1:x} $2", options: "mA"},\n\n\n	// Physics\n	{trigger: "kbt", replacement: "k_{B}T", options: "mA"},\n\n\n	// Quantum mechanics\n	{trigger: "hba", replacement: "\\\\hbar", options: "mA"},\n	{trigger: "dag", replacement: "^{\\\\dagger}", options: "mA"},\n	{trigger: "o+", replacement: "\\\\oplus ", options: "mA"},\n	{trigger: "ox", replacement: "\\\\otimes ", options: "mA"},\n	{trigger: "ot\\\\mathrm{Im}es", replacement: "\\\\otimes ", options: "mA"}, // Handle conflict with "im" snippet\n	{trigger: "bra", replacement: "\\\\bra{$0} $1", options: "mA"},\n	{trigger: "ket", replacement: "\\\\ket{$0} $1", options: "mA"},\n	{trigger: "brk", replacement: "\\\\braket{ $0 | $1 } $2", options: "mA"},\n	{trigger: "\\\\\\\\bra{([^|]+)\\\\|", replacement: "\\\\braket{ [[0]] | $0 ", options: "rmA", description: "Convert bra into braket"},\n	{trigger: "\\\\\\\\bra{(.+)}([^ ]+)>", replacement: "\\\\braket{ [[0]] | $0 ", options: "rmA", description: "Convert bra into braket (alternate)"},\n	{trigger: "outp", replacement: "\\\\ket{${0:\\\\psi}} \\\\bra{${0:\\\\psi}} $1", options: "mA"},\n\n\n	// Chemistry\n	{trigger: "pu", replacement: "\\\\pu{ $0 }", options: "mA"},\n	{trigger: "msun", replacement: "M_{\\\\odot}", options: "mA"},\n	{trigger: "solm", replacement: "M_{\\\\odot}", options: "mA"},\n	{trigger: "cee", replacement: "\\\\ce{ $0 }", options: "mA"},\n	{trigger: "iso", replacement: "{}^{${0:4}}_{${1:2}}${2:He}", options: "mA"},\n	{trigger: "hel4", replacement: "{}^{4}_{2}He ", options: "mA"},\n	{trigger: "hel3", replacement: "{}^{3}_{2}He ", options: "mA"},\n\n\n	// Environments\n	{trigger: "pmat", replacement: "\\\\begin{pmatrix}\\n$0\\n\\\\end{pmatrix}", options: "mA"},\n	{trigger: "bmat", replacement: "\\\\begin{bmatrix}\\n$0\\n\\\\end{bmatrix}", options: "mA"},\n	{trigger: "Bmat", replacement: "\\\\begin{Bmatrix}\\n$0\\n\\\\end{Bmatrix}", options: "mA"},\n	{trigger: "vmat", replacement: "\\\\begin{vmatrix}\\n$0\\n\\\\end{vmatrix}", options: "mA"},\n	{trigger: "Vmat", replacement: "\\\\begin{Vmatrix}\\n$0\\n\\\\end{Vmatrix}", options: "mA"},\n	{trigger: "case", replacement: "\\\\begin{cases}\\n$0\\n\\\\end{cases}", options: "mA"},\n	{trigger: "align", replacement: "\\\\begin{align}\\n$0\\n\\\\end{align}", options: "mA"},\n	{trigger: "array", replacement: "\\\\begin{array}\\n$0\\n\\\\end{array}", options: "mA"},\n	{trigger: "matrix", replacement: "\\\\begin{matrix}\\n$0\\n\\\\end{matrix}", options: "mA"},\n\n\n	// Brackets\n	{trigger: "avg", replacement: "\\\\langle $0 \\\\rangle $1", options: "mA"},\n	{trigger: "norm", replacement: "\\\\lvert $0 \\\\rvert $1", options: "mA", priority: 1},\n	{trigger: "ceil", replacement: "\\\\lceil $0 \\\\rceil $1", options: "mA"},\n	{trigger: "floor", replacement: "\\\\lfloor $0 \\\\rfloor $1", options: "mA"},\n	{trigger: "mod", replacement: "|$0|$1", options: "mA"},\n	{trigger: "(", replacement: "(${VISUAL})", options: "mA"},\n	{trigger: "[", replacement: "[${VISUAL}]", options: "mA"},\n	{trigger: "{", replacement: "{${VISUAL}}", options: "mA"},\n	{trigger: "(", replacement: "($0)$1", options: "mA"},\n	{trigger: "{", replacement: "{$0}$1", options: "mA"},\n	{trigger: "[", replacement: "[$0]$1", options: "mA"},\n	{trigger: "lr(", replacement: "\\\\left( $0 \\\\right) $1", options: "mA"},\n	{trigger: "lr|", replacement: "\\\\left| $0 \\\\right| $1", options: "mA"},\n	{trigger: "lr{", replacement: "\\\\left\\\\{ $0 \\\\right\\\\} $1", options: "mA"},\n	{trigger: "lr[", replacement: "\\\\left[ $0 \\\\right] $1", options: "mA"},\n	{trigger: "lra", replacement: "\\\\left< $0 \\\\right> $1", options: "mA"},\n\n\n	// Misc\n	{trigger: "tayl", replacement: "${0:f}(${1:x} + ${2:h}) = ${0:f}(${1:x}) + ${0:f}\'(${1:x})${2:h} + ${0:f}\'\'(${1:x}) \\\\frac{${2:h}^{2}}{2!} + \\\\dots$3", options: "mA"},\n]';
+// src/snippets/snippet_variables.ts
+function getSnippetVariables(snippetVarsStr) {
+  let vars = {};
+  try {
+    vars = JSON.parse(snippetVarsStr);
+  } catch (e) {
+    console.log(e);
+  }
+  return vars;
+}
+
+// _wzccwyr5f:/home/runner/work/obsidian-latex-suite/obsidian-latex-suite/src/default_snippets.js
+var default_snippets_default = '[\n	// Math mode\n	{trigger: "mk", replacement: "$$0$", options: "tA"},\n	{trigger: "dm", replacement: "$$\\n$0\\n$$", options: "tAw"},\n	{trigger: "beg", replacement: "\\\\begin{$0}\\n$1\\n\\\\end{$0}", options: "mA"},\n\n\n	// Dashes\n	// {trigger: "--", replacement: "\u2013", options: "tA"},\n	// {trigger: "\u2013-", replacement: "\u2014", options: "tA"},\n	// {trigger: "\u2014-", replacement: "---", options: "tA"},\n\n\n	// Greek letters\n	{trigger: "@a", replacement: "\\\\alpha", options: "mA"},\n	{trigger: "@A", replacement: "\\\\alpha", options: "mA"},\n	{trigger: "@b", replacement: "\\\\beta", options: "mA"},\n	{trigger: "@B", replacement: "\\\\beta", options: "mA"},\n	{trigger: "@c", replacement: "\\\\chi", options: "mA"},\n	{trigger: "@C", replacement: "\\\\chi", options: "mA"},\n	{trigger: "@g", replacement: "\\\\gamma", options: "mA"},\n	{trigger: "@G", replacement: "\\\\Gamma", options: "mA"},\n	{trigger: "@d", replacement: "\\\\delta", options: "mA"},\n	{trigger: "@D", replacement: "\\\\Delta", options: "mA"},\n	{trigger: "@e", replacement: "\\\\epsilon", options: "mA"},\n	{trigger: "@E", replacement: "\\\\epsilon", options: "mA"},\n	{trigger: ":e", replacement: "\\\\varepsilon", options: "mA"},\n	{trigger: ":E", replacement: "\\\\varepsilon", options: "mA"},\n	{trigger: "@z", replacement: "\\\\zeta", options: "mA"},\n	{trigger: "@Z", replacement: "\\\\zeta", options: "mA"},\n	{trigger: "@t", replacement: "\\\\theta", options: "mA"},\n	{trigger: "@T", replacement: "\\\\Theta", options: "mA"},\n	{trigger: "@k", replacement: "\\\\kappa", options: "mA"},\n	{trigger: "@K", replacement: "\\\\kappa", options: "mA"},\n	{trigger: "@l", replacement: "\\\\lambda", options: "mA"},\n	{trigger: "@L", replacement: "\\\\Lambda", options: "mA"},\n	{trigger: "@m", replacement: "\\\\mu", options: "mA"},\n	{trigger: "@M", replacement: "\\\\mu", options: "mA"},\n	{trigger: "@r", replacement: "\\\\rho", options: "mA"},\n	{trigger: "@R", replacement: "\\\\rho", options: "mA"},\n	{trigger: "@s", replacement: "\\\\sigma", options: "mA"},\n	{trigger: "@S", replacement: "\\\\Sigma", options: "mA"},\n	{trigger: "ome", replacement: "\\\\omega", options: "mA"},\n	{trigger: "@o", replacement: "\\\\omega", options: "mA"},\n	{trigger: "@O", replacement: "\\\\Omega", options: "mA"},\n	{trigger: "@u", replacement: "\\\\upsilon", options: "mA"},\n	{trigger: "@U", replacement: "\\\\Upsilon", options: "mA"},\n	{trigger: "([^\\\\\\\\])(${GREEK}|${SYMBOL})", replacement: "[[0]]\\\\[[1]]", options: "rmA", description: "Add backslash before greek letters and symbols"},\n\n\n	// Insert space after greek letters and symbols, etc\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}|${SHORT_SYMBOL})([A-Za-z])", replacement: "\\\\[[0]] [[1]]", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) sr", replacement: "\\\\[[0]]^{2}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) cb", replacement: "\\\\[[0]]^{3}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) rd", replacement: "\\\\[[0]]^{$0}$1", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) hat", replacement: "\\\\hat{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) dot", replacement: "\\\\dot{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) bar", replacement: "\\\\bar{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) vec", replacement: "\\\\vec{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) tilde", replacement: "\\\\tilde{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}|${SYMBOL}) und", replacement: "\\\\underline{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK}),\\\\.", replacement: "\\\\boldsymbol{\\\\[[0]]}", options: "rmA"},\n	{trigger: "\\\\\\\\(${GREEK})\\\\.,", replacement: "\\\\boldsymbol{\\\\[[0]]}", options: "rmA"},\n\n\n	// Operations\n	{trigger: "te", replacement: "\\\\text{$0}", options: "m"},\n	{trigger: "text", replacement: "\\\\text{$0}", options: "mA"},\n	{trigger: "bf", replacement: "\\\\mathbf{$0}", options: "mA"},\n	{trigger: "sr", replacement: "^{2}", options: "mA"},\n	{trigger: "cb", replacement: "^{3}", options: "mA"},\n	{trigger: "rd", replacement: "^{$0}$1", options: "mA"},\n	{trigger: "_", replacement: "_{$0}$1", options: "mA"},\n	{trigger: "sts", replacement: "_\\\\text{$0}", options: "rmA"},\n	{trigger: "sq", replacement: "\\\\sqrt{ $0 }$1", options: "mA"},\n	{trigger: "//", replacement: "\\\\frac{$0}{$1}$2", options: "mA"},\n	{trigger: "ee", replacement: "e^{ $0 }$1", options: "mA"},\n	{trigger: "rm", replacement: "\\\\mathrm{$0}$1", options: "mA"},\n	{trigger: "conj", replacement: "^{*}", options: "mA"},\n	{trigger: "trace", replacement: "\\\\mathrm{Tr}", options: "mA"},\n	{trigger: "det", replacement: "\\\\det", options: "mA"},\n	{trigger: "re", replacement: "\\\\mathrm{Re}", options: "mA"},\n	{trigger: "im", replacement: "\\\\mathrm{Im}", options: "mA"},\n\n	{trigger: "([a-zA-Z]),\\\\.", replacement: "\\\\mathbf{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])\\\\.,", replacement: "\\\\mathbf{[[0]]}", options: "rmA"},\n	{trigger: "([A-Za-z])(\\\\d)", replacement: "[[0]]_{[[1]]}", options: "rmA", description: "Auto letter subscript", priority: -1},\n	{trigger: "([A-Za-z])_(\\\\d\\\\d)", replacement: "[[0]]_{[[1]]}", options: "rmA"},\n	{trigger: "\\\\hat{([A-Za-z])}(\\\\d)", replacement: "hat{[[0]]}_{[[1]]}", options: "rmA"},\n	{trigger: "\\\\\\\\mathbf{([A-Za-z])}(\\\\d)", replacement: "\\\\mathbf{[[0]]}_{[[1]]}", options: "rmA"},\n	{trigger: "\\\\\\\\vec{([A-Za-z])}(\\\\d)", replacement: "\\\\vec{[[0]]}_{[[1]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])bar", replacement: "\\\\bar{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])hat", replacement: "\\\\hat{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])ddot", replacement: "\\\\ddot{[[0]]}", options: "rmA", priority: 3},\n	{trigger: "([a-zA-Z])dot", replacement: "\\\\dot{[[0]]}", options: "rmA", priority: 1},\n	{trigger: "([a-zA-Z])vec", replacement: "\\\\vec{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])tilde", replacement: "\\\\tilde{[[0]]}", options: "rmA"},\n	{trigger: "([a-zA-Z])und", replacement: "\\\\underline{[[0]]}", options: "rmA"},\n	{trigger: "bar", replacement: "\\\\bar{$0}$1", options: "mA"},\n	{trigger: "hat", replacement: "\\\\hat{$0}$1", options: "mA"},\n	{trigger: "dot", replacement: "\\\\dot{$0}$1", options: "mA"},\n	{trigger: "ddot", replacement: "\\\\ddot{$0}$1", options: "mA", priority: 2},\n	{trigger: "cdot", replacement: "\\\\cdot", options: "mA", priority: 2},\n	{trigger: "vec", replacement: "\\\\vec{$0}$1", options: "mA"},\n	{trigger: "tilde", replacement: "\\\\tilde{$0}$1", options: "mA"},\n	{trigger: "und", replacement: "\\\\underline{$0}$1", options: "mA"},\n\n	{trigger: "([^\\\\\\\\])(arcsin|arccos|arctan|arccot|arccsc|arcsec|sin|cos|tan|cot|csc|sec)", replacement: "[[0]]\\\\[[1]]", options: "rmA"},\n	{trigger: "\\\\\\\\(arcsin|arccos|arctan|arccot|arccsc|arcsec|sin|cos|tan|cot|csc|sec)([A-Za-gi-z])", replacement: "\\\\[[0]] [[1]]", options: "rmA"}, // Insert space after trig funcs. Skips letter "h" to allow sinh, cosh, etc.\n	{trigger: "\\\\\\\\(arcsinh|arccosh|arctanh|arccoth|arcsch|arcsech|sinh|cosh|tanh|coth|csch|sech)([A-Za-z])", replacement: "\\\\[[0]] [[1]]", options: "rmA"}, // Insert space after trig funcs\n	{trigger: "\\\\\\\\(neq|geq|leq|gg|ll|sim)([0-9]+)", replacement: "\\\\[[0]] [[1]]", options: "rmA"}, // Insert space after inequality symbols\n\n\n	// Visual operations\n	{trigger: "U", replacement: "\\\\underbrace{ ${VISUAL} }_{ $0 }", options: "mA"},\n	{trigger: "O", replacement: "\\\\overbrace{ ${VISUAL} }^{ $0 }", options: "mA"},\n	{trigger: "B", replacement: "\\\\underset{ $0 }{ ${VISUAL} }", options: "mA"},\n	{trigger: "C", replacement: "\\\\cancel{ ${VISUAL} }", options: "mA"},\n	{trigger: "K", replacement: "\\\\cancelto{ $0 }{ ${VISUAL} }", options: "mA"},\n	{trigger: "S", replacement: "\\\\sqrt{ ${VISUAL} }", options: "mA"},\n\n\n	// Symbols\n	{trigger: "ooo", replacement: "\\\\infty", options: "mA"},\n	{trigger: "sum", replacement: "\\\\sum", options: "mA"},\n	{trigger: "prod", replacement: "\\\\prod", options: "mA"},\n	{trigger: "lim", replacement: "\\\\lim_{ ${0:n} \\\\to ${1:\\\\infty} } $2", options: "mA"},\n	{trigger: "([^\\\\\\\\])pm", replacement: "[[0]]\\\\pm", options: "rm"},\n	{trigger: "([^\\\\\\\\])mp", replacement: "[[0]]\\\\mp", options: "rm"},\n	{trigger: "+-", replacement: "\\\\pm", options: "mA"},\n	{trigger: "-+", replacement: "\\\\mp", options: "mA"},\n	{trigger: "...", replacement: "\\\\dots", options: "mA"},\n	{trigger: "<->", replacement: "\\\\leftrightarrow ", options: "mA"},\n	{trigger: "->", replacement: "\\\\to", options: "mA"},\n	{trigger: "!>", replacement: "\\\\mapsto", options: "mA"},\n	{trigger: "invs", replacement: "^{-1}", options: "mA"},\n	{trigger: "\\\\\\\\\\\\", replacement: "\\\\setminus", options: "mA"},\n	{trigger: "||", replacement: "\\\\mid", options: "mA"},\n	{trigger: "and", replacement: "\\\\cap", options: "mA"},\n	{trigger: "orr", replacement: "\\\\cup", options: "mA"},\n	{trigger: "inn", replacement: "\\\\in", options: "mA"},\n	{trigger: "notin", replacement: "\\\\not\\\\in", options: "mA"},\n	{trigger: "\\\\subset eq", replacement: "\\\\subseteq", options: "mA"},\n	{trigger: "eset", replacement: "\\\\emptyset", options: "mA"},\n	{trigger: "set", replacement: "\\\\{ $0 \\\\}$1", options: "mA"},\n	{trigger: "=>", replacement: "\\\\implies", options: "mA"},\n	{trigger: "=<", replacement: "\\\\impliedby", options: "mA"},\n	{trigger: "iff", replacement: "\\\\iff", options: "mA"},\n	{trigger: "e\\\\xi sts", replacement: "\\\\exists", options: "mA", priority: 1},\n	{trigger: "===", replacement: "\\\\equiv", options: "mA"},\n	{trigger: "Sq", replacement: "\\\\square", options: "mA"},\n	{trigger: "!=", replacement: "\\\\neq", options: "mA"},\n	{trigger: ">=", replacement: "\\\\geq", options: "mA"},\n	{trigger: "<=", replacement: "\\\\leq", options: "mA"},\n	{trigger: ">>", replacement: "\\\\gg", options: "mA"},\n	{trigger: "<<", replacement: "\\\\ll", options: "mA"},\n	{trigger: "~~", replacement: "\\\\sim", options: "mA"},\n	{trigger: "\\\\sim ~", replacement: "\\\\approx", options: "mA"},\n	{trigger: "prop", replacement: "\\\\propto", options: "mA"},\n	{trigger: "nabl", replacement: "\\\\nabla", options: "mA"},\n	{trigger: "del", replacement: "\\\\nabla", options: "mA"},\n	{trigger: "xx", replacement: "\\\\times", options: "mA"},\n	{trigger: "**", replacement: "\\\\cdot", options: "mA"},\n	{trigger: "para", replacement: "\\\\parallel", options: "mA"},\n\n	{trigger: "xnn", replacement: "x_{n}", options: "mA"},\n	{trigger: "xii", replacement: "x_{i}", options: "mA"},\n	{trigger: "xjj", replacement: "x_{j}", options: "mA"},\n	{trigger: "xp1", replacement: "x_{n+1}", options: "mA"},\n	{trigger: "ynn", replacement: "y_{n}", options: "mA"},\n	{trigger: "yii", replacement: "y_{i}", options: "mA"},\n	{trigger: "yjj", replacement: "y_{j}", options: "mA"},\n\n	{trigger: "mcal", replacement: "\\\\mathcal{$0}$1", options: "mA"},\n	{trigger: "mbb", replacement: "\\\\mathbb{$0}$1", options: "mA"},\n	{trigger: "ell", replacement: "\\\\ell", options: "mA"},\n	{trigger: "lll", replacement: "\\\\ell", options: "mA"},\n	{trigger: "LL", replacement: "\\\\mathcal{L}", options: "mA"},\n	{trigger: "HH", replacement: "\\\\mathcal{H}", options: "mA"},\n	{trigger: "CC", replacement: "\\\\mathbb{C}", options: "mA"},\n	{trigger: "RR", replacement: "\\\\mathbb{R}", options: "mA"},\n	{trigger: "ZZ", replacement: "\\\\mathbb{Z}", options: "mA"},\n	{trigger: "NN", replacement: "\\\\mathbb{N}", options: "mA"},\n	{trigger: "II", replacement: "\\\\mathbb{1}", options: "mA"},\n	{trigger: "\\\\mathbb{1}I", replacement: "\\\\hat{\\\\mathbb{1}}", options: "mA"},\n	{trigger: "AA", replacement: "\\\\mathcal{A}", options: "mA"},\n	{trigger: "BB", replacement: "\\\\mathbf{B}", options: "mA"},\n	{trigger: "EE", replacement: "\\\\mathbf{E}", options: "mA"},\n\n\n	// Unit vectors\n	{trigger: ":i", replacement: "\\\\mathbf{i}", options: "mA"},\n	{trigger: ":j", replacement: "\\\\mathbf{j}", options: "mA"},\n	{trigger: ":k", replacement: "\\\\mathbf{k}", options: "mA"},\n	{trigger: ":x", replacement: "\\\\hat{\\\\mathbf{x}}", options: "mA"},\n	{trigger: ":y", replacement: "\\\\hat{\\\\mathbf{y}}", options: "mA"},\n	{trigger: ":z", replacement: "\\\\hat{\\\\mathbf{z}}", options: "mA"},\n\n\n	// Derivatives\n	{trigger: "par", replacement: "\\\\frac{ \\\\partial ${0:y} }{ \\\\partial ${1:x} } $2", options: "m"},\n	{trigger: "pa2", replacement: "\\\\frac{ \\\\partial^{2} ${0:y} }{ \\\\partial ${1:x}^{2} } $2", options: "mA"},\n	{trigger: "pa3", replacement: "\\\\frac{ \\\\partial^{3} ${0:y} }{ \\\\partial ${1:x}^{3} } $2", options: "mA"},\n	{trigger: "pa([A-Za-z])([A-Za-z])", replacement: "\\\\frac{ \\\\partial [[0]] }{ \\\\partial [[1]] } ", options: "rm"},\n	{trigger: "pa([A-Za-z])([A-Za-z])([A-Za-z])", replacement: "\\\\frac{ \\\\partial^{2} [[0]] }{ \\\\partial [[1]] \\\\partial [[2]] } ", options: "rm"},\n	{trigger: "pa([A-Za-z])([A-Za-z])2", replacement: "\\\\frac{ \\\\partial^{2} [[0]] }{ \\\\partial [[1]]^{2} } ", options: "rmA"},\n	{trigger: "de([A-Za-z])([A-Za-z])", replacement: "\\\\frac{ d[[0]] }{ d[[1]] } ", options: "rm"},\n	{trigger: "de([A-Za-z])([A-Za-z])2", replacement: "\\\\frac{ d^{2}[[0]] }{ d[[1]]^{2} } ", options: "rmA"},\n	{trigger: "ddt", replacement: "\\\\frac{d}{dt} ", options: "mA"},\n\n\n	// Integrals\n	{trigger: "oinf", replacement: "\\\\int_{0}^{\\\\infty} $0 \\\\, d${1:x} $2", options: "mA"},\n	{trigger: "infi", replacement: "\\\\int_{-\\\\infty}^{\\\\infty} $0 \\\\, d${1:x} $2", options: "mA"},\n	{trigger: "dint", replacement: "\\\\int_{${0:0}}^{${1:\\\\infty}} $2 \\\\, d${3:x} $4", options: "mA"},\n	{trigger: "oint", replacement: "\\\\oint", options: "mA"},\n	{trigger: "iiint", replacement: "\\\\iiint", options: "mA"},\n	{trigger: "iint", replacement: "\\\\iint", options: "mA"},\n	{trigger: "int", replacement: "\\\\int $0 \\\\, d${1:x} $2", options: "mA"},\n\n\n	// Physics\n	{trigger: "kbt", replacement: "k_{B}T", options: "mA"},\n\n\n	// Quantum mechanics\n	{trigger: "hba", replacement: "\\\\hbar", options: "mA"},\n	{trigger: "dag", replacement: "^{\\\\dagger}", options: "mA"},\n	{trigger: "o+", replacement: "\\\\oplus ", options: "mA"},\n	{trigger: "ox", replacement: "\\\\otimes ", options: "mA"},\n	{trigger: "ot\\\\mathrm{Im}es", replacement: "\\\\otimes ", options: "mA"}, // Handle conflict with "im" snippet\n	{trigger: "bra", replacement: "\\\\bra{$0} $1", options: "mA"},\n	{trigger: "ket", replacement: "\\\\ket{$0} $1", options: "mA"},\n	{trigger: "brk", replacement: "\\\\braket{ $0 | $1 } $2", options: "mA"},\n	{trigger: "\\\\\\\\bra{([^|]+)\\\\|", replacement: "\\\\braket{ [[0]] | $0 ", options: "rmA", description: "Convert bra into braket"},\n	{trigger: "\\\\\\\\bra{(.+)}([^ ]+)>", replacement: "\\\\braket{ [[0]] | $0 ", options: "rmA", description: "Convert bra into braket (alternate)"},\n	{trigger: "outp", replacement: "\\\\ket{${0:\\\\psi}} \\\\bra{${0:\\\\psi}} $1", options: "mA"},\n\n\n	// Chemistry\n	{trigger: "pu", replacement: "\\\\pu{ $0 }", options: "mA"},\n	{trigger: "msun", replacement: "M_{\\\\odot}", options: "mA"},\n	{trigger: "solm", replacement: "M_{\\\\odot}", options: "mA"},\n	{trigger: "cee", replacement: "\\\\ce{ $0 }", options: "mA"},\n	{trigger: "iso", replacement: "{}^{${0:4}}_{${1:2}}${2:He}", options: "mA"},\n	{trigger: "hel4", replacement: "{}^{4}_{2}He ", options: "mA"},\n	{trigger: "hel3", replacement: "{}^{3}_{2}He ", options: "mA"},\n\n\n	// Environments\n	{trigger: "pmat", replacement: "\\\\begin{pmatrix}\\n$0\\n\\\\end{pmatrix}", options: "MA"},\n	{trigger: "bmat", replacement: "\\\\begin{bmatrix}\\n$0\\n\\\\end{bmatrix}", options: "MA"},\n	{trigger: "Bmat", replacement: "\\\\begin{Bmatrix}\\n$0\\n\\\\end{Bmatrix}", options: "MA"},\n	{trigger: "vmat", replacement: "\\\\begin{vmatrix}\\n$0\\n\\\\end{vmatrix}", options: "MA"},\n	{trigger: "Vmat", replacement: "\\\\begin{Vmatrix}\\n$0\\n\\\\end{Vmatrix}", options: "MA"},\n	{trigger: "matrix", replacement: "\\\\begin{matrix}\\n$0\\n\\\\end{matrix}", options: "MA"},\n	{trigger: "pmat", replacement: "\\\\begin{pmatrix}$0\\\\end{pmatrix}", options: "nA"},\n	{trigger: "bmat", replacement: "\\\\begin{bmatrix}$0\\\\end{bmatrix}", options: "nA"},\n	{trigger: "Bmat", replacement: "\\\\begin{Bmatrix}$0\\\\end{Bmatrix}", options: "nA"},\n	{trigger: "vmat", replacement: "\\\\begin{vmatrix}$0\\\\end{vmatrix}", options: "nA"},\n	{trigger: "Vmat", replacement: "\\\\begin{Vmatrix}$0\\\\end{Vmatrix}", options: "nA"},\n	{trigger: "matrix", replacement: "\\\\begin{matrix}$0\\\\end{matrix}", options: "nA"},\n	{trigger: "case", replacement: "\\\\begin{cases}\\n$0\\n\\\\end{cases}", options: "mA"},\n	{trigger: "align", replacement: "\\\\begin{align}\\n$0\\n\\\\end{align}", options: "mA"},\n	{trigger: "array", replacement: "\\\\begin{array}\\n$0\\n\\\\end{array}", options: "mA"},\n\n\n	// Brackets\n	{trigger: "avg", replacement: "\\\\langle $0 \\\\rangle $1", options: "mA"},\n	{trigger: "norm", replacement: "\\\\lvert $0 \\\\rvert $1", options: "mA", priority: 1},\n	{trigger: "Norm", replacement: "\\\\lVert $0 \\\\rVert $1", options: "mA", priority: 1},\n	{trigger: "ceil", replacement: "\\\\lceil $0 \\\\rceil $1", options: "mA"},\n	{trigger: "floor", replacement: "\\\\lfloor $0 \\\\rfloor $1", options: "mA"},\n	{trigger: "mod", replacement: "|$0|$1", options: "mA"},\n	{trigger: "(", replacement: "(${VISUAL})", options: "mA"},\n	{trigger: "[", replacement: "[${VISUAL}]", options: "mA"},\n	{trigger: "{", replacement: "{${VISUAL}}", options: "mA"},\n	{trigger: "(", replacement: "($0)$1", options: "mA"},\n	{trigger: "{", replacement: "{$0}$1", options: "mA"},\n	{trigger: "[", replacement: "[$0]$1", options: "mA"},\n	{trigger: "lr(", replacement: "\\\\left( $0 \\\\right) $1", options: "mA"},\n	{trigger: "lr|", replacement: "\\\\left| $0 \\\\right| $1", options: "mA"},\n	{trigger: "lr{", replacement: "\\\\left\\\\{ $0 \\\\right\\\\} $1", options: "mA"},\n	{trigger: "lr[", replacement: "\\\\left[ $0 \\\\right] $1", options: "mA"},\n	{trigger: "lra", replacement: "\\\\left< $0 \\\\right> $1", options: "mA"},\n\n\n	// Misc\n	{trigger: "tayl", replacement: "${0:f}(${1:x} + ${2:h}) = ${0:f}(${1:x}) + ${0:f}\'(${1:x})${2:h} + ${0:f}\'\'(${1:x}) \\\\frac{${2:h}^{2}}{2!} + \\\\dots$3", options: "mA"},\n	{trigger: /iden(\\d)/, replacement: (match) => {\n		const n = match[1];\n\n		let arr = [];\n		for (let j = 0; j < n; j++) {\n			arr[j] = [];\n			for (let i = 0; i < n; i++) {\n				arr[j][i] = (i === j) ? 1 : 0;\n			}\n		}\n\n		let output = arr.map(el => el.join(" & ")).join(" \\\\\\\\\\n");\n		output = `\\\\begin{pmatrix}\\n${output}\\n\\\\end{pmatrix}`;\n		return output;\n	}, options: "mA", description: "N x N identity matrix"},\n]\n';
+
+// src/utils/default_snippets.ts
+var DEFAULT_SNIPPETS = default_snippets_default;
 
 // src/settings/settings.ts
 var DEFAULT_SETTINGS = {
@@ -409,6 +924,7 @@ var DEFAULT_SETTINGS = {
   colorPairedBracketsEnabled: true,
   highlightCursorBracketsEnabled: true,
   mathPreviewEnabled: true,
+  mathPreviewPositionIsAbove: true,
   autofractionEnabled: true,
   autofractionSymbol: "\\frac",
   autofractionBreakingChars: "+-=	",
@@ -444,15 +960,6 @@ function processLatexSuiteSettings(snippets2, settings) {
       console.log(e);
     }
     return envs;
-  }
-  function getSnippetVariables(snippetVarsStr) {
-    let vars = [];
-    try {
-      vars = JSON.parse(snippetVarsStr);
-    } catch (e) {
-      console.log(e);
-    }
-    return vars;
   }
   return __spreadProps(__spreadValues({}, settings), {
     snippets: snippets2,
@@ -1617,17 +2124,17 @@ var Parser = class {
     return this.createParse(input, fragments || [], ranges);
   }
   parse(input, fragments, ranges) {
-    let parse = this.startParse(input, fragments, ranges);
+    let parse2 = this.startParse(input, fragments, ranges);
     for (; ; ) {
-      let done = parse.advance();
+      let done = parse2.advance();
       if (done)
         return done;
     }
   }
 };
 var StringInput = class {
-  constructor(string) {
-    this.string = string;
+  constructor(string2) {
+    this.string = string2;
   }
   get length() {
     return this.string.length;
@@ -2817,10 +3324,10 @@ var LRParser = class extends Parser {
     this.top = this.topRules[Object.keys(this.topRules)[0]];
   }
   createParse(input, fragments, ranges) {
-    let parse = new Parse(this, input, fragments, ranges);
+    let parse2 = new Parse(this, input, fragments, ranges);
     for (let w of this.wrappers)
-      parse = w(parse, input, fragments, ranges);
-    return parse;
+      parse2 = w(parse2, input, fragments, ranges);
+    return parse2;
   }
   getGoto(state, term, loose = false) {
     let table = this.goto;
@@ -4112,26 +4619,26 @@ var passive = {
   passive: true
 };
 function effect3(_ref) {
-  var state = _ref.state, instance = _ref.instance, options = _ref.options;
+  var state = _ref.state, instance2 = _ref.instance, options = _ref.options;
   var _options$scroll = options.scroll, scroll = _options$scroll === void 0 ? true : _options$scroll, _options$resize = options.resize, resize = _options$resize === void 0 ? true : _options$resize;
   var window2 = getWindow(state.elements.popper);
   var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
   if (scroll) {
     scrollParents.forEach(function(scrollParent) {
-      scrollParent.addEventListener("scroll", instance.update, passive);
+      scrollParent.addEventListener("scroll", instance2.update, passive);
     });
   }
   if (resize) {
-    window2.addEventListener("resize", instance.update, passive);
+    window2.addEventListener("resize", instance2.update, passive);
   }
   return function() {
     if (scroll) {
       scrollParents.forEach(function(scrollParent) {
-        scrollParent.removeEventListener("scroll", instance.update, passive);
+        scrollParent.removeEventListener("scroll", instance2.update, passive);
       });
     }
     if (resize) {
-      window2.removeEventListener("resize", instance.update, passive);
+      window2.removeEventListener("resize", instance2.update, passive);
     }
   };
 }
@@ -5012,7 +5519,7 @@ function popperGenerator(generatorOptions) {
     };
     var effectCleanupFns = [];
     var isDestroyed = false;
-    var instance = {
+    var instance2 = {
       state,
       setOptions: function setOptions(setOptionsAction) {
         var options2 = typeof setOptionsAction === "function" ? setOptionsAction(state.options) : setOptionsAction;
@@ -5049,7 +5556,7 @@ function popperGenerator(generatorOptions) {
           }
         }
         runModifierEffects();
-        return instance.update();
+        return instance2.update();
       },
       forceUpdate: function forceUpdate() {
         if (isDestroyed) {
@@ -5091,14 +5598,14 @@ function popperGenerator(generatorOptions) {
               state,
               options: _options,
               name,
-              instance
+              instance: instance2
             }) || state;
           }
         }
       },
       update: debounce2(function() {
         return new Promise(function(resolve) {
-          instance.forceUpdate();
+          instance2.forceUpdate();
           resolve(state);
         });
       }),
@@ -5111,9 +5618,9 @@ function popperGenerator(generatorOptions) {
       if (true) {
         console.error(INVALID_ELEMENT_ERROR);
       }
-      return instance;
+      return instance2;
     }
-    instance.setOptions(options).then(function(state2) {
+    instance2.setOptions(options).then(function(state2) {
       if (!isDestroyed && options.onFirstUpdate) {
         options.onFirstUpdate(state2);
       }
@@ -5125,7 +5632,7 @@ function popperGenerator(generatorOptions) {
           var cleanupFn = effect4({
             state,
             name,
-            instance,
+            instance: instance2,
             options: options2
           });
           var noopFn = function noopFn2() {
@@ -5140,7 +5647,7 @@ function popperGenerator(generatorOptions) {
       });
       effectCleanupFns = [];
     }
-    return instance;
+    return instance2;
   };
 }
 
@@ -5253,13 +5760,13 @@ var TextInputSuggest = class {
         {
           name: "sameWidth",
           enabled: true,
-          fn: ({ state, instance }) => {
+          fn: ({ state, instance: instance2 }) => {
             const targetWidth = `${state.rects.reference.width}px`;
             if (state.styles.popper.width === targetWidth) {
               return;
             }
             state.styles.popper.width = targetWidth;
-            instance.update();
+            instance2.update();
           },
           phase: "beforeWrite",
           requires: ["computeStyles"]
@@ -5367,19 +5874,16 @@ var LatexSuiteSettingTab = class extends import_obsidian4.PluginSettingTab {
       fragment.createDiv({}, (div) => div.setText("Disabled by default to not confuse new users. However, I recommend turning this on once you are comfortable with the plugin!"));
       new import_obsidian4.Setting(containerEl).setName("Enabled").setDesc(fragment).addToggle((toggle) => toggle.setValue(this.plugin.settings.concealEnabled).onChange((value) => __async(this, null, function* () {
         this.plugin.settings.concealEnabled = value;
-        this.plugin.refreshCMExtensions();
         yield this.plugin.saveSettings();
       })));
     }
     this.addHeading(containerEl, "Highlight and color brackets", "parentheses");
     new import_obsidian4.Setting(containerEl).setName("Color paired brackets").setDesc("Whether to colorize matching brackets.").addToggle((toggle) => toggle.setValue(this.plugin.settings.colorPairedBracketsEnabled).onChange((value) => __async(this, null, function* () {
       this.plugin.settings.colorPairedBracketsEnabled = value;
-      this.plugin.refreshCMExtensions();
       yield this.plugin.saveSettings();
     })));
     new import_obsidian4.Setting(containerEl).setName("Highlight matching bracket beneath cursor").setDesc("When the cursor is adjacent to a bracket, highlight the matching bracket.").addToggle((toggle) => toggle.setValue(this.plugin.settings.highlightCursorBracketsEnabled).onChange((value) => __async(this, null, function* () {
       this.plugin.settings.highlightCursorBracketsEnabled = value;
-      this.plugin.refreshCMExtensions();
       yield this.plugin.saveSettings();
     })));
     this.addHeading(containerEl, "Math popup preview", "superscript");
@@ -5392,7 +5896,10 @@ var LatexSuiteSettingTab = class extends import_obsidian4.PluginSettingTab {
     popup_fragment.append(popup_line1, popup_space, popup_line4);
     new import_obsidian4.Setting(containerEl).setName("Enabled").setDesc(popup_fragment).addToggle((toggle) => toggle.setValue(this.plugin.settings.mathPreviewEnabled).onChange((value) => __async(this, null, function* () {
       this.plugin.settings.mathPreviewEnabled = value;
-      this.plugin.refreshCMExtensions();
+      yield this.plugin.saveSettings();
+    })));
+    const mathPreviewPositionSetting = new import_obsidian4.Setting(containerEl).setName("Position").setDesc("Where to display the popup preview relative to the equation source.").addDropdown((dropdown) => dropdown.addOption("Above", "Above").addOption("Below", "Below").setValue(this.plugin.settings.mathPreviewPositionIsAbove ? "Above" : "Below").onChange((value) => __async(this, null, function* () {
+      this.plugin.settings.mathPreviewPositionIsAbove = value === "Above";
       yield this.plugin.saveSettings();
     })));
     this.addHeading(containerEl, "Auto-fraction", "math-x-divide-y-2");
@@ -5473,8 +5980,9 @@ var LatexSuiteSettingTab = class extends import_obsidian4.PluginSettingTab {
       if (v.docChanged) {
         const value = v.state.doc.toString();
         let success = true;
+        const snippetVariables = getSnippetVariables(this.plugin.settings.snippetVariables);
         try {
-          yield parseSnippets(value);
+          yield parseSnippets(value, snippetVariables);
         } catch (e) {
           success = false;
         }
@@ -6021,24 +6529,28 @@ var SnippetChangeSpec = class {
       if (!(text.charAt(i) === "$")) {
         continue;
       }
-      let number = parseInt(text.charAt(i + 1));
+      let number2 = parseInt(text.charAt(i + 1));
       const tabstopStart = i;
       let tabstopEnd = tabstopStart + 2;
       let tabstopReplacement = "";
-      if (isNaN(number)) {
-        if (!(text.charAt(i + 1) === "{" && text.charAt(i + 3) === ":"))
-          continue;
-        number = parseInt(text.charAt(i + 2));
-        if (isNaN(number))
+      if (isNaN(number2)) {
+        if (!(text.charAt(i + 1) === "{"))
           continue;
         const closingIndex = findMatchingBracket(text, i + 1, "{", "}", false, start2 + this.insert.length);
+        const tabstopString = text.slice(i, closingIndex + 1);
+        if (!tabstopString.includes(":"))
+          continue;
+        const colonIndex = tabstopString.indexOf(":");
+        number2 = parseInt(tabstopString.slice(2, colonIndex));
+        if (isNaN(number2))
+          continue;
         if (closingIndex === -1)
           continue;
-        tabstopReplacement = text.slice(i + 4, closingIndex);
+        tabstopReplacement = text.slice(i + colonIndex + 1, closingIndex);
         tabstopEnd = closingIndex + 1;
         i = closingIndex;
       }
-      const tabstop = { number, from: tabstopStart, to: tabstopEnd, replacement: tabstopReplacement };
+      const tabstop = { number: number2, from: tabstopStart, to: tabstopEnd, replacement: tabstopReplacement };
       tabstops.push(tabstop);
     }
     return tabstops;
@@ -6090,6 +6602,7 @@ var import_commands2 = __toModule(require("@codemirror/commands"));
 var import_view8 = __toModule(require("@codemirror/view"));
 var import_state6 = __toModule(require("@codemirror/state"));
 var addTabstopsEffect = import_state6.StateEffect.define();
+var filterTabstopsEffect = import_state6.StateEffect.define();
 var removeTabstopEffect = import_state6.StateEffect.define();
 var removeAllTabstopsEffect = import_state6.StateEffect.define();
 var tabstopsStateField = import_state6.StateField.define({
@@ -6102,6 +6615,16 @@ var tabstopsStateField = import_state6.StateField.define({
     for (const effect4 of transaction.effects) {
       if (effect4.is(addTabstopsEffect)) {
         tabstopGroups.unshift(...effect4.value);
+      } else if (effect4.is(filterTabstopsEffect)) {
+        tabstopGroups = tabstopGroups.filter((value2) => {
+          return value2.decos.size != 0;
+        });
+        const editorSel = effect4.value;
+        tabstopGroups.forEach((value2) => {
+          if (editorSel.eq(value2.toEditorSelection())) {
+            value2.hideFromEditor();
+          }
+        });
       } else if (effect4.is(removeTabstopEffect)) {
         tabstopGroups.shift();
       } else if (effect4.is(removeAllTabstopsEffect)) {
@@ -6129,6 +6652,11 @@ function getTabstopGroupsFromView(view) {
 function addTabstops(view, tabstopGroups) {
   view.dispatch({
     effects: [addTabstopsEffect.of(tabstopGroups)]
+  });
+}
+function filterTabstops(view) {
+  view.dispatch({
+    effects: [filterTabstopsEffect.of(view.state.selection)]
   });
 }
 function removeTabstop(view) {
@@ -6287,9 +6815,9 @@ function tabstopSpecsToTabstopGroups(tabstops, color) {
   }
   const result = [];
   const numbers = Object.keys(tabstopsByNumber);
-  numbers.sort();
-  for (const number of numbers) {
-    const grp = new TabstopGroup(tabstopsByNumber[number], color);
+  numbers.sort((a, b) => parseInt(a) - parseInt(b));
+  for (const number2 of numbers) {
+    const grp = new TabstopGroup(tabstopsByNumber[number2], color);
     result.push(grp);
   }
   return result;
@@ -6363,9 +6891,10 @@ function expandTabstops(view, tabstops) {
   });
   const firstGrp = getTabstopGroupsFromView(view)[0];
   firstGrp.select(view, false, true);
-  removeOnlyTabstop(view);
+  tidyTabstops(view);
 }
-function removeOnlyTabstop(view) {
+function tidyTabstops(view) {
+  filterTabstops(view);
   const currentTabstopGroups = getTabstopGroupsFromView(view);
   if (currentTabstopGroups.length === 1) {
     removeAllTabstops(view);
@@ -6386,12 +6915,14 @@ function consumeAndGotoNextTabstop(view) {
   removeTabstop(view);
   const oldSel = view.state.selection;
   const nextGrp = getTabstopGroupsFromView(view)[0];
+  if (!nextGrp)
+    return false;
   const shouldMoveToEndpoints = nextGrp.containsSelection(oldSel);
   nextGrp.select(view, shouldMoveToEndpoints, false);
   const newSel = view.state.selection;
   if (oldSel.eq(newSel))
     return consumeAndGotoNextTabstop(view);
-  removeOnlyTabstop(view);
+  tidyTabstops(view);
   return true;
 }
 
@@ -6409,7 +6940,7 @@ var autoEnlargeBrackets = (view) => {
   const left2 = "\\left";
   const right2 = "\\right";
   for (let i = start2; i < end2; i++) {
-    const brackets2 = { "(": ")", "[": "]", "\\{": "\\}", "\\langle": "\\rangle", "\\lvert": "\\rvert", "\\lceil": "\\rceil", "\\lfloor": "\\rfloor" };
+    const brackets2 = { "(": ")", "[": "]", "\\{": "\\}", "\\langle": "\\rangle", "\\lvert": "\\rvert", "\\lVert": "\\rVert", "\\lceil": "\\rceil", "\\lfloor": "\\rfloor" };
     const openBrackets = Object.keys(brackets2);
     let found = false;
     let open = "";
@@ -6464,19 +6995,23 @@ var runSnippetCursor = (view, ctx, key, range) => {
     if (!snippetShouldRunInMode(snippet.options, ctx.mode)) {
       continue;
     }
-    if (snippet.options.automatic || snippet.replacement.contains("${VISUAL}")) {
+    if (snippet.options.automatic || snippet.type === "visual") {
       if (!(key.length === 1))
         continue;
       effectiveLine += key;
     } else if (!(key === settings.snippetsTrigger)) {
       continue;
     }
-    if (snippet.trigger in EXCLUSIONS) {
-      const environment = EXCLUSIONS[snippet.trigger];
-      if (ctx.isWithinEnvironment(to, environment))
-        continue;
+    let isExcluded = false;
+    for (const environment of snippet.excludedEnvironments) {
+      if (ctx.isWithinEnvironment(to, environment)) {
+        isExcluded = true;
+      }
     }
-    const result = processSnippet(snippet, effectiveLine, range, sel, settings.snippetVariables);
+    if (isExcluded) {
+      continue;
+    }
+    const result = snippet.process(effectiveLine, range, sel);
     if (result === null)
       continue;
     const triggerPos = result.triggerPos;
@@ -6494,37 +7029,6 @@ var runSnippetCursor = (view, ctx, key, range) => {
     return { success: true, shouldAutoEnlargeBrackets: containsTrigger };
   }
   return { success: false, shouldAutoEnlargeBrackets: false };
-};
-var processSnippet = (snippet, effectiveLine, range, sel, snippetVariables) => {
-  let triggerPos;
-  let trigger = snippet.trigger;
-  trigger = insertSnippetVariables(trigger, snippetVariables);
-  let replacement = snippet.replacement;
-  if (snippet.replacement.contains("${VISUAL}")) {
-    if (!sel)
-      return null;
-    if (!(effectiveLine.slice(-trigger.length) === trigger))
-      return null;
-    triggerPos = range.from;
-    replacement = snippet.replacement.replace("${VISUAL}", sel);
-  } else if (sel) {
-    return null;
-  } else if (!snippet.options.regex) {
-    if (!(effectiveLine.slice(-trigger.length) === trigger))
-      return null;
-    triggerPos = effectiveLine.length - trigger.length;
-  } else {
-    const regex = new RegExp(trigger + "$", snippet.flags);
-    const result = regex.exec(effectiveLine);
-    if (!result) {
-      return null;
-    }
-    for (let i = 1; i < result.length; i++) {
-      replacement = replacement.replaceAll("[[" + (i - 1) + "]]", result[i]);
-    }
-    triggerPos = result.index;
-  }
-  return { triggerPos, replacement };
 };
 var snippetShouldRunInMode = (options, mode) => {
   if (options.mode.inlineMath && mode.inlineMath || options.mode.blockMath && mode.blockMath || (options.mode.inlineMath || options.mode.blockMath) && mode.codeMath) {
@@ -6544,12 +7048,6 @@ var isOnWordBoundary = (state, triggerPos, to, wordDelimiters) => {
   const nextChar = state.sliceDoc(to, to + 1);
   wordDelimiters = wordDelimiters.replace("\\n", "\n");
   return wordDelimiters.contains(prevChar) && wordDelimiters.contains(nextChar);
-};
-var insertSnippetVariables = (trigger, variables) => {
-  for (const [variable, replacement] of Object.entries(variables)) {
-    trigger = trigger.replace(variable, replacement);
-  }
-  return trigger;
 };
 var trimWhitespace = (replacement, ctx) => {
   let spaceIndex = 0;
@@ -7130,6 +7628,8 @@ var brackets = {
   "rangle": "\u3009",
   "lvert": "|",
   "rvert": "|",
+  "lVert": "||",
+  "rVert": "||",
   "vert": "|"
 };
 var mathbb = {
@@ -7561,6 +8061,11 @@ function conceal(view) {
           const start2 = bounds.start + concealment.start;
           const end2 = bounds.start + concealment.end;
           const symbol = concealment.replacement;
+          let inclusiveStart = false;
+          let inclusiveEnd = false;
+          if (symbol === "") {
+            inclusiveStart = true;
+          }
           if (!mousedown && selectionAndRangeOverlap(selection, start2, end2))
             continue;
           if (start2 === end2) {
@@ -7571,7 +8076,8 @@ function conceal(view) {
           } else {
             widgets.push(import_view10.Decoration.replace({
               widget: new ConcealWidget(symbol, concealment.class, concealment.elementType),
-              inclusive: false,
+              inclusiveStart,
+              inclusiveEnd,
               block: false
             }).range(start2, end2));
           }
@@ -7766,6 +8272,7 @@ var cursorTooltipField = import_state12.StateField.define({
   provide: (f) => import_view12.showTooltip.computeN([f], (state) => state.field(f))
 });
 function getCursorTooltips(state) {
+  const settings = getLatexSuiteConfig(state);
   const ctx = Context.fromState(state);
   if (!ctx.mode.inMath()) {
     return [];
@@ -7781,8 +8288,8 @@ function getCursorTooltips(state) {
     return [];
   return [
     {
-      pos: bounds.start,
-      above: true,
+      pos: ctx.mode.inlineMath || settings.mathPreviewPositionIsAbove ? bounds.start : bounds.end,
+      above: settings.mathPreviewPositionIsAbove,
       strictSide: true,
       arrow: true,
       create: () => {
@@ -7804,10 +8311,12 @@ var cursorTooltipBaseTheme = import_view12.EditorView.baseTheme({
     padding: "4px 6px",
     borderRadius: "6px",
     "& .cm-tooltip-arrow:before": {
-      borderTopColor: "var(--background-modifier-border-hover)"
+      borderTopColor: "var(--background-modifier-border-hover)",
+      borderBottomColor: "var(--background-modifier-border-hover)"
     },
     "& .cm-tooltip-arrow:after": {
-      borderTopColor: "var(--background-secondary)"
+      borderTopColor: "var(--background-secondary)",
+      borderBottomColor: "var(--background-secondary)"
     },
     "& p": {
       margin: "0px"
@@ -7878,6 +8387,7 @@ var handleKeydown = (key, shiftKey, ctrlKey, view) => {
         return true;
     }
   }
+  tidyTabstops(view);
   return false;
 };
 var handleTabstops = (view) => {
@@ -7943,7 +8453,15 @@ var LatexSuitePlugin = class extends import_obsidian8.Plugin {
         this.saveSettings();
       }
       if (this.settings.loadSnippetsFromFile) {
-        const tempSnippets = yield parseSnippets(this.settings.snippets);
+        const tempSnippetVariables = getSnippetVariables(this.settings.snippetVariables);
+        let tempSnippets = [];
+        try {
+          tempSnippets = yield parseSnippets(this.settings.snippets, tempSnippetVariables);
+        } catch (e) {
+          new import_obsidian8.Notice(`Failed to load snippets:
+${e}`);
+          console.log("Failed to load snippets:\n", e);
+        }
         this.CMSettings = processLatexSuiteSettings(tempSnippets, this.settings);
         this.app.workspace.onLayoutReady(() => {
           this.processSettings();
@@ -7961,10 +8479,18 @@ var LatexSuitePlugin = class extends import_obsidian8.Plugin {
   }
   getSnippets() {
     return __async(this, null, function* () {
+      const snippetVariables = getSnippetVariables(this.settings.snippetVariables);
       if (!this.settings.loadSnippetsFromFile) {
-        return yield parseSnippets(this.settings.snippets);
+        let snippets2 = [];
+        try {
+          snippets2 = yield parseSnippets(this.settings.snippets, snippetVariables);
+        } catch (e) {
+          new import_obsidian8.Notice("Failed to load snippets from settings");
+          console.log("Failed to load snippets from settings:", e);
+        }
+        return snippets2;
       } else {
-        const snippets2 = yield getSnippetsWithinFileOrFolder(this.app.vault, this.settings.snippetsFileLocation);
+        const snippets2 = yield getSnippetsWithinFileOrFolder(this.app.vault, this.settings.snippetsFileLocation, snippetVariables);
         return snippets2;
       }
     });
