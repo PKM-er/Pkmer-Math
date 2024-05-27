@@ -25739,7 +25739,7 @@ var import_obsidian4 = require("obsidian");
 var path = __toESM(require("path"));
 var import_path = require("path");
 
-// node_modules/.pnpm/github.com+Vinzent03+git-js@6b9a2d899bc8256e38a1d6f0b8a88116ba2bf56a_supports-color@9.4.0_rdkutdaeyye3o67thmklazfzta/node_modules/simple-git/dist/esm/index.js
+// node_modules/.pnpm/simple-git@https+++codeload.github.com+Vinzent03+git-js+tar.gz+6b9a2d899bc8256e38a1d6f0b8a881_rku6lxlylrt42756swupwur2wa/node_modules/simple-git/dist/esm/index.js
 init_polyfill_buffer();
 var import_file_exists = __toESM(require_dist(), 1);
 var import_debug = __toESM(require_browser(), 1);
@@ -30269,6 +30269,9 @@ var SimpleGit = class extends GitManager {
     const status2 = await this.git.status((err) => this.onError(err));
     const trackingBranch = status2.tracking;
     const currentBranch2 = status2.current;
+    if (!trackingBranch) {
+      return false;
+    }
     const remoteChangedFiles = (await this.git.diffSummary([currentBranch2, trackingBranch, "--"])).changed;
     return remoteChangedFiles !== 0;
   }
@@ -39896,10 +39899,10 @@ var DiscardModal = class extends import_obsidian24.Modal {
 init_polyfill_buffer();
 var import_obsidian26 = require("obsidian");
 
-// node_modules/.pnpm/github.com+Vinzent03+obsidian-community-lib@e663de4f95c879b40613090da78ea599ff621d24_@codemir_xyncsguozhhawq25qkwtwp76my/node_modules/obsidian-community-lib/dist/index.js
+// node_modules/.pnpm/obsidian-community-lib@https+++codeload.github.com+Vinzent03+obsidian-community-lib+tar.gz+e6_dmashd4lm54vdqd2gnfngnqe2m/node_modules/obsidian-community-lib/dist/index.js
 init_polyfill_buffer();
 
-// node_modules/.pnpm/github.com+Vinzent03+obsidian-community-lib@e663de4f95c879b40613090da78ea599ff621d24_@codemir_xyncsguozhhawq25qkwtwp76my/node_modules/obsidian-community-lib/dist/utils.js
+// node_modules/.pnpm/obsidian-community-lib@https+++codeload.github.com+Vinzent03+obsidian-community-lib+tar.gz+e6_dmashd4lm54vdqd2gnfngnqe2m/node_modules/obsidian-community-lib/dist/utils.js
 init_polyfill_buffer();
 var feather = __toESM(require_feather());
 var import_obsidian25 = require("obsidian");
@@ -44105,7 +44108,7 @@ var ObsidianGit = class extends import_obsidian31.Plugin {
     this.addCommand({
       id: "set-upstream-branch",
       name: "Set upstream branch",
-      callback: async () => this.setUpsreamBranch()
+      callback: async () => this.setUpstreamBranch()
     });
     this.addCommand({
       id: "delete-repo",
@@ -44586,10 +44589,11 @@ var ObsidianGit = class extends import_obsidian31.Plugin {
       fromAutoBackup,
       requestCustomMessage,
       commitMessage
-    }))
+    })) {
       return;
+    }
     if (!this.settings.disablePush) {
-      if (await this.gitManager.canPush()) {
+      if (await this.remotesAreSet() && await this.gitManager.canPush()) {
         if (this.settings.syncMethod != "reset" && this.settings.pullBeforePush) {
           await this.pull();
         }
@@ -44917,11 +44921,11 @@ var ObsidianGit = class extends import_obsidian31.Plugin {
     }
     if (!(await this.gitManager.branchInfo()).tracking) {
       new import_obsidian31.Notice("No upstream branch is set. Please select one.");
-      return await this.setUpsreamBranch();
+      return await this.setUpstreamBranch();
     }
     return true;
   }
-  async setUpsreamBranch() {
+  async setUpstreamBranch() {
     const remoteBranch = await this.selectRemoteBranch();
     if (remoteBranch == void 0) {
       this.displayError("Aborted. No upstream-branch is set!", 1e4);
