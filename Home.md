@@ -37,6 +37,7 @@ dlink:
 >```dataview
 >table WITHOUT ID file.link AS "标题", file.mtime
 >from !"模板" and !"kanban"
+>where contains(file.tags, "数学")
 >sort file.mtime desc
 >limit 8
 >```
