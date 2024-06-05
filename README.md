@@ -20,6 +20,8 @@ PKMer-Math开发者交流群(QQ): 782017903
 1. [基于Obsidian的新型考研数学笔记原子分子树的构建](https://www.bilibili.com/video/BV1dp4y1d7NQ)
 2. [MathWiki: An Obsidian.md vault for my math course notes in university](https://github.com/zhaoshenzhai/MathWiki)
 3. [09-22年考研数学一真题](https://www.bilibili.com/video/BV1ta4y1Q75u)
+4. [数学 (insile.github.io)](https://insile.github.io/my-notes/%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E7%A7%91%E5%AD%A6/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6)
+
 
 ---
 # 目录:
@@ -47,7 +49,7 @@ PKMer-Math开发者交流群(QQ): 782017903
 ---
 # 关于合作开发
 
-本项目在GitHub开源，为了更好地进行和合作开发，计划在此做一些教程和规范
+本项目在GitHub开源，为了更好地进行和合作开发，计划在此做一些教程和规范, 目前开发原则和内容规范都在拟定中, 随时会变化, 如有更好的建议欢迎提案. 
 
 ## 开发原则
 1. 尽可能简洁, 让人能够快速理解
@@ -58,11 +60,18 @@ PKMer-Math开发者交流群(QQ): 782017903
 7. 除了Home主页, 必要的流程中严禁使用css,javascript
 8. 只能在每章的目录文件中使用dataview查询, 但需要同时保留手写的目录
 
+### 允许的第三方插件
+- dataview
+- Templater
+- Git
+
+
 ## 内容规范
-- 所有词条都要按顺序添加上级目录的双链, 如:
-- 积分表属于微积分的不定积分章节, 则需要添加名为dlink的property, 类型为list, 
-- 值要依次添加--高等数学--, 微积分, 不定积分, 共计三项
-- 如果是时间来不及则先将文件放到对应的文件夹下, 有时间再做整理
+- 所有词条都要按层级顺序添加上级目录的双链, 如:
+	- 积分表属于微积分的不定积分章节, 则需要添加名为dlink的property, 类型为list, 内容为所属的最近一层目录, `dlink: [[不定积分]]`
+- 如果是时间来不及则先将文件放到对应的一级文件夹下, 有时间再做整理
+- 内容应该尽量原子化, 即每一个篇章都有最基本的概念组成, 如果需要整合多个原子化的词条内容, 需要使用内容引用语法: `![[向量]]` 
+- 
 
 ## 准备条件
 大致分为几个部分: 
