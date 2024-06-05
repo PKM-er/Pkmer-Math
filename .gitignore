@@ -1,20 +1,24 @@
 # 首先排除自己, 每个人情况不一样,单独配置
 .gitignore
 
-# 同步.obsidian文件夹下指定的子文件夹, 这些插件都暂时没有用到, 将来找机会剔除
+# 同步.obsidian文件夹下指定的子文件夹,名称前加"!", 这些插件都暂时没有用到, 将来找机会剔除
 .obsidian/*
-!.obsidian/plugins
+.obsidian/app.json
+.obsidian/snippets
+.obsidian/community-plugins.json
+.obsidian/graph.json
+.obsidian/bookmarks.json
+
+.obsidian/plugins
 .obsidian/plugins/*
-!.obsidian/plugins/dataview/
-!.obsidian/plugins/obsidian-git/
-!.obsidian/plugins/obsidian-linter/
-!.obsidian/plugins/quickadd/
-!.obsidian/plugins/obsidian-outliner/
-!.obsidian/plugins/table-editor-obsidian/
-!.obsidian/plugins/obsidian-latex-suite/
-!.obsidian/plugins/templater-obsidian
-!.obsidian/app.json
-!.obsidian/snippets
+.obsidian/plugins/dataview/
+.obsidian/plugins/obsidian-git/
+.obsidian/plugins/obsidian-linter/
+.obsidian/plugins/quickadd/
+.obsidian/plugins/obsidian-outliner/
+.obsidian/plugins/table-editor-obsidian/
+.obsidian/plugins/obsidian-latex-suite/
+.obsidian/plugins/templater-obsidian
 
 # 其他ob相关文件夹
 .history

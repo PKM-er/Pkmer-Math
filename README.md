@@ -83,13 +83,20 @@ PKMer-Math开发者交流群(QQ): 782017903
 - 最底层的内容应该尽量原子化, 即每一个篇章都由单个最基本的概念组成, 如果需要整合多个原子化的词条内容, 需要使用内容引用语法: `![[向量]]` 
 	- 原子化的词条主要内容放在开头, 不使用标题. 
 	- 原子化的词条间接介绍部分使用多级标题(如性质, 推广, 例子...)
-- [ ] 词条内容结构(待完善)
-	- 简介
+- [ ] 词条内容结构(历史内容待完善)
+	- 简介, 考虑使用词条本身作为名称, 方便引用
 	- 定义
 	- 性质
-	- 举例
+	- 例题
 	- 推论
 	- 应用
+- [ ] 头部YAML配置项(property)
+	- tags: 数学, AI(仅限gpt生成词条)
+	- dlink: 双链, 记录父级目录和相关词条
+	- aliases: 别名, 简写, 英语, 日语
+	- author: 作者, 可以是多个
+	- urlink: 外部引用, 如Wikipedia
+	- 
 
 ## 准备条件
 大致分为几个部分: 
@@ -231,18 +238,23 @@ Note库还不存在, Math库已克隆至本地
 
 # 同步.obsidian文件夹下指定的子文件夹, 这些插件都暂时没有用到, 将来找机会剔除
 .obsidian/*
-!.obsidian/plugins
+.obsidian/app.json
+.obsidian/snippets
+.obsidian/community-plugins.json
+.obsidian/graph.json
+.obsidian/bookmarks.json
+
+.obsidian/plugins
 .obsidian/plugins/*
-!.obsidian/plugins/dataview/
-!.obsidian/plugins/obsidian-git/
-!.obsidian/plugins/obsidian-linter/
-!.obsidian/plugins/quickadd/
-!.obsidian/plugins/obsidian-outliner/
-!.obsidian/plugins/table-editor-obsidian/
-!.obsidian/plugins/obsidian-latex-suite/
-!.obsidian/plugins/templater-obsidian
-!.obsidian/app.json
-!.obsidian/snippets
+.obsidian/plugins/dataview/
+.obsidian/plugins/obsidian-git/
+.obsidian/plugins/obsidian-linter/
+.obsidian/plugins/quickadd/
+.obsidian/plugins/obsidian-outliner/
+.obsidian/plugins/table-editor-obsidian/
+.obsidian/plugins/obsidian-latex-suite/
+.obsidian/plugins/templater-obsidian
+
 
 # 其他ob相关文件夹
 .history

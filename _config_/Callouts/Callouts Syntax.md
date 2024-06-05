@@ -125,3 +125,22 @@ Alias: `error`
 >>
 >```
 
+---
+# 更多
+[[Callouts-Bug]]
+[[Callouts-Abstract]]
+[[Callouts-ChatGPT]]
+[[Callouts-Example]]
+[[Callouts-Danger]]
+[[Callouts-Failure]]
+[[Callouts-Info]]
+[[Callouts-Note]]
+[[Callouts-Question]]
+[[Callouts-Quote]]
+[[Callouts-Success]]
+[[Callouts-Tips]]
+[[Callouts-Todo]]
+[[Callouts-Warning]]
+[[Callouts Syntax]]
+
+
