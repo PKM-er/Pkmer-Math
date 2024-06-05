@@ -6,7 +6,7 @@ dlink:
 ---
 > [!example] [[-高等数学-|总目录]]
 
-> [!example]+ [[--微积分--]]
+> [!example]- 微积分
 >```dataview
 >list 
 >from ""
@@ -15,7 +15,7 @@ dlink:
 >sort file.name desc
 >```
 
-> [!example]- [[--线性代数--]]
+> [!example]- 线性代数
 >```dataview
 >list 
 >from ""
@@ -24,7 +24,7 @@ dlink:
 >sort file.name desc
 >```
 
-> [!example]- [[--概率论--]]
+> [!example]- 概率论
 >```dataview
 >list 
 >from ""
@@ -37,6 +37,7 @@ dlink:
 >```dataview
 >table WITHOUT ID file.link AS "标题", file.mtime
 >from !"模板" and !"kanban"
+>where contains(file.tags, "数学")
 >sort file.mtime desc
 >limit 8
 >```
