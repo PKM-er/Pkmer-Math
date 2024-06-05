@@ -1,5 +1,3 @@
 {
-  "alwaysUpdateLinks": true,
-  "showInlineTitle": false,
-  "useTab": true
+  "mobilePullAction": ""
 }
