@@ -5,6 +5,7 @@ dlink:
   - "[[-高等数学-]]"
 aliases:
   - QR Decomposition
+  - QR分解
 ---
 QRD通过将矩阵 $A$ 分解为一个正交矩阵 $Q$ 和一个上三角矩阵 $R$ 的乘积来求解逆矩阵。
 
