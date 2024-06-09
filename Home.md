@@ -6,7 +6,7 @@
 >from ""
 >where regexmatch("-.*-" ,file.name)
 >and contains(file.path, "微积分")
->sort file.name desc
+>sort chapter, file.name desc
 >```
 
 > [!example]- 线性代数
@@ -37,7 +37,11 @@
 >```
 
 > [!todo]+ 
-> - [ ] 逆矩阵 伴随矩阵原子化
+> ```dataview
+> task
+> where contains(file.path,"_config_/todo/")
+> and !fullyCompleted
+> ```
 
 > [!tip]+ 参考
 > - [[高等数学 第7版 上册 同济大学.pdf]]
