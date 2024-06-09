@@ -36,12 +36,19 @@
 >limit 8
 >```
 
+> [!warning]- 同步冲突文件
+> ```dataview
+> list
+> WHERE regextest("\(conflict \d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}\)$",file.name)
+> ```
+
 > [!todo]- 
 > ```dataview
 > task
 > where contains(file.path,"_config_/todo/")
 > and !fullyCompleted
 > ```
+
 
 > [!tip]+ 参考
 > - [[高等数学 第7版 上册 同济大学.pdf]]
