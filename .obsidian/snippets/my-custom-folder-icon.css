@@ -1,17 +1,18 @@
-/* 设置文件夹图标 */
+/* 设置根目录和子文件夹图标 */
+.nav-folder-title-content::before,
 .nav-folder-children .nav-folder-title-content::before {
-	Content: '';
-	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 32 32' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:sketch='http://www.bohemiancoding.com/sketch/ns' fill='%237648C9' style='--darkreader-inline-fill: %23522c95; --darkreader-inline-stroke: %238258ce;' stroke='%237648C9' data-darkreader-inline-fill='' data-darkreader-inline-stroke=''%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Ctitle%3Efolder-2%3C/title%3E%3Cdesc%3ECreated with Sketch Beta.%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' sketch:type='MSPage' data-darkreader-inline-stroke='' style='--darkreader-inline-stroke: none;'%3E%3Cg id='Icon-Set' sketch:type='MSLayerGroup' transform='translate(-360.000000, -151.000000)' fill='%237648C9' data-darkreader-inline-fill='' style='--darkreader-inline-fill: %23522c95;'%3E%3Cpath d='M390,161 L362,161 L362,155 C362,153.896 362.896,153 364,153 L370,153 C371.104,153 372,153.896 372,155 L372,157 L388,157 C389.104,157 390,157.896 390,159 L390,161 L390,161 Z M390,179 C390,180.104 389.104,181 388,181 L364,181 C362.896,181 362,180.104 362,179 L362,163 L390,163 L390,179 L390,179 Z M388,155 L374,155 C374,152.791 372.209,151 370,151 L364,151 C361.791,151 360,152.791 360,155 L360,179 C360,181.209 361.791,183 364,183 L388,183 C390.209,183 392,181.209 392,179 L392,159 C392,156.791 390.209,155 388,155 L388,155 Z' id='folder-2' sketch:type='MSShapeGroup'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-	Background-size: 14px 14px;
-	Transform: translate (0, 4px);
-	Background-repeat: no-repeat;
-	Display: inline-block;
-	Height: 14px;
-	Width: 14px;
-	Margin-right: 4px;
+    content: '';
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 32 32' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:sketch='http://www.bohemiancoding.com/sketch/ns' fill='%237648C9' style='--darkreader-inline-fill: %23522c95; --darkreader-inline-stroke: %238258ce;' stroke='%237648C9' data-darkreader-inline-fill='' data-darkreader-inline-stroke=''%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Ctitle%3Efolder-2%3C/title%3E%3Cdesc%3ECreated with Sketch Beta.%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' sketch:type='MSPage' data-darkreader-inline-stroke='' style='--darkreader-inline-stroke: none;'%3E%3Cg id='Icon-Set' sketch:type='MSLayerGroup' transform='translate(-360.000000, -151.000000)' fill='%237648C9' data-darkreader-inline-fill='' style='--darkreader-inline-fill: %23522c95;'%3E%3Cpath d='M390,161 L362,161 L362,155 C362,153.896 362.896,153 364,153 L370,153 C371.104,153 372,153.896 372,155 L372,157 L388,157 C389.104,157 390,157.896 390,159 L390,161 L390,161 Z M390,179 C390,180.104 389.104,181 388,181 L364,181 C362.896,181 362,180.104 362,179 L362,163 L390,163 L390,179 L390,179 Z M388,155 L374,155 C374,152.791 372.209,151 370,151 L364,151 C361.791,151 360,152.791 360,155 L360,179 C360,181.209 361.791,183 364,183 L388,183 C390.209,183 392,181.209 392,179 L392,159 C392,156.791 390.209,155 388,155 L388,155 Z' id='folder-2' sketch:type='MSShapeGroup'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size: 13px 13px;
+    transform: translate(0, 4px);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    margin-right: 2px;
 }
 
-/* 设置 文件图标 */
+/* 设置 默认文件图标 */
 /* .nav-folder-children .nav-file-title:first-child::before {
     content: '';
     background-image: url("data:image/svg+xml,%3Csvg fill='%237648C9' viewBox='0 0 24 24' role='img' xmlns='http://www.w3.org/2000/svg' data-darkreader-inline-fill='' style='--darkreader-inline-fill: %23522c95;'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Ctitle%3EMarkdown icon%3C/title%3E%3Cpath d='M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
@@ -23,3 +24,51 @@
     width: 12px;
     margin-right: 4px;
 } */
+
+/* 重置通用样式，确保一致性 */
+.nav-file-title::before {
+    content: '';
+    display: inline-block;
+    width: 0; /* 重置宽度以避免默认图标占用位置 */
+}
+
+/* 设置 Markdown 文件图标 */
+.nav-file-title[data-path$=".md"]::before {
+    content: '';
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --%3E%3Csvg width='80px' height='80px' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 3.5C0 2.67157 0.671573 2 1.5 2H13.5C14.3284 2 15 2.67157 15 3.5V11.5C15 12.3284 14.3284 13 13.5 13H1.5C0.671574 13 0 12.3284 0 11.5V3.5ZM10 5V8.29289L8.85359 7.14648L8.14648 7.85359L10.1465 9.85359C10.3417 10.0489 10.6583 10.0489 10.8536 9.85359L12.8536 7.85359L12.1465 7.14648L11 8.29297V5H10ZM2.85355 5.14646C2.71055 5.00346 2.4955 4.96068 2.30866 5.03807C2.12182 5.11547 2 5.29778 2 5.50001V10H3V6.70712L4.5 8.20712L6 6.70712V10H7V5.50001C7 5.29778 6.87818 5.11547 6.69134 5.03807C6.5045 4.96068 6.28945 5.00346 6.14645 5.14646L4.5 6.79291L2.85355 5.14646Z' fill='%23000000'/%3E%3C/svg%3E");
+    background-size: 12px 12px;
+    transform: translate(0, 4px);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin-right: 4px;
+}
+
+/* 设置 PDF 文件图标 */
+.nav-file-title[data-path$=".pdf"]::before {
+    content: '';
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --%3E%3Csvg width='80px' height='80px' viewBox='-4 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25.6686 26.0962C25.1812 26.2401 24.4656 26.2563 23.6984 26.145C22.875 26.0256 22.0351 25.7739 21.2096 25.403C22.6817 25.1888 23.8237 25.2548 24.8005 25.6009C25.0319 25.6829 25.412 25.9021 25.6686 26.0962ZM17.4552 24.7459C17.3953 24.7622 17.3363 24.7776 17.2776 24.7939C16.8815 24.9017 16.4961 25.0069 16.1247 25.1005L15.6239 25.2275C14.6165 25.4824 13.5865 25.7428 12.5692 26.0529C12.9558 25.1206 13.315 24.178 13.6667 23.2564C13.9271 22.5742 14.193 21.8773 14.468 21.1894C14.6075 21.4198 14.7531 21.6503 14.9046 21.8814C15.5948 22.9326 16.4624 23.9045 17.4552 24.7459ZM14.8927 14.2326C14.958 15.383 14.7098 16.4897 14.3457 17.5514C13.8972 16.2386 13.6882 14.7889 14.2489 13.6185C14.3927 13.3185 14.5105 13.1581 14.5869 13.0744C14.7049 13.2566 14.8601 13.6642 14.8927 14.2326ZM9.63347 28.8054C9.38148 29.2562 9.12426 29.6782 8.86063 30.0767C8.22442 31.0355 7.18393 32.0621 6.64941 32.0621C6.59681 32.0621 6.53316 32.0536 6.44015 31.9554C6.38028 31.8926 6.37069 31.8476 6.37359 31.7862C6.39161 31.4337 6.85867 30.8059 7.53527 30.2238C8.14939 29.6957 8.84352 29.2262 9.63347 28.8054ZM27.3706 26.1461C27.2889 24.9719 25.3123 24.2186 25.2928 24.2116C24.5287 23.9407 23.6986 23.8091 22.7552 23.8091C21.7453 23.8091 20.6565 23.9552 19.2582 24.2819C18.014 23.3999 16.9392 22.2957 16.1362 21.0733C15.7816 20.5332 15.4628 19.9941 15.1849 19.4675C15.8633 17.8454 16.4742 16.1013 16.3632 14.1479C16.2737 12.5816 15.5674 11.5295 14.6069 11.5295C13.948 11.5295 13.3807 12.0175 12.9194 12.9813C12.0965 14.6987 12.3128 16.8962 13.562 19.5184C13.1121 20.5751 12.6941 21.6706 12.2895 22.7311C11.7861 24.0498 11.2674 25.4103 10.6828 26.7045C9.04334 27.3532 7.69648 28.1399 6.57402 29.1057C5.8387 29.7373 4.95223 30.7028 4.90163 31.7107C4.87693 32.1854 5.03969 32.6207 5.37044 32.9695C5.72183 33.3398 6.16329 33.5348 6.6487 33.5354C8.25189 33.5354 9.79489 31.3327 10.0876 30.8909C10.6767 30.0029 11.2281 29.0124 11.7684 27.8699C13.1292 27.3781 14.5794 27.011 15.985 26.6562L16.4884 26.5283C16.8668 26.4321 17.2601 26.3257 17.6635 26.2153C18.0904 26.0999 18.5296 25.9802 18.976 25.8665C20.4193 26.7844 21.9714 27.3831 23.4851 27.6028C24.7601 27.7883 25.8924 27.6807 26.6589 27.2811C27.3486 26.9219 27.3866 26.3676 27.3706 26.1461ZM30.4755 36.2428C30.4755 38.3932 28.5802 38.5258 28.1978 38.5301H3.74486C1.60224 38.5301 1.47322 36.6218 1.46913 36.2428L1.46884 3.75642C1.46884 1.6039 3.36763 1.4734 3.74457 1.46908H20.263L20.2718 1.4778V7.92396C20.2718 9.21763 21.0539 11.6669 24.0158 11.6669H30.4203L30.4753 11.7218L30.4755 36.2428ZM28.9572 10.1976H24.0169C21.8749 10.1976 21.7453 8.29969 21.7424 7.92417V2.95307L28.9572 10.1976ZM31.9447 36.2428V11.1157L21.7424 0.871022V0.823357H21.6936L20.8742 0H3.74491C2.44954 0 0 0.785336 0 3.75711V36.2435C0 37.5427 0.782956 40 3.74491 40H28.2001C29.4952 39.9997 31.9447 39.2143 31.9447 36.2428Z' fill='%23EB5757'/%3E%3C/svg%3E");
+    background-size: 12px 12px;
+    transform: translate(0, 4px);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin-right: 4px;
+}
+
+/* 设置图片文件图标 (支持 JPG 和 PNG) */
+.nav-file-title[data-path$=".jpg"]::before,
+.nav-file-title[data-path$=".jpeg"]::before,
+.nav-file-title[data-path$=".png"]::before {
+    content: '';
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --%3E%3Csvg width='80px' height='80px' viewBox='0 0 1024 1024' class='icon' version='1.1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M892.10374 938.7H131.90374C59.20374 938.7 0.00374 879.5 0.00374 806.8V217.2C0.00374 144.5 59.20374 85.3 131.90374 85.3h760.2c72.7 0 131.9 59.2 131.9 131.9v589.6c0 72.7-59.2 131.9-131.9 131.9z m-760.2-768c-25.7 0-46.5 20.9-46.5 46.5v589.6c0 25.7 20.9 46.5 46.5 46.5h760.2c25.7 0 46.5-20.9 46.5-46.5V217.2c0-25.7-20.9-46.5-46.5-46.5H131.90374z' fill='%233688FF' /%3E%3Cpath d='M42.70374 832c-13.7 0-27.2-6.6-35.4-18.8-13.2-19.5-8-46.1 11.5-59.2l376-253.4c34.4-23.2 77.6-20.3 105.1 7.1l101.2 100.7c0.2-0.1 0.4-0.3 0.6-0.4l353.8-268.5c18.8-14.2 45.5-10.6 59.8 8.2 14.2 18.8 10.6 45.5-8.2 59.8L653.30374 675.8c-34.6 26.3-80.6 24.6-109.4-4L442.80374 571.1c-0.1 0.1-0.2 0.1-0.3 0.2l-376 253.4c-7.3 4.9-15.6 7.3-23.8 7.3z' fill='%235F6379' /%3E%3Cpath d='M234.70374 320m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z' fill='%235F6379' /%3E%3C/svg%3E");
+    background-size: 12px 12px;
+    transform: translate(0, 4px);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin-right: 4px;
+}
