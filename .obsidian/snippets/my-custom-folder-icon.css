@@ -1,3 +1,12 @@
+/* 
+设置步骤:
+1. 找一个svg图标文件(https://www.svgrepo.com/vectors/markdown/)
+2. 将svg用记事本打开, 复制内容
+3. 将内容转为data url(https://yoksel.github.io/url-encoder/)
+4. 粘贴到background-image: url()设置项
+ */
+
+
 /* 设置根目录和子文件夹图标 */
 .nav-folder-title-content::before,
 .nav-folder-children .nav-folder-title-content::before {
@@ -72,3 +81,5 @@
     width: 12px;
     margin-right: 4px;
 }
+
+
