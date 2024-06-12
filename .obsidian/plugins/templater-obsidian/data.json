@@ -19,6 +19,10 @@
       "template": "_config_/Template/template-微积分.md"
     },
     {
+      "folder": "线性代数",
+      "template": "_config_/Template/template-线性代数.md"
+    },
+    {
       "folder": "概率论",
       "template": "_config_/Template/template-概率论.md"
     },
@@ -32,8 +36,6 @@
   "enabled_templates_hotkeys": [
     ""
   ],
-  "startup_templates": [
-    "_config_/Template/template-default.md"
-  ],
+  "startup_templates": [],
   "enable_ribbon_icon": true
 }
