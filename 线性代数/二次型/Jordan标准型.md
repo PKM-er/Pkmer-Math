@@ -38,4 +38,4 @@ J = \begin{bmatrix}
 0 & 0 & 4
 \end{bmatrix}
 $$
-这样，矩阵 $P$ 就能将矩阵 $A$ 通过相似变换转换为其Jordan 标准型 $J$。
+这样，矩阵 $P$ 就能将矩阵 $A$ 通过相似变换转换为其Jordan标准型 $J$。
