@@ -17,7 +17,6 @@
 >and contains(file.path, "线性代数")
 >sort file.name desc
 >```
-
 > [!example]- 概率论
 >```dataview
 >list 
@@ -26,7 +25,6 @@
 >and contains(file.path, "概率论")
 >sort file.name desc
 >```
-
 > [!note]+ 最近编辑
 >```dataview
 >table WITHOUT ID file.link AS "标题", file.mtime
@@ -44,6 +42,7 @@
 > ```
 
 > [!warning]- 同步冲突文件
+> 
 > ```dataview
 > list
 > WHERE regextest("$conflict \d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}$$",file.name)
