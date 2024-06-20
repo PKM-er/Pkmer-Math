@@ -1,4 +1,5 @@
 > [!example] [[-高等数学-|总目录]]
+
 > [!example]- 微积分
 >```dataview
 >list 
@@ -7,6 +8,7 @@
 >and contains(file.path, "微积分")
 >sort chapter, file.name desc
 >```
+
 > [!example]- 线性代数
 >```dataview
 >list 
@@ -15,6 +17,7 @@
 >and contains(file.path, "线性代数")
 >sort file.name desc
 >```
+
 > [!example]- 概率论
 >```dataview
 >list 
@@ -23,6 +26,7 @@
 >and contains(file.path, "概率论")
 >sort file.name desc
 >```
+
 > [!note]+ 最近编辑
 >```dataview
 >table WITHOUT ID file.link AS "标题", file.mtime
@@ -31,18 +35,21 @@
 >sort file.mtime desc
 >limit 8
 >```
+
 > [!todo]- 
 > ```dataview
 > task
 > where contains(file.path,"_config_/todo/")
 > and !fullyCompleted
 > ```
+
 > [!warning]- 同步冲突文件
 > 
 > ```dataview
 > list
 > WHERE regextest("$conflict \d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}$$",file.name)
 > ```
+
 > [!tip]+ 参考
 > - [[高等数学 第7版 上册 同济大学.pdf]]
 > - [[高等数学 第7版 下册 同济大学.pdf]]
@@ -52,6 +59,7 @@
 >- [[Callouts Syntax]]
 >- [[WolframAlpha]]
 >- [[公式编辑器]]
+
 >[!quote] 名言
 >Mathematics requires a small dose, not of genius but of an imaginative freedom which, in a larger dose, would be insanity. -Angus K. Rodgers
 >
