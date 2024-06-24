@@ -22,11 +22,12 @@ PKMer-Math开发者交流群(QQ): 782017903
 3. ChatGPT
 4. 开发者们的学识
 
-## 其他Obsidian数学库
+## 其他数学库
 1. [基于Obsidian的新型考研数学笔记原子分子树的构建](https://www.bilibili.com/video/BV1dp4y1d7NQ)
 2. [MathWiki: An Obsidian.md vault for my math course notes in university](https://github.com/zhaoshenzhai/MathWiki)
 3. [09-22年考研数学一真题](https://www.bilibili.com/video/BV1ta4y1Q75u)
 4. [数学 (insile.github.io)](https://insile.github.io/my-notes/%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E7%A7%91%E5%AD%A6/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6)
+5. [OI Wiki](https://oi-wiki.org/math)
 
 
 ---
@@ -46,19 +47,6 @@ PKMer-Math开发者交流群(QQ): 782017903
 - 二级为--微积分--, --线性代数--, --概率论--等具体学科分支 
 - 三级为学科分支的章节划分, 如极限, 导数与微分
 - 最下级为具体的原子化词条和由其组织的文章
-
-部分目录结构如下所示: 
--高等数学-
-	--微积分--
-		极限
-		导数与微分
-		...
-	--线性代数--
-		行列式
-		矩阵
-		...
-	--概率论--
-	...
 
 ## 文档
 为了阐述某概念而按逻辑顺序书写的文章, 有时会引用词条. 

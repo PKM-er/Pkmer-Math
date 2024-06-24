@@ -191,6 +191,8 @@ $$
 18. 自然数集合, 符号：`\mathbb{Z}`, 如：`\mathbb{Z}`
 
 19. 空集, 符号：`\emptyset`, 如：$\emptyset$
+20. 任意: `forall` $\forall$
+21. 存在: `exists` $\exists$
 
 ## 数学符号
 
