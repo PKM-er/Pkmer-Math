@@ -39,8 +39,8 @@
 > [!todo]- 
 > ```dataview
 > task
-> where contains(file.path,"_config_/todo/")
-> and !fullyCompleted
+> where (contains(file.path,"_config_/todo/")
+> and !fullyCompleted)
 > ```
 
 > [!warning]- 同步冲突
