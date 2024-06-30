@@ -23,11 +23,11 @@ PKMer-Math开发者交流群(QQ): 782017903
 4. 开发者们的学识
 
 ## 其他数学库
-1. [基于Obsidian的新型考研数学笔记原子分子树的构建](https://www.bilibili.com/video/BV1dp4y1d7NQ)
-2. [MathWiki: An Obsidian.md vault for my math course notes in university](https://github.com/zhaoshenzhai/MathWiki)
+1. ~~[基于Obsidian的新型考研数学笔记原子分子树的构建](https://www.bilibili.com/video/BV1dp4y1d7NQ)(复杂且没用)~~
+2. [MathWiki](https://github.com/zhaoshenzhai/MathWiki)(非常难)
 3. [09-22年考研数学一真题](https://www.bilibili.com/video/BV1ta4y1Q75u)
-4. [数学 (insile.github.io)](https://insile.github.io/my-notes/%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E7%A7%91%E5%AD%A6/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6)
-5. [OI Wiki](https://oi-wiki.org/math)
+4. [数学 (insile.github.io)](https://insile.github.io/my-notes/%E7%AC%94%E8%AE%B0/%E5%BD%A2%E5%BC%8F%E7%A7%91%E5%AD%A6/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6)(内容较基础)
+5. [OI Wiki](https://oi-wiki.org/math)(算法竞赛)
 
 
 ---
