@@ -4,6 +4,8 @@ tags:
 dlink:
   - "[[--线性代数--]]"
   - "[[逆矩阵]]"
+author:
+  - Cyletix
 ---
 To find the inverse of the matrix $A = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$ using Gauss-Jordan elimination, we can follow these steps:
 
