@@ -10,6 +10,8 @@ dlink:
 aliases:
   - Singular value decomposition
   - 奇异值分解
+author:
+  - Cyletix
 datetime: 2023-08-29 11:09:04
 ---
 奇异值分解是一种矩阵分解方法，将一个矩阵分解为三个矩阵的乘积。

@@ -6,6 +6,9 @@ dlink:
 aliases:
   - LU Decomposition
   - LU分解
+author:
+  - Cyletix
+  - GPT-4
 ---
 ## LUD
 LU分解是矩阵分解的一种，将一个矩阵分解为一个下三角矩阵和一个上三角矩阵的乘积，有时需要再乘上一个置换矩阵。LU分解可以被视为[[高斯消元法]]的矩阵形式。

@@ -6,10 +6,12 @@ dlink:
 aliases:
   - QR Decomposition
   - QR分解
+author:
+  - Cyletix
+  - GPT-4
 ---
 ## QRD
-QRD通过将矩阵 $A$ 分解为一个正交矩阵 $Q$ 和一个上三角矩阵 $R$ 的乘积来求解逆矩阵。
-
+QRD通过将矩阵 $A$ 分解为一个正交矩阵 $Q$ 和一个上三角矩阵 $R
 ## 步骤
 1. **QRD**：将矩阵 $A$ 分解为正交矩阵 $Q$ 和上三角矩阵 $R$：
 $$
