@@ -3,9 +3,12 @@ tags:
   - 数学
 dlink:
   - "[[--微积分--]]"
+author:
+  - Cyletix
+  - GPT-4
 ---
 对于大多数常见函数，混合偏导数是相等的。这由 **Schwarz 定理**（Schwarz's theorem）或称 **Clairaut 定理**（Clairaut's theorem）所保证。该定理表明，如果一个函数的混合偏导数在一个点及其附近连续，那么这两个混合偏导数是相等的。
-### 定理陈述
+# 定理陈述
 设 $f$ 是定义在开集 $U \subset \mathbb{R}^2$ 上的二次连续可导函数，即函数 $f$ 具有连续的二阶偏导数。则对于 $U$ 中的任意点 $(x, y)$，有：
 $$
 \frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}

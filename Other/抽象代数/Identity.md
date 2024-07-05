@@ -6,5 +6,7 @@ dlink:
 aliases:
   - 单位元
   - 幺元
+author:
+  - Cyletix
 ---
 there is $e \in G$, for all $g \in G$, $e\cdot g=g\cdot e=g$
