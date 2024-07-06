@@ -36,7 +36,7 @@
 >limit 8
 >```
 
-> [!todo]+
+> [!todo]-
 > ```dataview
 > task
 > where (contains(file.path,"_config_/todo/")
