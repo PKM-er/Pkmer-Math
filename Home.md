@@ -36,12 +36,17 @@
 >limit 8
 >```
 
-> [!todo]- 
+> [!todo]+
 > ```dataview
 > task
 > where (contains(file.path,"_config_/todo/")
 > and !fullyCompleted)
 > ```
+>```dataview
+>list
+>where  contains(file.tags, "数学") 
+>and finished=false
+>```
 
 > [!warning]- 同步冲突
 > 
