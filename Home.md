@@ -6,7 +6,7 @@
 >from ""
 >where regexmatch("-.*-" ,file.name)
 >and contains(file.path, "微积分")
->sort chapter, file.name desc
+>sort chapter
 >```
 
 > [!example]- 线性代数
@@ -15,16 +15,15 @@
 >from ""
 >where regexmatch("-.*-" ,file.name)
 >and contains(file.path, "线性代数")
->sort file.name desc
+>sort chapter
 >```
 
 > [!example]- 概率论
 >```dataview
->list 
->from ""
+>list
 >where regexmatch("-.*-" ,file.name)
 >and contains(file.path, "概率论")
->sort file.name desc
+>sort chapter
 >```
 
 > [!note]+ 最近编辑
@@ -60,8 +59,8 @@
 > - [[高等数学 第7版 下册 同济大学.pdf]]
 > - [[线性代数 第5版 同济大学.pdf]]
 > - [[概率论与数理统计(浙大四版).pdf]]
->- [[STEM/Math/_config_/Markdown数学公式]]
->- [[STEM/Math/_config_/Callouts/Callouts Syntax]]
+>- [[Markdown数学公式]]
+>- [[Callouts Syntax]]
 >- [[WolframAlpha]]
 >- [[公式编辑器]]
 
