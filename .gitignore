@@ -20,6 +20,10 @@
 .obsidian/plugins/obsidian-latex-suite/
 .obsidian/plugins/templater-obsidian
 
+# config文件夹
+# _config_/*
+
+
 # 其他ob相关文件夹
 .history
 .trash
