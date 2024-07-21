@@ -554,29 +554,29 @@ $$┌ ┐ └ ┘ \\ulcorner \\urcorner \\llcorner \\lrcorner ┌┐└┘$$
 |$\sqrt[n]{k}$|\sqrt[n]{k}|
 
 ### Sums and Integrals
-|Symbol|Script|
-|---|---|
-|$\sum_{i=1}^{10} t_i$|\sum_{i=1}^{10} t_i|
-|$\int_0^\infty \mathrm{e}^{-x},\mathrm{d}x$|\int_0^\infty \mathrm{e}^{-x},\mathrm{d}x|
-|$\sum$|\sum|
-|$\prod$|\prod|
-|$\coprod$|\coprod|
-|$\bigoplus$|\bigoplus|
-|$\bigotimes$|\bigotimes|
-|$\bigodot$|\bigodot|
-|$\bigcup$|\bigcup|
-|$\bigcap$|\bigcap|
-|$\biguplus$|\biguplus|
-|$\bigsqcup$|\bigsqcup|
-|$\bigvee$|\bigvee|
-|$\bigwedge$|\bigwedge|
-|$\int$|\int|
-|$\oint$|\oint|
-|$\iint$|\iint|
-|$\iiint$|\iiint|
-|$\idotsint$|\idotsint|
-|$$\sum_{\substack{0<i<m\0<j<n}} P(i, j)$$ |\sum_{\substack{0<i<m\0<j<n}} P(i, j)|
-|$\int\limits_a^b$|\int\limits_a^b|
+| Symbol                                      | Script                                    |
+| ------------------------------------------- | ----------------------------------------- |
+| $\sum_{i=1}^{10} t_i$                       | \sum_{i=1}^{10} t_i                       |
+| $\int_0^\infty \mathrm{e}^{-x},\mathrm{d}x$ | \int_0^\infty \mathrm{e}^{-x},\mathrm{d}x |
+| $\sum$                                      | \sum                                      |
+| $\prod$                                     | \prod                                     |
+| $\coprod$                                   | \coprod                                   |
+| $\bigoplus$                                 | \bigoplus                                 |
+| $\bigotimes$                                | \bigotimes                                |
+| $\bigodot$                                  | \bigodot                                  |
+| $\bigcup$                                   | \bigcup                                   |
+| $\bigcap$                                   | \bigcap                                   |
+| $\biguplus$                                 | \biguplus                                 |
+| $\bigsqcup$                                 | \bigsqcup                                 |
+| $\bigvee$                                   | \bigvee                                   |
+| $\bigwedge$                                 | \bigwedge                                 |
+| $\int$                                      | \int                                      |
+| $\oint$                                     | \oint                                     |
+| $\iint$                                     | \iint                                     |
+| $\iiint$                                    | \iiint                                    |
+| $\idotsint$                                 | \idotsint                                 |
+| $$\sum_{\substack{0<i<m\0<j<n}} P(i, j)$$   | \sum_{\substack{0<i<m\0<j<n}} P(i, j)     |
+| $\int\limits_a^b$                           | \int\limits_a^b                           |
 
 |Symbol|Script|
 |---|---|
