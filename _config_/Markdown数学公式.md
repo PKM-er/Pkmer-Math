@@ -88,25 +88,27 @@ $$
  8. 求和运算, 符号: `\sum`, 如: $\sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$
  9. 求和运算, 符号: `\displaystyle \sum`, 如: $\displaystyle \sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$
  10. 积分运算, 符号: `\int`, 如: $\int^{\infty}_{0}{xdx}$ $\smallint$
-$$
-定积分:
-\int_{1}^{2}
-\intop_{2}^{1}
-\\
-$$
-$$
-重积分:
-\iint
-\iiint
-$$
-$$
-线积分:
-\oint
-\oiint
-\oiiint
-(似乎需要额外的Latex符号包)
-$$
- 11. 微分运算, 符号: `\partial`, 如: $\frac{\partial x}{\partial y}$
+	1.定积分:
+	$$
+	\int_{1}^{2}
+	\intop_{2}^{1}
+	\\
+	$$
+	2. 重积分:
+	$$
+	\iint
+	\iiint
+	$$
+	3. 线积分:(似乎需要额外的Latex符号包)
+	$$
+	\oint
+	\oiint
+	\oiiint
+	
+	$$
+	4. 线积分:一种不需要额外符号包的方法(原创): 
+	$$\int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}$$
+ 1. 微分运算, 符号: `\partial`, 如: $\frac{\partial x}{\partial y}$
 $$
 \nabla		
 \partial x			
@@ -317,64 +319,79 @@ $$\lim\nolimits_{k \to \infty}$$
 # 二、修饰符号
 
 ## 1\. 简单的帽子
-
-θ ^ A B ^ y ˉ A B ‾ a ~ a c ~ a ˉ a ˊ a ˇ a ˋ a ˙ a ¨ \\hat{\\theta} \\widehat{AB} \\\\ \\bar{y} \\overline{AB} \\\\ \\tilde{a} \\widetilde{ac} \\\\ \\bar{a} \\acute{a} \\check{a} \\grave{a} \\\\ \\dot{a} \\ddot{a} θ^AB yˉ​ABa~ac aˉaˊaˇaˋa˙a¨
-
-
+$\hat{\theta}$ $\widehat{AB}$ 
+```
 $$
 \hat{\theta}
 \widehat{AB}
-\\
+```
+$\bar{y}$ $\overline{AB}$ 
+```
 \bar{y}
 \overline{AB}
-\\
+```
+```
 \tilde{a}
 \widetilde{ac}
-\\
+```
+$\tilde{a}$ $\widetilde{ac}$ $\bar{a}$ $\acute{a}$ $\check{a}$ $\grave{a}$ 
+```
 \bar{a}
 \acute{a}
 \check{a}
 \grave{a}
-\\
+```
+$\dot{a}$ $\ddot{a}$ 
+```
 \dot{a}
 \ddot{a}
-$$
+```
 
 
 ## 2\. 帽子和袜子
-
-A B ← A B → A B ↔ A B ← A B → A B ↔ A B ⏞ A B ⏟ A B ‾ A B ‾ \\overleftarrow{AB} \\overrightarrow{AB} \\overleftrightarrow{AB} \\\\ \\underleftarrow{AB} \\underrightarrow{AB} \\underleftrightarrow{AB} \\\\ \\overbrace{AB} \\underbrace{AB} \\\\ \\overline{AB} \\underline{AB} AB AB AB AB​ AB​ AB​AB AB​ABAB​
-
+$\overleftarrow{AB}$  
+$\overrightarrow{AB}$ 
+$\overleftrightarrow{AB}$ 
 ```
-$$
 \overleftarrow{AB}
 \overrightarrow{AB}
 \overleftrightarrow{AB}
-\\
+```
+$\underleftarrow{AB}$
+$\underrightarrow{AB}$
+$\underleftrightarrow{AB}$
+```
 \underleftarrow{AB}
 \underrightarrow{AB}
 \underleftrightarrow{AB}
-\\
+```
+$\overbrace{AB}$
+$\underbrace{AB}$
+```
 \overbrace{AB}
 \underbrace{AB}
-\\
+```
+$\overline{AB}$
+$\underline{AB}$
+```
 \overline{AB}
 \underline{AB}
-$$
 ```
 
 ## 3\. 盒子和帽子
 
-$$a + b + c ⏞ note a + b + c ⏟ note π = 3.14 \\overbrace{a+b+c}^{\\text{note}} \\\\ \\underbrace{a+b+c}\_{\\text{note}} \\\\ \\boxed{\\pi=3.14} a+b+c ​note​note a+b+c​​π\=3.14​$$
+$\overbrace{a+b+c}^{\text{note}}$ 
+
+$\underbrace{a+b+c}_{\text{note}}$
+
+$\boxed{\pi=3.14}$ 
 
 ```
-$$
 \overbrace{a+b+c}^{\text{note}}
 \\
 \underbrace{a+b+c}_{\text{note}}
 \\
 \boxed{\pi=3.14}
-$$
 ```
 
 ## 4\. 各种括号
@@ -389,8 +406,7 @@ $$
 \Bigg(
 $$
 ```
-
-$$$$ $$ < > ∣ − 2 ∣ { } $$$$ <> |-2| \\{\\} $$$$<\>∣−2∣{}$$
+ $$ < > ∣ − 2 ∣ { } $$$$ <> |-2| \\{\\} $$$$<\>∣−2∣{}$$
 
 ```
 $$
