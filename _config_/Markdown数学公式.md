@@ -4,6 +4,9 @@ tags:
 urlink:
   - https://www.jianshu.com/p/e74eb43960a1
   - https://blog.csdn.net/m0_37167788/article/details/78603307
+author:
+  - DanielGavin
+  - Cyletix
 ---
 # 一、基本符号
 ## 行内与独行
@@ -41,12 +44,6 @@ urlink:
 5. 组合公式, 符号: `{上位公式 \choose 下位公式}`, 如: ${n+1 \choose k}={n \choose k}+{n \choose k-1}$
 6. 组合公式, 符号: `{上位公式 \atop 下位公式}`, 如: $\sum_{k_0,k_1,\ldots>0 \atop k_0+k_1+\cdots=n}A_{k_0}A_{k_1}\cdots$
 7. 连结大括号
-```
-\left\{
-\begin{aligned}
-\end{aligned}
-\right.
-```
 $$ f(x)=\left\{
 \begin{aligned}
 x & =  \cos(t) \\
@@ -55,15 +52,26 @@ z & =  \frac xy
 \end{aligned}
 \right.
 $$
+```
+\left\{
+\begin{aligned}
+\\
+\end{aligned}
+\right.
+```
 8. 组合数
-```
-\binom{n}{k}  
-\tbinom{n}{k}
-```
 $$
 \binom{n}{k}
+$$
+```
+\binom{n}{k}
+```
+$$
 \tbinom{n}{k}
 $$
+```
+\tbinom{n}{k}
+```
 ## 四则运算
  1. 加法运算, 符号: `+`, 如: $x+y=z$
  2. 减法运算, 符号: `-`, 如: $x-y=z$
@@ -86,7 +94,7 @@ $$
  6. 极限运算, 符号: `\lim`, 如: $\lim^{x \to \infty}_{y \to 0}{\frac{x}{y}}$
  7. 极限运算, 符号: `\displaystyle \lim`, 如: $\displaystyle \lim^{x \to \infty}_{y \to 0}{\frac{x}{y}}$
  8. 求和运算, 符号: `\sum`, 如: $\sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$
- 9. 求和运算, 符号: `\displaystyle \sum`, 如: $\displaystyle \sum^{x \to \infty}_{y \to 0}{\frac{x}{y}}$
+ 9. 求和运算, 符号: `\prod`, 如: $\prod_{x \to 0}^{\infty}{\frac{x}{y}}$
  10. 积分运算, 符号: `\int`, 如: $\int^{\infty}_{0}{xdx}$ $\smallint$
 	1.定积分:
 	$$
@@ -104,21 +112,25 @@ $$
 	\oint
 	\oiint
 	\oiiint
-	
 	$$
 	4. 线积分:一种不需要额外符号包的方法(原创): 
 	$$\int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}$$
- 1. 微分运算, 符号: `\partial`, 如: $\frac{\partial x}{\partial y}$
-$$
-\nabla		
-\partial x			
-\mathrm{d}x	
-\dot x		
-\ddot y     
-\Delta
-$$
+```
+\int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}
+```
+
+ 11. 微分运算, 符号: `\partial`, 如: $\frac{\partial x}{\partial y}$
+
+|               |             |
+| ------------- | ----------- |
+| $\mathrm{d}x$ | \mathrm{d}x |
+| $\partial$    | \partial    |
+| $\Delta$      | \Delta      |
+| $\nabla$      | \nabla      |
+| $\dot x$      | \dot        |
+| $\ddot y$     | \ddot       |
 12. 矩阵表示, 符号: `\begin{matrix} \end{matrix}`, 如: 
-$$\left[ \begin{matrix} 1 &2 &\cdots &4\5 &6 &\cdots &8\\vdots &\vdots &\ddots &\vdots\13 &14 &\cdots &16\end{matrix} \right]$$
+$$\left[ \begin{matrix} 1 &2 &\cdots &4 & 5 &6 &\cdots &8\\vdots &\vdots &\ddots &\vdots & 13 &14 &\cdots &16\end{matrix} \right]$$
 13. 导数 `a'  a''  a^{\prime}`
 $$
 a'
@@ -126,72 +138,41 @@ a''
 a^{\prime}
 $$
 
-
-
 ## 逻辑运算
 
  1. 等于运算, 符号: ` = `, 如: $x+y=z$
-
  2. 大于运算, 符号: `>`, 如: $x+y>z$
-
  3. 小于运算, 符号: `<`, 如: $x+y<z$
-
  4. 大于等于运算, 符号: `\geq`, 如: $x+y \geq z$
-
  5. 小于等于运算, 符号: `\leq`, 如: $x+y \leq z$
-
  6. 不等于运算, 符号: `\neq`, 如: $x+y \neq z$
-
  7. 不大于等于运算, 符号: `\ngeq`, 如: $x+y \ngeq z$
-
  8. 不大于等于运算, 符号: `\not\geq`, 如: $x+y \not\geq z$
-
  9. 不小于等于运算, 符号: `\nleq`, 如: $x+y \nleq z$
-
 10. 不小于等于运算, 符号: `\not\leq`, 如: $x+y \not\leq z$
-
 11. 约等于运算, 符号: `\approx`, 如: $x+y \approx z$
-
 12. 恒定等于运算, 符号: `\equiv`, 如: $x+y \equiv z$
 
 ## 集合运算
 
  1. 属于运算, 符号: `\in`, 如: $x \in y$
-
  2. 不属于运算, 符号: `\notin`, 如: $x \notin y$
-
  3. 不属于运算, 符号: `\not\in`, 如: $x \not\in y$
-
  4. 子集运算, 符号: `\subset`, 如: $x \subset y$
-
  5. 子集运算, 符号: `\supset`, 如: $x \supset y$
-
  6. 真子集运算, 符号: `\subseteq`, 如: $x \subseteq y$
-
  7. 非真子集运算, 符号: `\subsetneq`, 如: $x \subsetneq y$
-
  8. 真子集运算, 符号: `\supseteq`, 如: $x \supseteq y$
-
  9. 非真子集运算, 符号: `\supsetneq`, 如: $x \supsetneq y$
-
 10. 非子集运算, 符号: `\not\subset`, 如: $x \not\subset y$
-
 11. 非子集运算, 符号: `\not\supset`, 如: $x \not\supset y$
-
 12. 并集运算, 符号: `\cup`, 如: $x \cup y$
-
 13. 交集运算, 符号: `\cap`, 如: $x \cap y$
-
 14. 差集运算, 符号: `\setminus`, 如: $x \setminus y$
-
 15. 同或运算, 符号: `\bigodot`, 如: $x \bigodot y$
-
 16. 同与运算, 符号: `\bigotimes`, 如: $x \bigotimes y$
-
 17. 实数集合, 符号: `\mathbb{R}`, 如: `\mathbb{R}`
-
 18. 自然数集合, 符号: `\mathbb{Z}`, 如: `\mathbb{Z}`
-
 19. 空集, 符号: `\emptyset`, 如: $\emptyset$
 20. 任意: `forall` $\forall$
 21. 存在: `exists` $\exists$
@@ -199,55 +180,30 @@ $$
 ## 数学符号
 
  1. 无穷, 符号: `\infty`, 如: $\infty$
-
  2. 虚数, 符号: `\imath`, 如: $\imath$
-
  3. 虚数, 符号: `\jmath`, 如: $\jmath$
-
  4. 数学符号, 符号`\hat{a}`, 如: $\hat{a}$
-
  5. 数学符号, 符号`\check{a}`, 如: $\check{a}$
-
  6. 数学符号, 符号`\breve{a}`, 如: $\breve{a}$
-
  7. 数学符号, 符号`\tilde{a}`, 如: $\tilde{a}$
-
  8. 数学符号, 符号`\bar{a}`, 如: $\bar{a}$
-
  9. 矢量符号, 符号`\vec{a}`, 如: $\vec{a}$
-
 10. 数学符号, 符号`\acute{a}`, 如: $\acute{a}$
-
 11. 数学符号, 符号`\grave{a}`, 如: $\grave{a}$
-
 12. 数学符号, 符号`\mathring{a}`, 如: $\mathring{a}$
-
 13. 一阶导数符号, 符号`\dot{a}`, 如: $\dot{a}$
-
 14. 二阶导数符号, 符号`\ddot{a}`, 如: $\ddot{a}$
-
 15. 上箭头, 符号: `\uparrow`, 如: $\uparrow$
-
 16. 上箭头, 符号: `\Uparrow`, 如: $\Uparrow$
-
 17. 下箭头, 符号: `\downarrow`, 如: $\downarrow$
-
 18. 下箭头, 符号: `\Downarrow`, 如: $\Downarrow$
-
 19. 左箭头, 符号: `\leftarrow`, 如: $\leftarrow$
-
 20. 左箭头, 符号: `\Leftarrow`, 如: $\Leftarrow$
-
 21. 右箭头, 符号: `\rightarrow`, 如: $\rightarrow$
-
 22. 右箭头, 符号: `\Rightarrow`, 如: $\Rightarrow$
-
 23. 底端对齐的省略号, 符号: `\ldots`, 如: $1,2,\ldots,n$
-
 24. 中线对齐的省略号, 符号: `\cdots`, 如: $x_1^2 + x_2^2 + \cdots + x_n^2$
-
 25. 竖直对齐的省略号, 符号: `\vdots`, 如: $\vdots$
-
 26. 斜对齐的省略号, 符号: `\ddots`, 如: $\ddots$
 
 ## 取模
@@ -260,8 +216,7 @@ x \pmod a
 2\mod{x}
 $$
 
-
-## 累积/累加/求和
+## 累积
 $$\sum_{i=1}^{k}$$
 $$\displaystyle\sum_{i=1}^n$$
 $$\textstyle\sum_{i=1}^n$$
@@ -395,6 +350,46 @@ $\boxed{\pi=3.14}$
 ```
 
 ## 4\. 各种括号
+
+> [!note]+ 括号
+>小括号
+>```md
+>()
+>```
+>```md
+>\big(\big)
+>```
+>```md
+>\Big(\Big)
+>```
+>```md
+>\bigg(\bigg)
+>```
+>```md
+>\Bigg(\Bigg)
+>```
+> 自适应括号, 符号
+>```md
+>\left \right
+>```
+>大括号, 符号
+>
+>```md
+>\{ \}
+>```
+>```md
+>\big{\big}
+>```
+>```md
+>\Big{\Big}
+>```
+>```md
+>\bigg{\bigg}
+>```
+>```md
+>\Bigg{\Bigg}
+>```
+
 $$\big( \Big( \bigg( \Bigg($$
 
 ```
@@ -406,55 +401,37 @@ $$
 \Bigg(
 $$
 ```
- $$ < > ∣ − 2 ∣ { } $$$$ <> |-2| \\{\\} $$$$<\>∣−2∣{}$$
 
-```
-$$
-[]
-<>
-|-2|
-\{\}
-$$
-```
-
-$$⟮ x ⟯ ∥ a ∥ ⌈ 2.6 ⌉ ⌊ 1.2 ⌋ \\lgroup x \\rgroup \\lVert a \\rVert \\lceil 2.6 \\rceil \\lfloor 1.2 \\rfloor ⟮x⟯∥a∥⌈2.6⌉⌊1.2⌋$$
-
-```
-$$
-\lgroup x \rgroup
-\lVert a \rVert
-\lceil 2.6 \rceil
-\lfloor 1.2 \rfloor
-```
-
-$$┌ ┐ └ ┘ \\ulcorner \\urcorner \\llcorner \\lrcorner ┌┐└┘$$
-
-```
-\ulcorner
-\urcorner
-\llcorner
-\lrcorner
-```
-
-
+| 符号                    | Markdown             |
+| --------------------- | -------------------- |
+| $[]$                  |                      |
+| $<>$                  |                      |
+| $\|\|$                |                      |
+| $\{\}$                |                      |
+| $\lgroup x \rgroup$   | \lgroup x \rgroup    |
+| $\lVert a \rVert$     | \lVert a \rVert      |
+| $\lceil 2.6 \rceil$   | \lceil 2.6 \rceil    |
+| $\lfloor 1.2 \rfloor$ | \lfloor 1.2 \rfloor  |
+| $\ulcorner \urcorner$ | \ulcorner  \urcorner |
+| $\llcorner \lrcorner$ | \llcorner  \lrcorner |
 
 ---
 # 三、箭头
 ### 箭头符号
-| 符号 | MarkDown |
-| ---- | ---- |
-| ↑ | \uparrow |
-| ⇑ | \Uparrow |
-| ↓ | \downarrow |
-| ⇓ | \Downarrow |
-| ← | \leftarrow |
-| ⇐ | \Leftarrow |
-| → | \rightarrow |
-| ⇒ | \Rightarrow |
-| ↕ | \updownarrow |
-| ⇕ | \Updownarrow |
-| ↔ | \leftrightarrow |
-| ⇔ | \Leftrightarrow |
+| 符号  | Markdown        |
+| --- | --------------- |
+| ↑   | \uparrow        |
+| ⇑   | \Uparrow        |
+| ↓   | \downarrow      |
+| ⇓   | \Downarrow      |
+| ←   | \leftarrow      |
+| ⇐   | \Leftarrow      |
+| →   | \rightarrow     |
+| ⇒   | \Rightarrow     |
+| ↕   | \updownarrow    |
+| ⇕   | \Updownarrow    |
+| ↔   | \leftrightarrow |
+| ⇔   | \Leftrightarrow |
 ### 长箭头表示
 | 符号 | MarkDown |
 | ---- | ---- |
