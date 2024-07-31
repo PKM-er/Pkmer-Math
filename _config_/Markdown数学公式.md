@@ -7,6 +7,7 @@ urlink:
 author:
   - DanielGavin
   - Cyletix
+  - SituChengxiang
 ---
 # 一、基本符号
 ## 行内与独行
@@ -235,40 +236,40 @@ $$\lim\nolimits_{k \to \infty}$$
 
 ## 希腊字母
 
-|字母|实现|字母|实现|
-|-|-|-|-|
-|A|`A`|α|`\alhpa`|
-|B|`B`|β|`\beta`|
-|Γ|`\Gamma`|γ|`\gamma`|
-|Δ|`\Delta`|δ|`\delta`|
-|E|`E`|ϵ|`\epsilon`|
-|Z|`Z`|ζ|`\zeta`|
-|H|`H`|η|`\eta`|
-|Θ|`\Theta`|θ|`\theta`|
-|I|`I`|ι|`\iota`|
-|K|`K`|κ|`\kappa`|
-|Λ|`\Lambda`|λ|`\lambda`|
-|M|`M`|μ|`\mu`|
-|N|`N`|ν|`\nu`|
-|Ξ|`\Xi`|ξ|`\xi`|
-|O|`O`|ο|`\omicron`|
-|Π|`\Pi`|π|`\pi`|
-|P|`P`|ρ|`\rho`|
-|Σ|`\Sigma`|σ|`\sigma`|
-|T|`T`|τ|`\tau`|
-|Υ|`\Upsilon`|υ|`\upsilon`|
-|Φ|`\Phi`|ϕ|`\phi`|
-|X|`X`|χ|`\chi`|
-|Ψ|`\Psi`|ψ|`\psi`|
-|Ω|`\v`|ω|`\omega`|
+| 大写字母 | 实现         | 小写字母 | 实现         |
+| ---- | ---------- | ---- | ---------- |
+| A    | `A`        | α    | `\alhpa`   |
+| B    | `B`        | β    | `\beta`    |
+| Γ    | `\Gamma`   | γ    | `\gamma`   |
+| Δ    | `\Delta`   | δ    | `\delta`   |
+| E    | `E`        | ϵ    | `\epsilon` |
+| Z    | `Z`        | ζ    | `\zeta`    |
+| H    | `H`        | η    | `\eta`     |
+| Θ    | `\Theta`   | θ    | `\theta`   |
+| I    | `I`        | ι    | `\iota`    |
+| K    | `K`        | κ    | `\kappa`   |
+| Λ    | `\Lambda`  | λ    | `\lambda`  |
+| M    | `M`        | μ    | `\mu`      |
+| N    | `N`        | ν    | `\nu`      |
+| Ξ    | `\Xi`      | ξ    | `\xi`      |
+| O    | `O`        | ο    | `\omicron` |
+| Π    | `\Pi`      | π    | `\pi`      |
+| P    | `P`        | ρ    | `\rho`     |
+| Σ    | `\Sigma`   | σ    | `\sigma`   |
+| T    | `T`        | τ    | `\tau`     |
+| Υ    | `\Upsilon` | υ    | `\upsilon` |
+| Φ    | `\Phi`     | ϕ    | `\phi`     |
+| X    | `X`        | χ    | `\chi`     |
+| Ψ    | `\Psi`     | ψ    | `\psi`     |
+| Ω    | `\v`       | ω    | `\omega`   |
 
-| 代码 | 功能 |
-| :--: | :--: |
-| \uline | 单下划线  |
+|   代码    |  功能  |
+| :-----: | :--: |
+| \uline  | 单下划线 |
 | \uuline | 双下划线 |
-| \uwave | 波浪线 |
-| \sout | 删除线 |
-| \xout |  斜删除线 |
+| \uwave  | 波浪线  |
+|  \sout  | 删除线  |
+|  \xout  | 斜删除线 |
 
 ---
 # 二、修饰符号
@@ -406,7 +407,7 @@ $$
 | --------------------- | -------------------- |
 | $[]$                  |                      |
 | $<>$                  |                      |
-| $\|\|$                |                      |
+| $\|\|$                | （可选）\lvert或\rvert    |
 | $\{\}$                |                      |
 | $\lgroup x \rgroup$   | \lgroup x \rgroup    |
 | $\lVert a \rVert$     | \lVert a \rVert      |
@@ -571,39 +572,39 @@ $$
 | $$\sum_{\substack{0<i<m\0<j<n}} P(i, j)$$   | \sum_{\substack{0<i<m\0<j<n}} P(i, j)     |
 | $\int\limits_a^b$                           | \int\limits_a^b                           |
 
-|Symbol|Script|
-|---|---|
-|$a’$ $a^{\prime}$|a` a^{\prime}|
-|$a’’$|a’’|
-|$\hat{a}$|hat{a}|
-|$\bar{a}$|\bar{a}|
-|$\grave{a}$|\grave{a}|
-|$\acute{a}$|\acute{a}|
-|$\dot{a}|\dot{a}|
-|$\ddot{a}$|\ddot{a}|
-|$\not{a}$|\not{a}|
-|$\mathring{a}$|\mathring{a}|
-|$\overrightarrow{AB}$|\overrightarrow{AB}|
-|$\overleftarrow{AB}$|\overleftarrow{AB}|
-|$a’’’$|a’’’|
-|$\overline{aaa}$|\overline{aaa}|
-|$\check{a}$|\check{a}|
-|$\vec{a}$|\vec{a}|
-|$\underline{a}$|\underline{a}|
-|$\color{red}x$|\color{red}x|
-|$\pm$|\pm|
-|$\mp$|\mp|
-|$\int y \mathrm{d}x$|\int y \mathrm{d}x|
-|$,$|,|
-|$:$|:|
-|$;$|;|
-|$!$|!|
-|$\int y, \mathrm{d}x$|\int y, \mathrm{d}x|
-|$\dots$|\dots|
-|$\ldots$|\ldots|
-|$\cdots$|\cdots|
-|$\vdots$|\vdots|
-|$\ddots$|\ddots|
+| Symbol                | Script              |
+| --------------------- | ------------------- |
+| $a’$ $a^{\prime}$     | a` a^{\prime}       |
+| $a’’$                 | a’’                 |
+| $\hat{a}$             | hat{a}              |
+| $\bar{a}$             | \bar{a}             |
+| $\grave{a}$           | \grave{a}           |
+| $\acute{a}$           | \acute{a}           |
+| $\dot{a}$             | \dot{a}             |
+| $\ddot{a}$            | \ddot{a}            |
+| $\not{a}$             | \not{a}             |
+| $\mathring{a}$        | \mathring{a}        |
+| $\overrightarrow{AB}$ | \overrightarrow{AB} |
+| $\overleftarrow{AB}$  | \overleftarrow{AB}  |
+| $a’’’$                | a’’’                |
+| $\overline{aaa}$      | \overline{aaa}      |
+| $\check{a}$           | \check{a}           |
+| $\vec{a}$             | \vec{a}             |
+| $\underline{a}$       | \underline{a}       |
+| $\color{red}x$        | \color{red}x        |
+| $\pm$                 | \pm                 |
+| $\mp$                 | \mp                 |
+| $\int y \mathrm{d}x$  | \int y \mathrm{d}x  |
+| $,$                   | ,                   |
+| $:$                   | :                   |
+| $;$                   | ;                   |
+| $!$                   | !                   |
+| $\int y, \mathrm{d}x$ | \int y, \mathrm{d}x |
+| $\dots$               | \dots               |
+| $\ldots$              | \ldots              |
+| $\cdots$              | \cdots              |
+| $\vdots$              | \vdots              |
+| $\ddots$              | \ddots              |
 
 ### Brackets etc
 |Symbol|Script|
