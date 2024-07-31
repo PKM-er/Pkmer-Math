@@ -7,6 +7,7 @@ urlink:
 author:
   - DanielGavin
   - Cyletix
+  - ArcherReilly
 ---
 # 一、基本符号
 ## 行内与独行
@@ -107,13 +108,13 @@ $$
 	\iint
 	\iiint
 	$$
-	3. 线积分:(似乎需要额外的Latex符号包)
+	3. 线积分:(Obsidian似乎需要额外的Latex符号包)
 	$$
 	\oint
 	\oiint
 	\oiiint
 	$$
-	4. 线积分:一种不需要额外符号包的方法(原创): 
+	4. 线积分:一种不需要额外符号包的方法: 
 	$$\int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}$$
 ```
 \int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}
@@ -121,7 +122,7 @@ $$
 
  11. 微分运算, 符号: `\partial`, 如: $\frac{\partial x}{\partial y}$
 
-|               |             |
+| 符号            | Markdown    |
 | ------------- | ----------- |
 | $\mathrm{d}x$ | \mathrm{d}x |
 | $\partial$    | \partial    |
@@ -351,8 +352,7 @@ $\boxed{\pi=3.14}$
 
 ## 4\. 各种括号
 
-> [!note]+ 括号
->小括号
+> [!note]+ 小括号
 >```md
 >()
 >```
@@ -368,11 +368,14 @@ $\boxed{\pi=3.14}$
 >```md
 >\Bigg(\Bigg)
 >```
-> 自适应括号, 符号
+
+
+> [!note] 自适应括号
 >```md
 >\left \right
 >```
->大括号, 符号
+
+> [!note]+ 大括号
 >
 >```md
 >\{ \}
@@ -571,39 +574,39 @@ $$
 | $$\sum_{\substack{0<i<m\0<j<n}} P(i, j)$$   | \sum_{\substack{0<i<m\0<j<n}} P(i, j)     |
 | $\int\limits_a^b$                           | \int\limits_a^b                           |
 
-|Symbol|Script|
-|---|---|
-|$a’$ $a^{\prime}$|a` a^{\prime}|
-|$a’’$|a’’|
-|$\hat{a}$|hat{a}|
-|$\bar{a}$|\bar{a}|
-|$\grave{a}$|\grave{a}|
-|$\acute{a}$|\acute{a}|
-|$\dot{a}|\dot{a}|
-|$\ddot{a}$|\ddot{a}|
-|$\not{a}$|\not{a}|
-|$\mathring{a}$|\mathring{a}|
-|$\overrightarrow{AB}$|\overrightarrow{AB}|
-|$\overleftarrow{AB}$|\overleftarrow{AB}|
-|$a’’’$|a’’’|
-|$\overline{aaa}$|\overline{aaa}|
-|$\check{a}$|\check{a}|
-|$\vec{a}$|\vec{a}|
-|$\underline{a}$|\underline{a}|
-|$\color{red}x$|\color{red}x|
-|$\pm$|\pm|
-|$\mp$|\mp|
-|$\int y \mathrm{d}x$|\int y \mathrm{d}x|
-|$,$|,|
-|$:$|:|
-|$;$|;|
-|$!$|!|
-|$\int y, \mathrm{d}x$|\int y, \mathrm{d}x|
-|$\dots$|\dots|
-|$\ldots$|\ldots|
-|$\cdots$|\cdots|
-|$\vdots$|\vdots|
-|$\ddots$|\ddots|
+| Symbol                | Script              |
+| --------------------- | ------------------- |
+| $a’$ $a^{\prime}$     | a` a^{\prime}       |
+| $a’’$                 | a’’                 |
+| $\hat{a}$             | hat{a}              |
+| $\bar{a}$             | \bar{a}             |
+| $\grave{a}$           | \grave{a}           |
+| $\acute{a}$           | \acute{a}           |
+| $\dot{a}              | \dot{a}             |
+| $\ddot{a}$            | \ddot{a}            |
+| $\not{a}$             | \not{a}             |
+| $\mathring{a}$        | \mathring{a}        |
+| $\overrightarrow{AB}$ | \overrightarrow{AB} |
+| $\overleftarrow{AB}$  | \overleftarrow{AB}  |
+| $a’’’$                | a’’’                |
+| $\overline{aaa}$      | \overline{aaa}      |
+| $\check{a}$           | \check{a}           |
+| $\vec{a}$             | \vec{a}             |
+| $\underline{a}$       | \underline{a}       |
+| $\color{red}x$        | \color{red}x        |
+| $\pm$                 | \pm                 |
+| $\mp$                 | \mp                 |
+| $\int y \mathrm{d}x$  | \int y \mathrm{d}x  |
+| $,$                   | ,                   |
+| $:$                   | :                   |
+| $;$                   | ;                   |
+| $!$                   | !                   |
+| $\int y, \mathrm{d}x$ | \int y, \mathrm{d}x |
+| $\dots$               | \dots               |
+| $\ldots$              | \ldots              |
+| $\cdots$              | \cdots              |
+| $\vdots$              | \vdots              |
+| $\ddots$              | \ddots              |
 
 ### Brackets etc
 |Symbol|Script|
