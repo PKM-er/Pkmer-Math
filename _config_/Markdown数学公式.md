@@ -108,13 +108,13 @@ $$
 	\iint
 	\iiint
 	$$
-	3. 线积分:(Obsidian似乎需要额外的Latex符号包)
+	3. 闭线积分:(Obsidian似乎需要额外的Latex符号包)
 	$$
 	\oint
 	\oiint
 	\oiiint
 	$$
-	4. 线积分:一种不需要额外符号包的方法: 
+	4. 闭线积分:一种不需要额外符号包的方法: 
 	$$\int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}$$
 ```
 \int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}
@@ -263,13 +263,13 @@ $$\lim\nolimits_{k \to \infty}$$
 |Ψ|`\Psi`|ψ|`\psi`|
 |Ω|`\v`|ω|`\omega`|
 
-| 代码 | 功能 |
-| :--: | :--: |
-| \uline | 单下划线  |
+|   代码    |  功能  |
+| :-----: | :--: |
+| \uline  | 单下划线 |
 | \uuline | 双下划线 |
-| \uwave | 波浪线 |
-| \sout | 删除线 |
-| \xout |  斜删除线 |
+| \uwave  | 波浪线  |
+|  \sout  | 删除线  |
+|  \xout  | 斜删除线 |
 
 ---
 # 二、修饰符号
@@ -277,7 +277,6 @@ $$\lim\nolimits_{k \to \infty}$$
 ## 1\. 简单的帽子
 $\hat{\theta}$ $\widehat{AB}$ 
 ```
-$$
 \hat{\theta}
 \widehat{AB}
 ```
@@ -286,11 +285,12 @@ $\bar{y}$ $\overline{AB}$
 \bar{y}
 \overline{AB}
 ```
+$\tilde{a}$ $\widetilde{ac}$ 
 ```
 \tilde{a}
 \widetilde{ac}
 ```
-$\tilde{a}$ $\widetilde{ac}$ $\bar{a}$ $\acute{a}$ $\check{a}$ $\grave{a}$ 
+$\bar{a}$ $\acute{a}$ $\check{a}$ $\grave{a}$ 
 ```
 \bar{a}
 \acute{a}
