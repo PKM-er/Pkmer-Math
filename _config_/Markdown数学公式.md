@@ -60,6 +60,18 @@ $$
 \end{aligned}
 \right.
 ```
+
+$$\begin{cases}
+a_1 = 1, a_2 = 0\\
+a_1 = 0, a_2 = 1\\
+\end{cases}$$
+```
+\begin{cases}
+\\
+\\
+\end{cases}
+```
+
 8. 组合数
 $$
 \binom{n}{k}
