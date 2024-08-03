@@ -275,6 +275,8 @@ $$\lim\nolimits_{k \to \infty}$$
 |Ψ|`\Psi`|ψ|`\psi`|
 |Ω|`\v`|ω|`\omega`|
 
+## 修饰线
+
 |   代码    |  功能  |
 | :-----: | :--: |
 | \uline  | 单下划线 |
@@ -282,6 +284,18 @@ $$\lim\nolimits_{k \to \infty}$$
 | \uwave  | 波浪线  |
 |  \sout  | 删除线  |
 |  \xout  | 斜删除线 |
+
+## 特殊字体
+
+| sign          | syntax      |         | instruct<br>       |
+| ------------- | ----------- | ------- | ------------------ |
+| $L$           | L           | 原版      |                    |
+| $\mathrm{L}$  | \mathrm{L}  | 正体      | 常数或变量              |
+| $\mathbf{v}$  | \mathbf{v}  | 粗体      | 向量, 张量             |
+| $\mathcal{L}$ | \mathcal{L} | 花体      | 拉普拉斯变换, 拉格朗日函数<br> |
+| $\mathscr{L}$ | \mathscr{L} | 花体2     | 量子场论, 拉格朗日密度       |
+| $\mathbb{R}$  | \mathbb{R}  | 双线体     | 实数域                |
+| $\mathbb{C}$  | \mathbb{C}  | 双线体<br> | 复数域<br>            |
 
 ---
 # 二、修饰符号
