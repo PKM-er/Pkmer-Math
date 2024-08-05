@@ -32,7 +32,7 @@
 >from !"模板" and !"kanban"
 >where contains(file.tags, "数学")
 >sort file.mtime desc
->limit 8
+>limit 16
 >```
 
 > [!todo]-
