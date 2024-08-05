@@ -8,6 +8,8 @@ author:
   - DanielGavin
   - Cyletix
   - SituChengxiang
+  - ArcherReilly
+
 ---
 # 一、基本符号
 ## 行内与独行
@@ -60,6 +62,18 @@ $$
 \end{aligned}
 \right.
 ```
+
+$$\begin{cases}
+a_1 = 1, a_2 = 0\\
+a_1 = 0, a_2 = 1\\
+\end{cases}$$
+```
+\begin{cases}
+\\
+\\
+\end{cases}
+```
+
 8. 组合数
 $$
 \binom{n}{k}
@@ -108,13 +122,13 @@ $$
 	\iint
 	\iiint
 	$$
-	3. 线积分:(似乎需要额外的Latex符号包)
+	3. 闭线积分:(Obsidian似乎需要额外的Latex符号包)
 	$$
 	\oint
 	\oiint
 	\oiiint
 	$$
-	4. 线积分:一种不需要额外符号包的方法(原创): 
+	4. 闭线积分:一种不需要额外符号包的方法: 
 	$$\int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}$$
 ```
 \int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}
@@ -122,7 +136,7 @@ $$
 
  11. 微分运算, 符号: `\partial`, 如: $\frac{\partial x}{\partial y}$
 
-|               |             |
+| 符号            | Markdown    |
 | ------------- | ----------- |
 | $\mathrm{d}x$ | \mathrm{d}x |
 | $\partial$    | \partial    |
@@ -236,32 +250,34 @@ $$\lim\nolimits_{k \to \infty}$$
 
 ## 希腊字母
 
-| 大写字母 | 实现         | 小写字母 | 实现         |
-| ---- | ---------- | ---- | ---------- |
-| A    | `A`        | α    | `\alhpa`   |
-| B    | `B`        | β    | `\beta`    |
-| Γ    | `\Gamma`   | γ    | `\gamma`   |
-| Δ    | `\Delta`   | δ    | `\delta`   |
-| E    | `E`        | ϵ    | `\epsilon` |
-| Z    | `Z`        | ζ    | `\zeta`    |
-| H    | `H`        | η    | `\eta`     |
-| Θ    | `\Theta`   | θ    | `\theta`   |
-| I    | `I`        | ι    | `\iota`    |
-| K    | `K`        | κ    | `\kappa`   |
-| Λ    | `\Lambda`  | λ    | `\lambda`  |
-| M    | `M`        | μ    | `\mu`      |
-| N    | `N`        | ν    | `\nu`      |
-| Ξ    | `\Xi`      | ξ    | `\xi`      |
-| O    | `O`        | ο    | `\omicron` |
-| Π    | `\Pi`      | π    | `\pi`      |
-| P    | `P`        | ρ    | `\rho`     |
-| Σ    | `\Sigma`   | σ    | `\sigma`   |
-| T    | `T`        | τ    | `\tau`     |
-| Υ    | `\Upsilon` | υ    | `\upsilon` |
-| Φ    | `\Phi`     | ϕ    | `\phi`     |
-| X    | `X`        | χ    | `\chi`     |
-| Ψ    | `\Psi`     | ψ    | `\psi`     |
-| Ω    | `\v`       | ω    | `\omega`   |
+|字母|实现|字母|实现|
+|-|-|-|-|
+|A|`A`|α|`\alhpa`|
+|B|`B`|β|`\beta`|
+|Γ|`\Gamma`|γ|`\gamma`|
+|Δ|`\Delta`|δ|`\delta`|
+|E|`E`|ϵ|`\epsilon`|
+|Z|`Z`|ζ|`\zeta`|
+|H|`H`|η|`\eta`|
+|Θ|`\Theta`|θ|`\theta`|
+|I|`I`|ι|`\iota`|
+|K|`K`|κ|`\kappa`|
+|Λ|`\Lambda`|λ|`\lambda`|
+|M|`M`|μ|`\mu`|
+|N|`N`|ν|`\nu`|
+|Ξ|`\Xi`|ξ|`\xi`|
+|O|`O`|ο|`\omicron`|
+|Π|`\Pi`|π|`\pi`|
+|P|`P`|ρ|`\rho`|
+|Σ|`\Sigma`|σ|`\sigma`|
+|T|`T`|τ|`\tau`|
+|Υ|`\Upsilon`|υ|`\upsilon`|
+|Φ|`\Phi`|ϕ|`\phi`|
+|X|`X`|χ|`\chi`|
+|Ψ|`\Psi`|ψ|`\psi`|
+|Ω|`\v`|ω|`\omega`|
+
+## 修饰线
 
 |   代码    |  功能  |
 | :-----: | :--: |
@@ -271,13 +287,25 @@ $$\lim\nolimits_{k \to \infty}$$
 |  \sout  | 删除线  |
 |  \xout  | 斜删除线 |
 
+## 特殊字体
+
+| sign          | syntax      |         | instruct<br>       |
+| ------------- | ----------- | ------- | ------------------ |
+| $L$           | L           | 原版      |                    |
+| $\mathrm{L}$  | \mathrm{L}  | 正体      | 常数或变量              |
+| $\mathbf{v}$  | \mathbf{v}  | 粗体      | 向量, 张量             |
+| $\mathcal{L}$ | \mathcal{L} | 花体      | 拉普拉斯变换, 拉格朗日函数<br> |
+| $\mathscr{L}$ | \mathscr{L} | 花体2     | 量子场论, 拉格朗日密度       |
+| $\mathbb{R}$  | \mathbb{R}  | 双线体     | 实数域                |
+| $\mathbb{C}$  | \mathbb{C}  | 双线体<br> | 复数域<br>            |
+
+
 ---
 # 二、修饰符号
 
 ## 1\. 简单的帽子
 $\hat{\theta}$ $\widehat{AB}$ 
 ```
-$$
 \hat{\theta}
 \widehat{AB}
 ```
@@ -286,11 +314,12 @@ $\bar{y}$ $\overline{AB}$
 \bar{y}
 \overline{AB}
 ```
+$\tilde{a}$ $\widetilde{ac}$ 
 ```
 \tilde{a}
 \widetilde{ac}
 ```
-$\tilde{a}$ $\widetilde{ac}$ $\bar{a}$ $\acute{a}$ $\check{a}$ $\grave{a}$ 
+$\bar{a}$ $\acute{a}$ $\check{a}$ $\grave{a}$ 
 ```
 \bar{a}
 \acute{a}
@@ -352,8 +381,7 @@ $\boxed{\pi=3.14}$
 
 ## 4\. 各种括号
 
-> [!note]+ 括号
->小括号
+> [!note]+ 小括号
 >```md
 >()
 >```
@@ -369,11 +397,14 @@ $\boxed{\pi=3.14}$
 >```md
 >\Bigg(\Bigg)
 >```
-> 自适应括号, 符号
+
+
+> [!note] 自适应括号
 >```md
 >\left \right
 >```
->大括号, 符号
+
+> [!note]+ 大括号
 >
 >```md
 >\{ \}
