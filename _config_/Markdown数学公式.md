@@ -7,7 +7,9 @@ urlink:
 author:
   - DanielGavin
   - Cyletix
+  - SituChengxiang
   - ArcherReilly
+
 ---
 # 一、基本符号
 ## 行内与独行
@@ -297,6 +299,7 @@ $$\lim\nolimits_{k \to \infty}$$
 | $\mathbb{R}$  | \mathbb{R}  | 双线体     | 实数域                |
 | $\mathbb{C}$  | \mathbb{C}  | 双线体<br> | 复数域<br>            |
 
+
 ---
 # 二、修饰符号
 
@@ -435,7 +438,7 @@ $$
 | --------------------- | -------------------- |
 | $[]$                  |                      |
 | $<>$                  |                      |
-| $\|\|$                |                      |
+| $\|\|$                | （可选）\lvert或\rvert    |
 | $\{\}$                |                      |
 | $\lgroup x \rgroup$   | \lgroup x \rgroup    |
 | $\lVert a \rVert$     | \lVert a \rVert      |
@@ -608,7 +611,7 @@ $$
 | $\bar{a}$             | \bar{a}             |
 | $\grave{a}$           | \grave{a}           |
 | $\acute{a}$           | \acute{a}           |
-| $\dot{a}              | \dot{a}             |
+| $\dot{a}$             | \dot{a}             |
 | $\ddot{a}$            | \ddot{a}            |
 | $\not{a}$             | \not{a}             |
 | $\mathring{a}$        | \mathring{a}        |
