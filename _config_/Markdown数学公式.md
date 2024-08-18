@@ -447,6 +447,28 @@ $$
 | $\ulcorner \urcorner$ | \ulcorner  \urcorner |
 | $\llcorner \lrcorner$ | \llcorner  \lrcorner |
 
+## 矩阵分割线
+水平分割线
+$$
+\begin{matrix}
+1 & 2 & 3 \\
+\hline
+4 & 5 & 6 \\
+\hline
+7 & 8 & 9 \\
+\end{matrix}
+$$
+垂直分割线
+$$
+\left(\begin{array}{c|c|c}
+1 & 2 & 3 \\
+\hline
+4 & 5 & 6 \\
+\hline
+7 & 8 & 9 \\
+\end{array}\right)
+$$
+
 ---
 # 三、箭头
 ### 箭头符号
