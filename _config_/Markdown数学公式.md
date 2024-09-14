@@ -29,6 +29,8 @@ author:
 5. 上大括号, 符号: `\overbrace{算式}`, 如: $\overbrace{a+b+c+d}^{2.0}$
 6. 下大括号, 符号: `\underbrace{算式}`, 如: $a+\underbrace{b+c}_{1.0}+d$
 7. 上位符号, 符号: `\stacrel{上位符号}{基位符号}`, 如: $\vec{x}\stackrel{\mathrm{def}}{=}{x_1,\dots,x_n}$
+8. 自适应条件等号 $\xlongequal{L'H}$ `\xlongequal{L'H}`
+
 
 ## 占位符
 1. 两个quad空格, 符号: `\qquad`, 如: $x \qquad y$
@@ -232,8 +234,7 @@ x \pmod a
 $$
 
 ## 累积
-$$\sum_{i=1}^{k}$$
-$$\displaystyle\sum_{i=1}^n$$
+$\sum_{i=1}^{k}$, $\displaystyle\sum_{i=1}^n$
 $$\textstyle\sum_{i=1}^n$$
 
 ## 累乘
@@ -302,6 +303,11 @@ $$\lim\nolimits_{k \to \infty}$$
 
 ---
 # 二、修饰符号
+
+$A\underset{\text{下标条件}}{\overset{\text{上标条件}}{\sim}}B$
+```
+A\underset{\text{下标条件}}{\overset{\text{上标条件}}{\sim}}B
+``` 
 
 ## 1\. 简单的帽子
 $\hat{\theta}$ $\widehat{AB}$ 
@@ -549,7 +555,6 @@ $$
 | ⇌ | \rightleftharpoons |
 | ⇋ | \leftrightharpoons |
 
-自适应条件等号 $\xlongequal{L'H}$ `\xlongequal{L'H}`
 
 
 ---
