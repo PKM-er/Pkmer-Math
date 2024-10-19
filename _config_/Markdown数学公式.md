@@ -191,8 +191,10 @@ $$
 17. 实数集合, 符号: `\mathbb{R}`, 如: `\mathbb{R}`
 18. 自然数集合, 符号: `\mathbb{Z}`, 如: `\mathbb{Z}`
 19. 空集, 符号: `\emptyset`, 如: $\emptyset$
-20. 任意: `forall` $\forall$
-21. 存在: `exists` $\exists$
+20. 任意: `\forall` $\forall$
+21. 存在: `\exists` $\exists$
+22. $\land$ `\land`
+23. $\vee$ `\vee`
 
 ## 数学符号
 
