@@ -1,0 +1,11 @@
+.theme-dark{
+    .canvasWrapper canvas{
+        filter:invert(95%);
+    }
+}
+
+.theme-light{
+    .canvasWrapper canvas{
+        filter: none;
+    }
+}
