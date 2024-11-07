@@ -1,1 +1,10 @@
-{}
+{
+  "enabledCssSnippets": [
+    "my-custom-folder-icon",
+    "cyletix-pdf-reverse",
+    "cyletix-folder-icon",
+    "cyletix-appendix-icon",
+    "悬浮搜索框",
+    "cyletix-md-icon"
+  ]
+}
