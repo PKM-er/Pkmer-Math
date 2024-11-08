@@ -20,6 +20,7 @@ jobs:
     steps:
       # 获取仓库的相关配置
       # https://docs.github.com/zh/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#default-environment-variables
+      # TODO：若 “仓库无前缀名” 是.github.io结尾，则设置为"/"
       - name: 配置 - 获取仓库配置
         id: set-workspace-path # 你可以在这里使用 WORKSPACE_PATH 变量进行其他操作
         run: |
@@ -55,7 +56,7 @@ jobs:
       # [!code] 根据实际情况修改
       - name: 配置 - 设置
         run: |
-          sed -i 's/base: \"\/\"/base: \"\/Pkmer-Math\/\"/g' src/.vuepress/config.ts
+          sed -i 's/base: \"\/\"/base: \"\/${REPO_NAME}\/\"/g' src/.vuepress/config.ts
 
       # 文档的克隆、构建、部署
       - name: 文档 - 文档库克隆1
@@ -64,7 +65,7 @@ jobs:
       - name: 文档 - 文档库克隆2
         working-directory: ./src/MdNote_Other/
         run: |
-          git clone https://github.com/${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}".git
+          git clone https://github.com/${GITHUB_REPOSITORY}".git
 
       - name: 文档 - 构建
         env:
