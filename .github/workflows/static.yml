@@ -23,6 +23,7 @@ jobs:
         with:
           fetch-depth: 0
           repository: LincZero/LincZero.github.io
+          ref: 'raw' # 分支
           
       - name: 安装 pnpm
         uses: pnpm/action-setup@v2
