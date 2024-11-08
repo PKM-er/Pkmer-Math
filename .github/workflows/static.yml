@@ -19,9 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout - 构建库
-        working-directory: ./
-        run: |
-          git clone https://github.com/LincZero/LincZero.github.io.git
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          repository: https://github.com/LincZero/LincZero.github.io.git
           
       - name: 安装 pnpm
         uses: pnpm/action-setup@v2
