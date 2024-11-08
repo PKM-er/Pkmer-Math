@@ -32,7 +32,7 @@ jobs:
           echo "仓库标识：${GITHUB_REPOSITORY}"
           echo "仓库url：${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
           REPO_NAME=$(echo "${GITHUB_REPOSITORY}" | cut -d'/' -f2)
-          echo "::set-output name=REPO_NAME::$REPO_NAME"
+          echo "REPO_NAME::$REPO_NAME" >> $GITHUB_OUTPUT
           echo "仓库无前缀名：${REPO_NAME}"
           
       - name: 环境 - 构建库
