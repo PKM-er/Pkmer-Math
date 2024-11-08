@@ -65,7 +65,7 @@ jobs:
       - name: 文档 - 文档库克隆2
         working-directory: ./src/MdNote_Other/
         run: |
-          git clone https://github.com/${GITHUB_REPOSITORY}".git
+          git clone https://github.com/${GITHUB_REPOSITORY}.git
 
       - name: 文档 - 构建
         env:
