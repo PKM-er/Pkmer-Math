@@ -18,44 +18,53 @@ jobs:
   deploy-gh-pages:
     runs-on: ubuntu-latest
     steps:
-      - name: 仓库配置获取
+      # 获取仓库的相关配置
+      # https://docs.github.com/zh/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#default-environment-variables
+      - name: 配置 - 获取仓库配置
         id: set-workspace-path # 你可以在这里使用 WORKSPACE_PATH 变量进行其他操作
         run: |
-          echo "WORKSPACE_PATH=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
-          echo "The current workspace path is: ${WORKSPACE_PATH}"
+          echo "工作路径: ${GITHUB_WORKSPACE}"
+          echo "操作所在的路径：${GITHUB_ACTION_PATH}"
+          echo "仓库1：${GITHUB_ACTION_REPOSITORY}"
+          echo "仓库2：${GITHUB_REPOSITORY}"
+          echo "仓库所有者：${GITHUB_REPOSITORY_OWNER}"
+          echo "其他：${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
+          echo "仓库URL：${REPO_URL}"
           
-      - name: Checkout - 构建库
+      - name: 环境 - 构建库
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           repository: LincZero/LincZero.github.io
           ref: 'raw' # 分支
           
-      - name: 安装 pnpm
+      - name: 环境 - 安装 pnpm
         uses: pnpm/action-setup@v2
         with:
           run_install: true
           version: 8
 
-      - name: 设置 Node.js
+      - name: 环境 - 设置 Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: pnpm
 
       # [!code] 根据实际情况修改
-      - name: 一些配置
+      - name: 配置 - 设置
         run: |
           sed -i 's/base: \"\/\"/base: \"\/Pkmer-Math\/\"/g' src/.vuepress/config.ts
-      - name: Checkout - 文档库1
+
+      # 文档的克隆、构建、部署
+      - name: 文档 - 文档库克隆1
         working-directory: ./src/
         run: mkdir MdNote_Other
-      - name: Checkout - 文档库2
+      - name: 文档 - 文档库克隆2
         working-directory: ./src/MdNote_Other/
         run: |
           git clone https://github.com/LincDocs/Pkmer-Math.git
 
-      - name: 构建文档
+      - name: 文档 - 构建
         env:
           NODE_OPTIONS: --max_old_space_size=20480
         run: |-
@@ -63,7 +72,7 @@ jobs:
           pnpm run docs:build
           > src/.vuepress/dist/.nojekyll
 
-      - name: 部署文档
+      - name: 文档 - 部署
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           # 这是文档部署到的分支名称
