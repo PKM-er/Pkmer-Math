@@ -18,6 +18,12 @@ jobs:
   deploy-gh-pages:
     runs-on: ubuntu-latest
     steps:
+      - name: 仓库配置获取
+        id: set-workspace-path # 你可以在这里使用 WORKSPACE_PATH 变量进行其他操作
+        run: |
+          echo "WORKSPACE_PATH=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+          echo "The current workspace path is: ${WORKSPACE_PATH}"
+          
       - name: Checkout - 构建库
         uses: actions/checkout@v4
         with:
