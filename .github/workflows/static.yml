@@ -26,10 +26,12 @@ jobs:
           echo "工作路径：${GITHUB_WORKSPACE}"
           echo "action路径：${GITHUB_ACTION_PATH}"
           echo "action仓库：${GITHUB_ACTION_REPOSITORY}"
-          echo "仓库所有者：${GITHUB_REPOSITORY_OWNER}"
-          echo "仓库子路径：${GITHUB_ACTOR}"
+          echo "仓库所有者(可以是组织)：${GITHUB_REPOSITORY_OWNER}"
+          echo "仓库作者：${GITHUB_ACTOR}"
           echo "仓库标识：${GITHUB_REPOSITORY}"
           echo "仓库url：${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
+          REPO_NAME=$(echo "${GITHUB_REPOSITORY}" | cut -d'/' -f2)
+          echo "仓库无前缀名：${REPO_NAME}"
           
       - name: 环境 - 构建库
         uses: actions/checkout@v4
@@ -62,7 +64,7 @@ jobs:
       - name: 文档 - 文档库克隆2
         working-directory: ./src/MdNote_Other/
         run: |
-          git clone https://github.com/LincDocs/Pkmer-Math.git
+          git clone https://github.com/${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}".git
 
       - name: 文档 - 构建
         env:
