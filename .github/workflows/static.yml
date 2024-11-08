@@ -40,7 +40,7 @@ jobs:
       # [!code] 根据实际情况修改
       - name: 一些配置
         run: |
-          sed -i 's/base: "/"/base: "/Pkmer-Math/"/g' src/.vuepress/config.ts
+          sed -i 's/base: \"\/\"/base: \"\/Pkmer-Math\/\"/g' src/.vuepress/config.ts
       - name: Checkout - 文档库1
         working-directory: ./src/
         run: mkdir MdNote_Other
