@@ -60,10 +60,10 @@ jobs:
           sed -i 's/base: \"\/\"/base: \"\/${{steps.config1.outputs.REPO_NAME}}\/\"/g' src/.vuepress/config.ts
 
       # 文档的克隆、构建、部署
-      - name: 文档 - 文档库克隆2
+      - name: 文档 - 文档库克隆
         working-directory: ./src/
         run: |
-          git clone https://github.com/${GITHUB_REPOSITORY}.git
+          git clone https://github.com/${GITHUB_REPOSITORY}.git .
 
       - name: 文档 - 构建
         env:
