@@ -18,6 +18,11 @@ jobs:
   deploy-gh-pages:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout - 构建库
+        working-directory: ./
+        run: |
+          git clone https://github.com/LincZero/LincZero.github.io.git
+          
       - name: 安装 pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -29,11 +34,6 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-          
-      - name: Checkout - 构建库
-        working-directory: ./
-        run: |
-          git clone https://github.com/LincZero/LincZero.github.io.git
 
       - name: Checkout - 文档库1
         working-directory: ./src/
