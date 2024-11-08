@@ -23,13 +23,13 @@ jobs:
       - name: 配置 - 获取仓库配置
         id: set-workspace-path # 你可以在这里使用 WORKSPACE_PATH 变量进行其他操作
         run: |
-          echo "工作路径: ${GITHUB_WORKSPACE}"
-          echo "操作所在的路径：${GITHUB_ACTION_PATH}"
-          echo "仓库1：${GITHUB_ACTION_REPOSITORY}"
-          echo "仓库2：${GITHUB_REPOSITORY}"
+          echo "工作路径：${GITHUB_WORKSPACE}"
+          echo "action路径：${GITHUB_ACTION_PATH}"
+          echo "action仓库：${GITHUB_ACTION_REPOSITORY}"
           echo "仓库所有者：${GITHUB_REPOSITORY_OWNER}"
-          echo "其他：${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
-          echo "仓库URL：${REPO_URL}"
+          echo "仓库子路径：${GITHUB_ACTOR}"
+          echo "仓库标识：${GITHUB_REPOSITORY}"
+          echo "仓库url：${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
           
       - name: 环境 - 构建库
         uses: actions/checkout@v4
