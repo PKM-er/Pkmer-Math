@@ -22,7 +22,7 @@ jobs:
       # https://docs.github.com/zh/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#default-environment-variables
       # TODO：若 “仓库无前缀名” 是.github.io结尾，则设置为"/"
       - name: 配置 - 获取仓库配置
-        id: set-workspace-path # 你可以在这里使用 WORKSPACE_PATH 变量进行其他操作
+        id: config1 # 用于给其他仓库引用
         run: |
           echo "工作路径：${GITHUB_WORKSPACE}"
           echo "action路径：${GITHUB_ACTION_PATH}"
@@ -32,6 +32,7 @@ jobs:
           echo "仓库标识：${GITHUB_REPOSITORY}"
           echo "仓库url：${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
           REPO_NAME=$(echo "${GITHUB_REPOSITORY}" | cut -d'/' -f2)
+          echo "::set-output name=REPO_NAME::$REPO_NAME"
           echo "仓库无前缀名：${REPO_NAME}"
           
       - name: 环境 - 构建库
@@ -56,7 +57,7 @@ jobs:
       # [!code] 根据实际情况修改
       - name: 配置 - 设置
         run: |
-          sed -i 's/base: \"\/\"/base: \"\/${REPO_NAME}\/\"/g' src/.vuepress/config.ts
+          sed -i 's/base: \"\/\"/base: \"\/${{steps.config1.outputs.REPO_NAME}}\/\"/g' src/.vuepress/config.ts
 
       # 文档的克隆、构建、部署
       - name: 文档 - 文档库克隆1
