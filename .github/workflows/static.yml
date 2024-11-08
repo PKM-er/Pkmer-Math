@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          repository: https://github.com/LincZero/LincZero.github.io.git
+          repository: LincZero/LincZero.github.io
           
       - name: 安装 pnpm
         uses: pnpm/action-setup@v2
