@@ -11,10 +11,14 @@
             "id": "75e9e62958671b4a",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Home.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "Home"
             }
           }
         ]
@@ -60,6 +64,19 @@
             }
           },
           {
+            "id": "618f569e98d6c99d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
             "id": "9a6d1379db408784",
             "type": "leaf",
             "state": {
@@ -68,8 +85,19 @@
               "icon": "lucide-bookmark",
               "title": "书签"
             }
+          },
+          {
+            "id": "4c0d38c6195ad80a",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -84,52 +112,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "ce41c47ecc2d1c82",
-            "type": "leaf",
-            "state": {
-              "type": "backlink",
-              "state": {
-                "file": "Home.md",
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-coming-in",
-              "title": "Home 的反向链接列表"
-            }
-          },
-          {
-            "id": "5aa798a3d0a7a778",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "Home.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-going-out",
-              "title": "Home 的出链列表"
-            }
-          },
-          {
-            "id": "618f569e98d6c99d",
-            "type": "leaf",
-            "state": {
-              "type": "tag",
-              "state": {
-                "sortOrder": "frequency",
-                "useHierarchy": true
-              },
-              "icon": "lucide-tags",
-              "title": "标签"
-            }
-          },
-          {
             "id": "f3982954679da2e3",
             "type": "leaf",
             "state": {
@@ -140,13 +122,45 @@
               "icon": "lucide-list",
               "title": "Home 的大纲"
             }
+          },
+          {
+            "id": "ce41c47ecc2d1c82",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "_config_/草稿.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "草稿 的反向链接列表"
+            }
+          },
+          {
+            "id": "5aa798a3d0a7a778",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "_config_/草稿.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "草稿 的出链列表"
+            }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -157,15 +171,19 @@
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
       "templater-obsidian:Templater": false,
-      "obsidian-git:Open Git source control": false,
-      "obsidian-matrix:Obsidian Matrix": false
+      "obsidian-matrix:Obsidian Matrix": false,
+      "obsidian-git:Open Git source control": true
     }
   },
-  "active": "75e9e62958671b4a",
+  "active": "4c0d38c6195ad80a",
   "lastOpenFiles": [
+    "_config_/草稿.md",
+    "Home.md",
+    "Other/例题/递推关系的线性表示.md",
+    "Other/例题/第二类曲面积分例题.md",
+    "Other/例题/第二类曲面积分例题 1.md",
     "_config_/Images/file-udxeUcFDMIFzlZhrDskJeizD.webp",
     "微积分/重积分/转动惯量.md",
-    "Home.md",
     "test",
     "LICENSE",
     "README.md",
