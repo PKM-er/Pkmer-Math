@@ -22,6 +22,7 @@
 .nav-file-title[data-path$=".jpg"]::before,
 .nav-file-title[data-path$=".jpeg"]::before,
 .nav-file-title[data-path$=".png"]::before,
+.nav-file-title[data-path$=".webp"]::before,
 .nav-file-title[data-path$=".gif"]::before{
     background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --%3E%3Csvg width='80px' height='80px' viewBox='0 0 1024 1024' class='icon' version='1.1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M892.10374 938.7H131.90374C59.20374 938.7 0.00374 879.5 0.00374 806.8V217.2C0.00374 144.5 59.20374 85.3 131.90374 85.3h760.2c72.7 0 131.9 59.2 131.9 131.9v589.6c0 72.7-59.2 131.9-131.9 131.9z m-760.2-768c-25.7 0-46.5 20.9-46.5 46.5v589.6c0 25.7 20.9 46.5 46.5 46.5h760.2c25.7 0 46.5-20.9 46.5-46.5V217.2c0-25.7-20.9-46.5-46.5-46.5H131.90374z' fill='%233688FF' /%3E%3Cpath d='M42.70374 832c-13.7 0-27.2-6.6-35.4-18.8-13.2-19.5-8-46.1 11.5-59.2l376-253.4c34.4-23.2 77.6-20.3 105.1 7.1l101.2 100.7c0.2-0.1 0.4-0.3 0.6-0.4l353.8-268.5c18.8-14.2 45.5-10.6 59.8 8.2 14.2 18.8 10.6 45.5-8.2 59.8L653.30374 675.8c-34.6 26.3-80.6 24.6-109.4-4L442.80374 571.1c-0.1 0.1-0.2 0.1-0.3 0.2l-376 253.4c-7.3 4.9-15.6 7.3-23.8 7.3z' fill='%235F6379' /%3E%3Cpath d='M234.70374 320m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z' fill='%235F6379' /%3E%3C/svg%3E");
 }

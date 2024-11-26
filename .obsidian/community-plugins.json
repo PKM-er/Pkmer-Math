@@ -1,4 +1,10 @@
 [
   "templater-obsidian",
-  "dataview"
+  "dataview",
+  "obsidian-git",
+  "obsidian-view-mode-by-frontmatter",
+  "obsidian-latex-suite",
+  "obsidian-linter",
+  "open-vscode",
+  "obsidian-matrix"
 ]

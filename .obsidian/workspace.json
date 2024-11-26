@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "63929a8e0d250feb",
+        "id": "6c066fe8bcad9b36",
         "type": "tabs",
         "children": [
           {
-            "id": "d3d6775a71488555",
+            "id": "75e9e62958671b4a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Home.md",
-                "mode": "preview",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Home"
+              "title": "新标签页"
             }
           }
         ]
@@ -160,16 +156,20 @@
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "templater-obsidian:Templater": false
+      "templater-obsidian:Templater": false,
+      "obsidian-git:Open Git source control": false,
+      "obsidian-matrix:Obsidian Matrix": false
     }
   },
-  "active": "0d2f9f7e851740fe",
+  "active": "75e9e62958671b4a",
   "lastOpenFiles": [
+    "_config_/Images/file-udxeUcFDMIFzlZhrDskJeizD.webp",
+    "微积分/重积分/转动惯量.md",
+    "Home.md",
     "test",
     "LICENSE",
     "README.md",
     "LICENSE.txt.md",
-    "LICENSE.txt",
-    "Home.md"
+    "LICENSE.txt"
   ]
 }
