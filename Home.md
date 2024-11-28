@@ -3,7 +3,7 @@
 > [!example]- 微积分
 >```dataview
 >list 
->from ""
+>from #数学
 >where regexmatch("-.*-" ,file.name)
 >and contains(file.path, "微积分")
 >sort chapter
@@ -12,7 +12,7 @@
 > [!example]- 线性代数
 >```dataview
 >list 
->from ""
+>from #数学
 >where regexmatch("-.*-" ,file.name)
 >and contains(file.path, "线性代数")
 >sort chapter
@@ -21,6 +21,7 @@
 > [!example]- 概率论
 >```dataview
 >list
+>from #数学
 >where regexmatch("-.*-" ,file.name)
 >and contains(file.path, "概率论")
 >sort chapter
@@ -29,8 +30,8 @@
 > [!note]+ 最近编辑
 >```dataview
 >table WITHOUT ID file.link AS "标题", file.mtime
->from !"模板" and !"kanban"
->where contains(file.tags, "数学")
+>from #数学 and !"模板" and !"kanban"
+>where regextest("(微积分|概率论|线性代数|Other)", file.path)
 >sort file.mtime desc
 >limit 16
 >```
@@ -43,8 +44,8 @@
 > ```
 >```dataview
 >list
->where  contains(file.tags, "数学") 
->and finished=false
+>from #数学 
+>where finished=false
 >```
 
 > [!warning]- 同步冲突
