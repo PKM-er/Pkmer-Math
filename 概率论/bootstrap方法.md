@@ -6,6 +6,7 @@ dlink:
 author:
   - Cyletix
 finished: false
+chapter: 11
 ---
 - 非参数bootstrap方法
 - 参数bootstrap方法
