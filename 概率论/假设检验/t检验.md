@@ -92,7 +92,7 @@ $$ t = \frac{\bar{d}}{s_d / \sqrt{n}} $$
 ## 图例
 t检验的双边假设
 
-![[(Delete) file-udxeUcFDMIFzlZhrDskJeizD.webp]]
+![[file-udxeUcFDMIFzlZhrDskJeizD.webp]]
 
 t检验的单边假设
-![[(Delete) file-1MW7XOlXR0Aol1SfQvMwivRL.webp]]
+![[file-1MW7XOlXR0Aol1SfQvMwivRL.webp]]
