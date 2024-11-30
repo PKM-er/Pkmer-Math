@@ -19,7 +19,7 @@ $$
 ## 构造
 $t$ 分布可以通过[[标准正态分布]]和[[卡方分布]]构造。当 $X \sim N(0,1)$ 且 $Y \sim \chi^2(k)$ 时，$Z = \dfrac{X}{\sqrt{Y/k}}$ 服从自由度为 $k$ 的 $t$ 分布。
 这里 $\sqrt{\dfrac{Y}{k}}$ 是 $Y$ 标准化的结果，使得 $Z$ 分布的方差不依赖于 $Y$ 的尺度，而只依赖于其自由度 $k$。
-![[(Delete) file-udxeUcFDMIFzlZhrDskJeizD.webp]]
+![[file-udxeUcFDMIFzlZhrDskJeizD.webp]]
 ## 性质
 
 1. **对称性**：$t$ 分布是关于 0 对称的。

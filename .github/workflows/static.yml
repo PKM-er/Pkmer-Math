@@ -59,7 +59,7 @@ jobs:
         run: |
           sed -i 's/base: \"\/\"/base: \"\/${{steps.config1.outputs.REPO_NAME}}\/\"/g' src/.vuepress/config.ts
 
-      # 文档的克隆、构建、部署。注意 `clone --depth` 只拉最近一次提交，减少时间
+      # 文档的克隆、构建、部署。注意 `clone --depth 1` 只拉最近一次提交，减少时间
       - name: 文档 - 文档库克隆
         working-directory: ./src/
         run: |
