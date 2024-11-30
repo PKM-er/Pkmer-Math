@@ -1,6 +1,6 @@
 {
   "command_timeout": 5,
-  "templates_folder": "_config_/Template",
+  "templates_folder": "_assert_/Template",
   "templates_pairs": [
     [
       "",
@@ -16,23 +16,30 @@
   "folder_templates": [
     {
       "folder": "微积分",
-      "template": "_config_/Template/template-微积分.md"
+      "template": "_assert_/Template/template-微积分.md"
     },
     {
       "folder": "线性代数",
-      "template": "_config_/Template/template-线性代数.md"
+      "template": "_assert_/Template/template-线性代数.md"
     },
     {
       "folder": "概率论",
-      "template": "_config_/Template/template-概率论.md"
+      "template": "_assert_/Template/template-概率论.md"
     },
     {
       "folder": "/",
-      "template": "_config_/Template/template-default.md"
+      "template": "_assert_/Template/template-default.md"
+    }
+  ],
+  "enable_file_templates": false,
+  "file_templates": [
+    {
+      "regex": ".*",
+      "template": ""
     }
   ],
   "syntax_highlighting": true,
-  "syntax_highlighting_mobile": false,
+  "syntax_highlighting_mobile": true,
   "enabled_templates_hotkeys": [
     ""
   ],

@@ -141,6 +141,6 @@ Alias: `error`
 [[Library/Science/Math/_assert_/Callouts/Callouts-Tips]]
 [[Library/Science/Math/_assert_/Callouts/Callouts-Todo]]
 [[Library/Science/Math/_assert_/Callouts/Callouts-Warning]]
-[[STEM/Math/_config_/Callouts/Callouts Syntax]]
+[[STEM/Math/_assert_/Callouts/Callouts Syntax]]
 
 
