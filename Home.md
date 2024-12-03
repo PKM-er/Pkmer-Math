@@ -61,7 +61,7 @@
 > - [[线性代数 第5版 同济大学.pdf]]
 > - [[概率论与数理统计(浙大四版).pdf]]
 >- [[Markdown数学公式]]
->- [[Library/Science/Math/_assert_/Callouts/Callouts Syntax]]
+>- [[Callouts语法]]
 >- [[WolframAlpha]]
 >- [[公式编辑器]]
 
