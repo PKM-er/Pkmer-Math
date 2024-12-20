@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: http://192.168.0.101:8080/Pkmer-Math/sitemap.xml
+Sitemap: https://PKM-er.github.io/Pkmer-Math/sitemap.xml
