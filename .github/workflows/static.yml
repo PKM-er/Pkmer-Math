@@ -21,7 +21,7 @@ jobs:
       - name: 环境 - 构建库
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
           repository: LincZero/LincZero.github.io
           ref: 'main' # 分支，旧raw
           
