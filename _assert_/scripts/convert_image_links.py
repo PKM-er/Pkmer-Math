@@ -19,7 +19,7 @@ def convert_image_links(file_path):
         content = f.read()
     
     # 匹配图床图片链接
-    pattern = r'!\[(.*?)\]\((https://obsidian-picture-1314838930\.cos\.ap-beijing\.myqcloud\.com/[^)]+)\)'
+    pattern = r'!\[(.*?)\]\((https://obsidian-picture-[^)]+)\)'
     
     def replace_image(match):
         alt_text = match.group(1)
@@ -36,11 +36,12 @@ def convert_image_links(file_path):
         
         # 下载图片
         if download_image(image_url, save_path):
-            # 返回新的本地图片链接
-            return f'![{alt_text}]({save_path.relative_to(Path(file_path).parent)})'
+            # 只替换URL部分，保留原有格式
+            relative_path = save_path.relative_to(Path(file_path).parent)
+            return f'![{alt_text}]({relative_path})'
         else:
             # 下载失败则保留原链接
-            return match.group(0)
+            return f'![{alt_text}]({image_url})'
     
     content = re.sub(pattern, replace_image, content)
     
