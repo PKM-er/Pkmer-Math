@@ -30,7 +30,7 @@ def convert_image_links(file_path):
         filename = os.path.basename(parsed_url.path)
         
         # 本地保存路径
-        save_dir = Path(file_path).parent / '_assert_/Images'
+        save_dir = Path(file_path).parent / '_assets_/Images'
         save_dir.mkdir(parents=True, exist_ok=True)
         save_path = save_dir / filename
         

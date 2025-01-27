@@ -39,7 +39,7 @@
 > [!todo]-
 > ```dataview
 > task
-> where (contains(file.path,"_assert_/todo/")
+> where (contains(file.path,"_assets_/todo/")
 > and !fullyCompleted)
 > ```
 >```dataview
