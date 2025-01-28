@@ -1,17 +1,22 @@
 # 排除自己, 每个人的插件和其他配置文件的情况不一样, 如果需要单独配置则添加此项并在后面添加自己的配置文件
-# .gitignore
+.gitignore
 
 # 同步.obsidian文件夹下指定的子文件夹,名称前加"!", 这些插件都暂时没有用到, 将来找机会剔除
 .obsidian/*
 .obsidian/app.json
-.obsidian/snippets
-.obsidian/community-plugins.json
-.obsidian/graph.json
+!.obsidian/appearance.json
 .obsidian/bookmarks.json
+!.obsidian/community-plugins.json
+!.obsidian/core-plugins.json
+!.obsidian/graph.json
+!.obsidian/hotkeys.json
+.obsidian/graph.json
+.obsidian/types.json
 .obsidian/workspace.json
 
 
-.obsidian/plugins/*
+!.obsidian/snippets
+!.obsidian/plugins/*
 !.obsidian/plugins/dataview
 !.obsidian/plugins/templater-obsidian
 # !.obsidian/plugins/obsidian-git/
