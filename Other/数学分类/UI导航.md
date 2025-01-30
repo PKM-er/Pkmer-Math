@@ -1,7 +1,7 @@
 
 # 数学UI导航
 
-[card|addClass(ab-deco-grid)]
+[card|addClass(ab-lay-grid)]
 
 - 00 总论
 - 01 [[数学史]]与文献
