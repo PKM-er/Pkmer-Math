@@ -4,5 +4,6 @@
     "cyletix-appendix-icon",
     "cyletix-md-icon"
   ],
-  "cssTheme": ""
+  "cssTheme": "",
+  "theme": "obsidian"
 }
