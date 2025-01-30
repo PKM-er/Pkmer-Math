@@ -561,54 +561,56 @@ $$
 
 ---
 # 四、ArcherReilly
+
 ### Greek Letters
 |Symbol|Script|
 |---|---|
-|$\alpha$|\alpha|
-|$A$|A|
-|$\beta$|\beta|
-|$B$|B|
-|$\gamma$|\gammma|
-|$\Gamma$|\Gamma|
-|$\pi$|\pi|
-|$\Pi$|\Pi|
-|$\phi$|\phi|
-|$\Phi$|\Phi|
-|$\varphi$|\varphi|
-|$\theta$|\theta|
+|$\alpha$|`\alpha`|
+|$A$|`A`|
+|$\beta$|`\beta`|
+|$B$|`B`|
+|$\gamma$|`\gammma`|
+|$\Gamma$|`\Gamma`|
+|$\pi$|`\pi`|
+|$\Pi$|`\Pi`|
+|$\phi$|`\phi`|
+|$\Phi$|`\Phi`|
+|$\varphi$|`\varphi`|
+|$\theta$|`\theta`|
+
 ### Operators
 |Symbol|Script|
 |---|---|
-|$\cos$|\cos|
-|$\sin$|\sin|
-|$\lim$|\lim|
-|$\exp$|\exp|
-|$\to$|\to|
-|$\infty$|\infty|
-|$\equiv$|\equiv|
-|$\bmod$|\bmod|
-|$\times$|\times|
+|$\cos$|`\cos`|
+|$\sin$|`\sin`|
+|$\lim$|`\lim`|
+|$\exp$|`\exp`|
+|$\to$|`\to`|
+|$\infty$|`\infty`|
+|$\equiv$|`\equiv`|
+|$\bmod$|`\bmod`|
+|$\times$|`\times`|
 
 ### Power and Indices
 |Symbol|Script|
 |---|---|
-|$k_{n+1}$|k_{n+1}|
-|$n^2$|n^2|
-|$k_n^2$|k_n^2|
+|$k_{n+1}$|`k_{n+1}`|
+|$n^2$|`n^2`|
+|$k_n^2$|`k_n^2`|
 
 ### Fractions and Binomials
 |Symbol|Script|
 |---|---|
-|$\frac{n!}{k!(n-k)!}$|\frac{n!}{k!(n-k)!}|
-|$\binom{n}{k}$|\binom{n}{k}|
-|$\frac{\frac{x}{1}}{x - y}$|\frac{\frac{x}{1}}{x - y}|
-|$^3/_7$|^3/_7|
+|$\frac{n!}{k!(n-k)!}$|`\frac{n!}{k!(n-k)!}`|
+|$\binom{n}{k}$|`\binom{n}{k}`|
+|$\frac{\frac{x}{1}}{x - y}$|`\frac{\frac{x}{1}}{x - y}`|
+|$^3/_7$|`^3/_7`|
 
 ### Roots
 |Symbol|Script|
 |---|---|
-|$\sqrt{k}$|\sqrt{k}|
-|$\sqrt[n]{k}$|\sqrt[n]{k}|
+|$\sqrt{k}$|`\sqrt{k}`|
+|$\sqrt[n]{k}$|`\sqrt[n]{k}`|
 
 ### Sums and Integrals
 | Symbol                                      | Script                                    |
