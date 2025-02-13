@@ -124,3 +124,108 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
 - 虚线绘制主平面投影
 	`\draw[dashed]`
 - 
+
+
+
+
+---
+# 案例
+
+
+## 2D
+```tikz
+\begin{document}
+\begin{tikzpicture}
+% 绘制坐标轴
+\draw[->] (-0.2,0) -- (1.5,0) node[right] {$x$};
+\draw[->] (0,-1) -- (0,1) node[above] {$y$};
+
+% 定义曲线 y = ln(x)，限制范围
+\draw[domain=0.2:1.5,smooth,variable=\x] 
+plot ({\x}, {ln(\x)}) node[right] {$y = \ln(x)$};
+
+% 填充阴影区域
+\begin{scope} \clip (0,-1.5) rectangle (1,0); \fill[black!20,opacity=0.7] plot[domain=0.01:1,smooth]({\x}, {ln(\x)}) -- (1,0) -- (0,0) -- cycle; \end{scope}
+
+% 标记点
+\node[below] at (1,0) {1};
+\node[below left] at (0,0) {0};
+\node[below left] at (0.05, -1) {$(0, \ln(x))$};
+\end{tikzpicture}
+\end{document}
+```
+
+```tikz
+\begin{document}
+\begin{tikzpicture}
+% 绘制坐标轴
+\draw[->] (-1.5,0) -- (1.5,0) node[right] {$x$};
+\draw[->] (0,-0.5) -- (0,1.5) node[above] {$y$};
+
+% 三角形顶点
+\coordinate (A) at (-1,0);
+\coordinate (B) at (1,0);
+\coordinate (C) at (0,1);
+
+% 绘制三角形边
+\draw[thick,red!50] (A) -- (C) node[midway,left] {$L_1$};
+\draw[thick,red!50] (C) -- (B) node[midway,right] {$L_2$};
+\draw[thick,blue!50] (B) -- (A) node[midway,below] {$L_3$};
+
+% 标注顶点
+\node[below left] at (A) {$(-1,0)$};
+\node[below right] at (B) {$(1,0)$};
+\node[above] at (C) {$(0,1)$};
+\node[below left] at (0,0) {$0$};
+
+% 添加方向箭头
+\draw[->,red!50,line width=1pt] (-0.5,0.5) -- (-0.45,0.55);
+\draw[->,red!50,line width=1pt] (0.5,0.5) -- (0.55,0.45);
+\draw[->,blue!50,line width=1pt] (0,-0.05) -- (-0.05,-0.05);
+\end{tikzpicture}
+\end{document}
+```
+
+
+## 3D
+
+```tikz
+\usepackage{tikz-3dplot}
+\begin{document}
+
+\begin{tikzpicture}
+    % 设置 3D 视角（俯仰角 80°，水平旋转角 120°）
+    \tdplotsetmaincoords{80}{120}
+    \begin{scope}[tdplot_main_coords]
+
+        % 绘制坐标轴
+        \draw[->] (0,0,0) -- (1.5,0,0) node[below right] {$x$};
+        \draw[->] (0,0,0) -- (0,1.5,0) node[below left] {$y$};
+        \draw[->] (0,0,0) -- (0,0,1.5) node[above] {$z$};
+
+        % 主平面上的虚线轮廓
+        \draw[dashed] plot[domain=0:1,samples=50] ({\x},0,{\x*\x});
+        \draw[dashed] plot[domain=0:1,samples=50] ({-\x},0,{\x*\x});
+        \draw[dashed] plot[domain=0:1,samples=50] (0,{\x},{\x*\x});
+        \draw[dashed] plot[domain=0:1,samples=50] (0,{-\x},{\x*\x});
+
+        % 真实边缘轮廓
+        \foreach \angle in {120, 300} {
+            \draw[smooth, thick] plot[domain=0:1,samples=50] 
+                ({\x*cos(\angle)},{\x*sin(\angle)},{\x*\x});
+        }
+
+        % 顶部圆形
+        \draw[smooth] (1,0,1) arc[start angle=0,end angle=360,x radius=1,y radius=1];
+
+        % 标注点
+        \node[below left] at (0,0,0) {$O$};
+        \node[right] at (0,0,1) {$z=1$};
+
+        % 在右侧标注曲面方程
+        \node[anchor=west] at (0,1,0.5) {\large $z = x^2 + y^2$};
+    \end{scope}
+\end{tikzpicture}
+
+\end{document}
+```
