@@ -24,7 +24,7 @@ The following packages are available in `\usepackage{}`:
 - pgfplots
 - array
 - amsmath
-    - amstext
+- amstext
 - amsfonts
 - amssymb
 - tikz-3dplot
