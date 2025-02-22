@@ -44,3 +44,13 @@ _assets_/草稿
 
 # vscode配置文件夹
 .vscode
+
+# node_modules文件夹
+node_modules
+
+# package.json和包锁文件
+package.json
+package-lock.json
+
+# mcp相关
+*mcp*
