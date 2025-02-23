@@ -30,6 +30,7 @@ The following packages are available in `\usepackage{}`:
 - 电路: `\usepackage{circuitikz}`
 - 交换图: `\usepackage{tikz-cd}`
 - 有机化学: `\usepackage{chemfig}`
+
 ---
 ## 颜色
 TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色可以直接引用，也可以通过 `xcolor` 包扩展。以下是主要内置颜色方案：
@@ -110,6 +111,7 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
 	`\draw[dashed]`
 - 仅有实体形状才使用加粗`\draw[smooth, thick]`, 如: 圆柱的底部,顶部,边界 用实线绘制, 没有明确指定则不调整颜色
 - 相交平面使用 填充透明度0.2: `\fill[black!20,opacity=0.2]`
+
 ---
 # 案例
 ## 2D
@@ -190,6 +192,7 @@ plot ({\x}, {ln(\x)}) node[right] {$y = \ln(x)$};
 \end{tikzpicture}
 \end{document}
 ```
+
 ---
 # TikZ 绘图失败原因与解决方案总结
 #### **1. 计算溢出**
@@ -231,6 +234,7 @@ plot ({\x}, {ln(\x)}) node[right] {$y = \ln(x)$};
 - **解决方案**：
     - 使用 `\node[below]` 明确标注关键点（如 `x=1,2,3,4`）。
     - 方程统一放置在右上角：`\node[anchor=west]`。
+
 ---
 ### **标准绘图原则**
 ✅ **2D：确保 `y` 轴范围受控，避免 TikzJax 计算溢出**  
