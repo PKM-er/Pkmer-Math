@@ -13,7 +13,7 @@ module.exports = async (params) => {
   }else if(action === options[1]){
     await child_process.exec(`code ${basePath}\\.obsidian\\snippets`)
   }else if(action === options[2]){
-    await child_process.exec(`code ${basePath}\\Config`)
+    await child_process.exec(`code ${basePath}\\_assets_`)
   }else if(action === options[3]){
     await child_process.exec(`gvim "${basePath}/${filePath}"`)
   }else if(action === options[4]){
