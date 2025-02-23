@@ -1,5 +1,4 @@
 [
-  "obsidian-git",
   "dataview",
   "obsidian-view-mode-by-frontmatter",
   "obsidian-latex-suite",
@@ -8,5 +7,6 @@
   "open-vscode",
   "obsidian-matrix",
   "obsidian-tikzjax",
-  "quickadd"
+  "quickadd",
+  "obsidian-git"
 ]
