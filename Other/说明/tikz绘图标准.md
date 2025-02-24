@@ -31,6 +31,11 @@ The following packages are available in `\usepackage{}`:
 - 交换图: `\usepackage{tikz-cd}`
 - 有机化学: `\usepackage{chemfig}`
 
+### 禁止使用
+- `\documentclass{article}`
+
+会导致报错
+
 ---
 ## 颜色
 TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色可以直接引用，也可以通过 `xcolor` 包扩展。以下是主要内置颜色方案：
@@ -97,6 +102,8 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
     \draw[fill=yellow,draw=red] (0,0) circle (1cm);
     ```
 通过这些内置和扩展颜色，几乎可以满足大多数绘图需求
+
+---
 ## 2D图
 - 定义变量$x$的范围: `\draw[domain= 0:1,smooth,variable=\x]`
 ## 3D图
@@ -111,6 +118,87 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
 	`\draw[dashed]`
 - 仅有实体形状才使用加粗`\draw[smooth, thick]`, 如: 圆柱的底部,顶部,边界 用实线绘制, 没有明确指定则不调整颜色
 - 相交平面使用 填充透明度0.2: `\fill[black!20,opacity=0.2]`
+
+
+---
+## 斜线填充
+在 **Obsidian 的 TikZ 环境（tikzjax）** 下，斜线填充不能使用 `\foreach` 循环或者 `patterns`，因此可以用 `\clip` 加 `\fill` 来手动绘制斜线填充。下面是修正后的 **tikzjax 兼容代码**：
+```tikz
+\begin{document}
+\begin{tikzpicture}
+    % 绘制坐标轴
+    \draw[->] (-1.5,0) -- (1.5,0) node[right] {$x$};
+    \draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
+    % 绘制圆 (x^2 + y^2 = 1)
+    \draw[thick,red] (0,0) circle(1);
+    % 在圆内部填充斜线
+    \begin{scope}
+        \clip (0,0) circle(1); % 只填充圆内区域
+        \foreach \y in {-1.5,-1.2,...,1.5} {
+            \draw[red!70] (-1.5,\y) -- (1.5,\y+1);
+        }
+    \end{scope}
+    % 添加旋转箭头
+    \draw[->,red,thick] (1,0) arc[start angle=0,end angle=45,radius=1];
+\end{tikzpicture}
+\end{document}
+```
+
+```tikz
+\begin{document}
+\begin{tikzpicture}
+    % 坐标轴
+    \draw[->,thick] (-0.2,0) -- (1.5,0) node[right] {$x$};
+    \draw[->,thick] (0,-0.2) -- (0,1.5) node[above] {$y$};
+    % 三角形边界
+    \draw[thick,red] (1,0) -- (0,1) -- (0,0) -- cycle;
+    % 斜线填充
+    \begin{scope}
+        \clip (1,0) -- (0,1) -- (0,0) -- cycle;
+        \foreach \i in {0.1,0.2,...,0.9} {
+            \draw[red!50] (0,\i) -- (\i,0);
+        }
+    \end{scope}
+    % 标注方程
+    \node[right] at (0.5,0.6) {\large $x+y=1$};
+    % 标注点
+    \node[below left] at (0,0) {$0$};
+    \node[below] at (1,0) {$1$};
+    \node[left] at (0,1) {$1$};
+\end{tikzpicture}
+\end{document}
+``` 
+
+
+### 代码优化点：
+1. **斜线填充**：
+    - 不能使用 `\foreach` 在 `\clip` 内部，因此 **使用 `\clip` 限制区域，然后绘制一系列平行线**，保证它们只出现在圆内部。
+    - 这里的 `\foreach \y in {-1.5,-1.2,...,1.5}` 产生 **从左到右的斜线**。
+2. **旋转箭头**：
+    - 直接用 `arc[start angle=0,end angle=45]` 绘制 **顺时针旋转的小箭头**。
+
+
+
+
+---
+## 颜色填充
+
+大多数情况都失败了, 但是有一次看到了一个偶然的成功案例
+```
+% 填充阴影区域
+\begin{scope} \clip (0,-1.5) rectangle (1,0); \fill[black!20,opacity=0.7] plot[domain=0.01:1,smooth]({\x}, {ln(\x)}) -- (1,0) -- (0,0) -- cycle; \end{scope}
+```
+
+
+---
+## **标准绘图原则**
+✅ **2D：确保 `y` 轴范围受控，避免 TikzJax 计算溢出**  
+✅ **3D：固定 `\tdplotsetmaincoords{80}{120}`，只绘制关键轮廓**  
+✅ **曲线：使用 `smooth` 和 `samples=100`，提高解析精度**  
+✅ **颜色：仅用黑白，避免 `colormap` 和 `fill opacity`**  
+✅ **阴影：尽量 `filldraw` 而非 `clip`，减少 TikzJax 解析负担**
+
+
 
 ---
 # 案例
@@ -160,6 +248,7 @@ plot ({\x}, {ln(\x)}) node[right] {$y = \ln(x)$};
 \end{document}
 ```
 ## 3D
+**必须需要导入 `\usepackage{tikz-3dplot}` 包!**
 ```tikz
 \usepackage{tikz-3dplot}
 \begin{document}
@@ -192,92 +281,243 @@ plot ({\x}, {ln(\x)}) node[right] {$y = \ln(x)$};
 \end{tikzpicture}
 \end{document}
 ```
-
----
-# TikZ 绘图失败原因与解决方案总结
-#### **1. 计算溢出**
-- **问题**：高次幂、多项式计算导致 TikzJax 计算失败。
-- **解决方案**：
-    - 限制 `y` 轴范围：`max(y_{\min}, min(y_{\max}, f(x)))`
-    - 降低幂次：尝试分解或近似表示。
-#### **2. 超出坐标轴范围**
-- **问题**：曲线部分超出可视范围，导致图像部分缺失或溢出。
-- **解决方案**：
-    - **手动设置 `x` 和 `y` 轴范围**，例如 `domain=0.5:4.5, ymin=-2, ymax=2`。
-#### **3. TikzJax 不支持 `pgfplots`**
-- **问题**：在 Obsidian 中，`pgfplots` 不能直接使用。
-- **解决方案**：
-    - 只用 `\draw plot`，不要 `\addplot` 和 `\begin{axis}`。
-    - 预计算点值并手动绘制。
-#### **4. 计算精度问题**
-- **问题**：某些 `plot` 计算 TikzJax 解析失败。
-- **解决方案**：
-    - 增加 `samples`，如 `samples=100`。
-    - 复杂计算分步执行，或使用 `foreach` 逐点绘制。
-#### **5. 3D 视角错误**
-- **问题**：3D 视角不符合需求，导致 `x, y, z` 轴方向不正确。
-- **解决方案**：
-    - 设定 `\tdplotsetmaincoords{80}{120}` 统一标准视角。
-    - 只绘制主要轮廓，去除 `surf` 填充。
-#### **6. 颜色与 TikzJax 兼容问题**
-- **问题**：某些 `colormap`、`opacity` 设置可能导致 TikzJax 解析失败。
-- **解决方案**：
-    - 避免 `colormap`，只用 `black!50`、`gray`。
-    - 使用 `pattern` 代替 `fill opacity`。
-#### **7. 复杂阴影填充失败**
-- **问题**：`clip` 可能导致 TikzJax 解析异常。
-- **解决方案**：
-    - 先用 `\clip` 限制区域，再 `\fill` 。
-    - 避免 `clip`，改用 `filldraw` 手动绘制封闭区域。
-#### **8. 关键点与标注**
-- **问题**：关键点未标记，导致数学分析不直观。
-- **解决方案**：
-    - 使用 `\node[below]` 明确标注关键点（如 `x=1,2,3,4`）。
-    - 方程统一放置在右上角：`\node[anchor=west]`。
-
----
-### **标准绘图原则**
-✅ **2D：确保 `y` 轴范围受控，避免 TikzJax 计算溢出**  
-✅ **3D：固定 `\tdplotsetmaincoords{80}{120}`，只绘制关键轮廓**  
-✅ **曲线：使用 `smooth` 和 `samples=100`，提高解析精度**  
-✅ **颜色：仅用黑白，避免 `colormap` 和 `fill opacity`**  
-✅ **阴影：尽量 `filldraw` 而非 `clip`，减少 TikzJax 解析负担**
-
----
-## 斜线填充
-在 **Obsidian 的 TikZ 环境（tikzjax）** 下，斜线填充不能使用 `\foreach` 循环或者 `patterns`，因此可以用 `\clip` 加 `\fill` 来手动绘制斜线填充。下面是修正后的 **tikzjax 兼容代码**：
-```tikz
+ 真实边缘轮廓的角度为 \tdplotsetmaincoords{80}{120} 后者120和其补角: 120+180, 这两个线是真实视角边缘轮廓线
+ 
+ ```tikz
+\usepackage{tikz-3dplot}
 \begin{document}
 \begin{tikzpicture}
-    % 绘制坐标轴
-    \draw[->] (-1.5,0) -- (1.5,0) node[right] {$x$};
-    \draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
-    % 绘制圆 (x^2 + y^2 = 1)
-    \draw[thick,red] (0,0) circle(1);
-    % 在圆内部填充斜线
-    \begin{scope}
-        \clip (0,0) circle(1); % 只填充圆内区域
-        \foreach \y in {-1.5,-1.2,...,1.5} {
-            \draw[red!70] (-1.5,\y) -- (1.5,\y+1);
-        }
+    % 设置 3D 视角
+    \tdplotsetmaincoords{70}{120}
+    \begin{scope}[tdplot_main_coords]
+        % 坐标轴
+        \draw[->,thick] (0,0,0) -- (1.5,0,0) node[below left] {$x$};
+        \draw[->,thick] (0,0,0) -- (0,1.5,0) node[below right] {$y$};
+        \draw[->,thick] (0,0,0) -- (0,0,1.5) node[above] {$z$};
+        % 空间三角形 (红色)
+        \draw[thick,red] (1,0,0) -- (0,1,0) -- (0,0,1) -- cycle;
+        % 底面三角形 (阴影填充)
+        \begin{scope}
+            \clip (1,0,0) -- (0,1,0) -- (0,0,0) -- cycle;
+            \foreach \i in {0.1,0.2,...,0.9} {
+                \draw[red!50] (1-\i,\i,0) -- (1-\i+0.1,\i,0);
+            }
+        \end{scope}
+        \draw[thick,red] (1,0,0) -- (0,1,0) -- (0,0,0) -- cycle;
+        % 标注点
+        \node[below left] at (0,0,0) {$0$};
+        \node[left] at (0,0,1) {$1$};
+        \node[right] at (1,0,0) {$1$};
+        \node[above] at (0,1,0) {$1$};
+        % 文字标注
+        \node at (0.2,0.5,0.7) {\large $\Sigma$};
+        \node at (0.3,0.2,0) {\large $D$};
     \end{scope}
-    % 添加旋转箭头
-    \draw[->,red,thick] (1,0) arc[start angle=0,end angle=45,radius=1];
 \end{tikzpicture}
 \end{document}
 ```
-### 代码优化点：
-1. **斜线填充**：
-    - 不能使用 `\foreach` 在 `\clip` 内部，因此 **使用 `\clip` 限制区域，然后绘制一系列平行线**，保证它们只出现在圆内部。
-    - 这里的 `\foreach \y in {-1.5,-1.2,...,1.5}` 产生 **从左到右的斜线**。
-2. **旋转箭头**：
-    - 直接用 `arc[start angle=0,end angle=45]` 绘制 **顺时针旋转的小箭头**。
-### 兼容性：
-✔ **完全兼容 Obsidian 的 tikzjax**  
-✔ **正确填充斜线，符合手绘图风格**  
-✔ **不会超出 Obsidian TikZ 插件支持范围**
 
----
+### 3D直角坐标平面案例
+
+
+- **表 (a) 方程组有解的情形**
+
+| 图形  | 几何意义             | 代数表达                                                              |
+| --- | ---------------- | ----------------------------------------------------------------- |
+| 1   | 三张平面相交于一点        | $r(A) = r(\bar{A}) = 3$                                           |
+| 2   | 三张平面相交于一条直线      | $r(A) = r(\bar{A}) = 2$，且 $\beta_1, \beta_2, \beta_3$ 中任意两个向量线性无关 |
+| 3   | 两张平面重合，第三张平面与之相交 | $r(A) = r(\bar{A}) = 2$，且 $\beta_1, \beta_2, \beta_3$ 中有两个向量线性相关  |
+| 4   | 三张平面重合           | $r(A) = r(\bar{A}) = 1$                                           |
+```tikz
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\begin{document}
+\begin{tikzpicture}
+    % 设置 3D 视角（俯仰角 80°，水平旋转角 120°）
+    \tdplotsetmaincoords{80}{120}
+    \begin{scope}[tdplot_main_coords]
+        % 绘制坐标轴
+        \draw[->] (-1.5,0,0) -- (1.5,0,0) node[right] {$x$};
+        \draw[->] (0,-1.5,0) -- (0,1.5,0) node[right] {$y$};
+        \draw[->] (0,0,0) -- (0,0,1.5) node[above] {$z$};  % 只画 z > 0
+
+        % 填充三个相互垂直的平面（只显示 z ≥ 0 部分）
+        \fill[gray!20,opacity=0.5] (-1.2,-1.2,0) -- (-1.2,1.2,0) -- (1.2,1.2,0) -- (1.2,-1.2,0) -- cycle; % XY 平面
+        \fill[gray!30,opacity=0.5] (-1.2,0,0) -- (-1.2,0,1.2) -- (1.2,0,1.2) -- (1.2,0,0) -- cycle; % XZ 平面，限制 z ≥ 0
+        \fill[gray!40,opacity=0.5] (0,-1.2,0) -- (0,-1.2,1.2) -- (0,1.2,1.2) -- (0,1.2,0) -- cycle; % YZ 平面，限制 z ≥ 0
+
+        % 标记相交点
+        \node[below left,red] at (0,0,0) {$O$};
+        \fill[red] (0,0,0) circle (1.5pt);
+    \end{scope}
+\end{tikzpicture}
+\end{document}
+```
+```tikz
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\begin{document}
+\begin{tikzpicture}
+    % 设置 3D 视角（俯仰角 80°，水平旋转角 120°）
+    \tdplotsetmaincoords{80}{120}
+    \begin{scope}[tdplot_main_coords]
+        % 绘制坐标轴
+        \draw[->] (-1.5,0,0) -- (1.5,0,0) node[right] {$x$};
+        \draw[->] (0,-1.5,0) -- (0,1.5,0) node[right] {$y$};
+        \draw[->] (0,0,0) -- (0,0,1.5) node[above] {$z$};
+
+        % 绘制三个平面
+        % 平面 1：XZ 平面（y=0）
+        \fill[gray!20,opacity=0.5] (-1.2,0,0) -- (-1.2,0,1.2) -- (1.2,0,1.2) -- (1.2,0,0) -- cycle;
+
+        % 平面 2：YZ 平面（x=0）
+        \fill[gray!30,opacity=0.5] (0,-1.2,0) -- (0,-1.2,1.2) -- (0,1.2,1.2) -- (0,1.2,0) -- cycle;
+
+        % 平面 3：倾斜平面 x + y = 0
+        \fill[gray!40,opacity=0.5] (-1.2,1.2,0) -- (1.2,-1.2,0) -- (1.2,-1.2,1.2) -- (-1.2,1.2,1.2) -- cycle;
+
+        % 标记交线（严格与 z 轴重合）
+        \draw[thick,red] (0,0,0) -- (0,0,1.2);
+
+        % 标记相交点
+        \node[below left] at (0,0,0) {$O$};
+
+    \end{scope}
+\end{tikzpicture}
+\end{document}
+```
+
+```tikz
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\begin{document}
+\begin{tikzpicture}
+    % 设置 3D 视角（俯仰角 80°，水平旋转角 120°）
+    \tdplotsetmaincoords{80}{120}
+    \begin{scope}[tdplot_main_coords]
+        % 绘制坐标轴
+        \draw[->] (-1.5,0,0) -- (1.5,0,0) node[right] {$x$};
+        \draw[->] (0,-1.5,0) -- (0,1.5,0) node[right] {$y$};
+        \draw[->] (0,0,0) -- (0,0,1.5) node[above] {$z$};
+
+        % 绘制两个重合的 XZ 平面（y=0）
+        \fill[red!20,opacity=0.5] (-1.2,0,0) -- (-1.2,0,1.2) -- (1.2,0,1.2) -- (1.2,0,0) -- cycle;
+        \fill[gray!30,opacity=0.5] (-1.2,0.1,0) -- (-1.2,0.1,1.2) -- (1.2,0.1,1.2) -- (1.2,0.1,0) -- cycle;
+
+        % 第三张平面：YZ 平面 (x=0)
+        \fill[gray!40,opacity=0.5] (0,-1.2,0) -- (0,-1.2,1.2) -- (0,1.2,1.2) -- (0,1.2,0) -- cycle;
+
+        % 标记交线（X 轴方向）
+        \draw[thick,red] (-1.2,0,0) -- (1.2,0,0);
+
+        % 在交点 (0,0,0) 画一个红点
+        \fill[red] (0,0,0) circle (1.5pt);
+
+        % 标记相交点
+        \node[below left] at (0,0,0) {$O$};
+        \draw[thick,red] (0,0,0) -- (0,0,1.2);
+
+    \end{scope}
+\end{tikzpicture}
+\end{document}
+```
+```tikz
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\begin{document}
+\begin{tikzpicture}
+    % 设置 3D 视角（俯仰角 80°，水平旋转角 120°）
+    \tdplotsetmaincoords{80}{120}
+    \begin{scope}[tdplot_main_coords]
+        % 绘制坐标轴
+        \draw[->] (-1.5,0,0) -- (1.5,0,0) node[right] {$x$};
+        \draw[->] (0,-1.5,0) -- (0,1.5,0) node[right] {$y$};
+        \draw[->] (0,0,0) -- (0,0,1.5) node[above] {$z$};
+
+        % 画三张完全重合的平面（这里只画一个 XZ 平面）
+        \fill[red] (-1.2,0,0) -- (-1.2,0,1.2) -- (1.2,0,1.2) -- (1.2,0,0) -- cycle;
+        \fill[gray!30,opacity=0.5] (-1.2,0.1,0) -- (-1.2,0.1,1.2) -- (1.2,0.1,1.2) -- (1.2,0.1,0) -- cycle;
+        \fill[gray!30,opacity=0.5] (-1.2,-0.1,0) -- (-1.2,-0.1,1.2) -- (1.2,-0.1,1.2) -- (1.2,-0.1,0) -- cycle;
+
+        % 标记相交点
+        \node[below left] at (0,0,0) {$O$};
+
+    \end{scope}
+\end{tikzpicture}
+\end{document}
+```
+```tikz
+
+```
+- **表 (b) 方程组无解的情形**
+
+| 图形  | 几何意义              | 代数表达                                                      |
+| --- | ----------------- | --------------------------------------------------------- |
+| 5   | 三张平面两两相交，且交线相互平行  | $r(A) = 2, r(\bar{A}) = 3$，且 $a_1, a_2, a_3$ 中任意两个向量都线性无关 |
+| 6   | 两张平面平行，第三张平面与它们相交 | $r(A) = 2, r(\bar{A}) = 3$，且 $a_1, a_2, a_3$ 中有两个向量线性相关   |
+```tikz
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\begin{document}
+\begin{tikzpicture}
+    % 设置 3D 视角（俯仰角 80°，水平旋转角 120°）
+    \tdplotsetmaincoords{20}{120}
+    \begin{scope}[tdplot_main_coords]
+        % 绘制坐标轴
+        \draw[->] (-1.5,0,0) -- (1.5,0,0) node[right] {$x$};
+        \draw[->] (0,-1.5,0) -- (0,1.5,0) node[right] {$y$};
+        \draw[->] (0,0,0) -- (0,0,1.5) node[above] {$z$};
+
+        % 三个平面（都严格平行于 Z 轴）
+        \fill[gray!30,opacity=0.5] (0,-0.5,0) -- (0,1.2,0) -- (0,1.2,1) -- (0,-0.5,1) -- cycle; % x = 0 (YZ 平面)
+        \fill[gray!40,opacity=0.5] (-0.5,0,0) -- (1.2,0,0) -- (1.2,0,1) -- (-0.5,0,1) -- cycle;  % y = 0 (XZ 平面)
+        \fill[gray!50,opacity=0.5] (-0.2,1.2,0) -- (1.2,-0.2,0) -- (1.2,-0.2,1) -- (-0.2,1.2,1) -- cycle;  % x + y = 1
+
+        % 三条交线 (都严格沿 z 轴)
+        \draw[thick,red] (0,0,0) -- (0,0,1);  % 交线 1 (原点)
+        \draw[thick,red] (1,0,0) -- (1,0,1);  % 交线 2
+        \draw[thick,red] (0,1,0) -- (0,1,1);  % 交线 3
+
+    \end{scope}
+\end{tikzpicture}
+\end{document}
+```
+
+```tikz
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\begin{document}
+\begin{tikzpicture}
+    % 设置 3D 视角（俯仰角 80°，水平旋转角 120°）
+    \tdplotsetmaincoords{80}{120}
+    \begin{scope}[tdplot_main_coords]
+        % 绘制坐标轴
+        \draw[->] (-1.5,0,0) -- (1.5,0,0) node[right] {$x$};
+        \draw[->] (0,-1.5,0) -- (0,1.5,0) node[right] {$y$};
+        \draw[->] (0,0,0) -- (0,0,1.5) node[above] {$z$};
+
+        % 绘制两个平行的 XZ 平面
+        \fill[gray!20,opacity=0.5] (-1.2,-1.2,0) -- (1.2,-1.2,0) -- (1.2,-1.2,1.2) -- (-1.2,-1.2,1.2) -- cycle;
+        \fill[gray!30,opacity=0.5] (-1.2,1.2,0) -- (1.2,1.2,0) -- (1.2,1.2,1.2) -- (-1.2,1.2,1.2) -- cycle;
+
+        % 第三张平面（YZ 平面）
+        \fill[gray!40,opacity=0.5] (0,-1.5,0) -- (0,-1.5,1.2) -- (0,1.5,1.2) -- (0,1.5,0) -- cycle;
+
+        % 交线：两条平行的红色直线
+        \draw[thick,red] (0,-1.2,0) -- (0,-1.2,1.2);
+        \draw[thick,red] (0,1.2,0) -- (0,1.2,1.2);
+
+    \end{scope}
+\end{tikzpicture}
+\end{document}
+```
+
 ## 树状图
 ### 纵向
 ```tikz
@@ -377,7 +617,14 @@ child {node {$y$}}
 \end{tikzpicture}
 \end{document}
 ```
+
+
+---
+## 其他案例
+
+一个失败的案例, 原因是忘记导入 `\usepackage{tikz-3dplot}` 包了, 加上就好
 ```tikz
+\usepackage{tikz-3dplot}
 \begin{document}
 \begin{tikzpicture}
     % 设置 3D 视角
@@ -409,30 +656,64 @@ child {node {$y$}}
 \end{tikzpicture}
 \end{document}
 ```
-```tikz
-\begin{document}
-\begin{tikzpicture}
-    % 坐标轴
-    \draw[->,thick] (-0.2,0) -- (1.5,0) node[right] {$x$};
-    \draw[->,thick] (0,-0.2) -- (0,1.5) node[above] {$y$};
-    % 三角形边界
-    \draw[thick,red] (1,0) -- (0,1) -- (0,0) -- cycle;
-    % 斜线填充
-    \begin{scope}
-        \clip (1,0) -- (0,1) -- (0,0) -- cycle;
-        \foreach \i in {0.1,0.2,...,0.9} {
-            \draw[red!50] (0,\i) -- (\i,0);
-        }
-    \end{scope}
-    % 标注方程
-    \node[right] at (0.5,0.6) {\large $x+y=1$};
-    % 标注点
-    \node[below left] at (0,0) {$0$};
-    \node[below] at (1,0) {$1$};
-    \node[left] at (0,1) {$1$};
-\end{tikzpicture}
-\end{document}
-``` 
+
+
+
+
+
+---
+# TikZ 绘图失败原因与解决方案总结
+#### **1. 计算溢出**
+- **问题**：高次幂、多项式计算导致 TikzJax 计算失败。
+- **解决方案**：
+    - 限制 `y` 轴范围：`max(y_{\min}, min(y_{\max}, f(x)))`
+    - 降低幂次：尝试分解或近似表示。
+#### **2. 超出坐标轴范围**
+- **问题**：曲线部分超出可视范围，导致图像部分缺失或溢出。
+- **解决方案**：
+    - **手动设置 `x` 和 `y` 轴范围**，例如 `domain=0.5:4.5, ymin=-2, ymax=2`。
+#### **3. TikzJax 不支持 `pgfplots`**
+- **问题**：在 Obsidian 中，`pgfplots` 不能直接使用。
+- **解决方案**：
+    - 只用 `\draw plot`，不要 `\addplot` 和 `\begin{axis}`。
+    - 预计算点值并手动绘制。
+#### **4. 计算精度问题**
+- **问题**：某些 `plot` 计算 TikzJax 解析失败。
+- **解决方案**：
+    - 增加 `samples`，如 `samples=100`。
+    - 复杂计算分步执行，或使用 `foreach` 逐点绘制。
+#### **5. 3D 视角错误**
+- **问题**：3D 视角不符合需求，导致 `x, y, z` 轴方向不正确。
+- **解决方案**：
+    - 设定 `\tdplotsetmaincoords{80}{120}` 统一标准视角。
+    - 只绘制主要轮廓，去除 `surf` 填充。
+#### **6. 颜色与 TikzJax 兼容问题**
+- **问题**：某些 `colormap`、`opacity` 设置可能导致 TikzJax 解析失败。
+- **解决方案**：
+    - 避免 `colormap`，只用 `black!50`、`gray`。
+    - 使用 `pattern` 代替 `fill opacity`。
+#### **7. 复杂阴影填充失败**
+- **问题**：`clip` 可能导致 TikzJax 解析异常。
+- **解决方案**：
+    - 先用 `\clip` 限制区域，再 `\fill` 。
+    - 避免 `clip`，改用 `filldraw` 手动绘制封闭区域。
+#### **8. 关键点与标注**
+- **问题**：关键点未标记，导致数学分析不直观。
+- **解决方案**：
+    - 使用 `\node[below]` 明确标注关键点（如 `x=1,2,3,4`）。
+    - 方程统一放置在右上角：`\node[anchor=west]`。
+
+#### 9. 忘记导入3d包
+- **问题**：忘记导入3d包，导致无法加载3d图形。
+- **解决方案**：使用  `\usepackage{tikz-3dplot}` 导入tikz-3dplot包
+
+
+#### 10. 坐标轴
+- 坐标轴绘制, 不要使用白色: `\draw[->,white]` 在黑暗模式下会看不清
+
+
+
+
 # **TikZJax 绘图经验总结**
 ## **1. 轴刻度**
 - **X 轴、Y 轴刻度需完整标注**，避免遗漏关键点：
@@ -469,3 +750,6 @@ child {node {$y$}}
     ```
     \begin{tikzpicture}[scale=1]
     ```
+
+
+---
