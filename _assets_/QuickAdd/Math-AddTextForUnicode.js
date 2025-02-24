@@ -9,44 +9,30 @@ async function processSelectedText(transformFunctions) {
     const activeFile = app.workspace.getActiveFile();
     if (!activeFile) {
         new Notice("No file is currently open.");
-        return;
+        return false;
     }
-
-    // 允许的文件类型
     const validExtensions = ["md", "canvas"];
     if (!validExtensions.includes(activeFile.extension)) {
         new Notice("The active file is not a Markdown or Canvas file.");
-        return;
+        return false;
     }
-
-    // 获取当前活动的编辑器
     const editor = app.workspace.activeEditor?.editor;
     if (!editor) {
         new Notice("No active editor found.");
-        return;
+        return false;
     }
-
-    // 确保编辑器处于编辑模式，并获取最新选区
     editor.focus();
     let selection = editor.getSelection();
     if (!selection || selection.trim() === "") {
         new Notice("No text is selected.");
-        return;
+        return false;
     }
-
-    // 记录原始选区的起始位置
     const startPos = editor.getCursor("from");
-
-    // 依次执行所有传入的文本转换函数
     let modifiedText = selection;
     for (const transformFunction of transformFunctions) {
         modifiedText = transformFunction(modifiedText);
     }
-
-    // 替换选中的文本
     editor.replaceSelection(modifiedText);
-
-    // 计算新选区：以 startPos 为起点，根据替换后文本内容计算结束位置
     const lines = modifiedText.split("\n");
     let newEndPos;
     if (lines.length === 1) {
@@ -54,48 +40,52 @@ async function processSelectedText(transformFunctions) {
     } else {
         newEndPos = { line: startPos.line + lines.length - 1, ch: lines[lines.length - 1].length };
     }
-
-    // 恢复选区
     editor.setSelection(startPos, newEndPos);
+    return true;
 }
 
 /**
- * 文本处理函数示例
- * ✅ 这些函数是完全通用的，可以替换为任何任务
+ * transformLatex
+ * 对数学公式中的非 ASCII 字符进行处理：
+ * 给未被 \text 包裹的非 ASCII 字符添加 \text 包裹，
+ * 支持处理内联公式 $...$ 和显示公式 $$...$$。
+ *
+ * 注意：对于公式内部已存在的 \text{...} 部分不会重复包装。
  */
-
-//任务 1: 处理数学公式中的非 ASCII 字符
-function formatText(selection) {
+function transformLatex(selection) {
     return selection.replace(/(\${1,2})([\s\S]+?)\1/g, (match, delimiter, content) => {
-        return delimiter + addTextForUnicode(content) + delimiter;
+        // 先将已有的 \text{...} 内容替换为占位符，防止重复包装
+        let placeholders = [];
+        let tempContent = content.replace(/\\text\s*\{[^}]*\}/g, (m) => {
+            placeholders.push(m);
+            return `%%PLACEHOLDER${placeholders.length - 1}%%`;
+        });
+        // 给未被包装的非 ASCII 字符添加 \text 包裹
+        tempContent = tempContent.replace(/([^\x00-\x7F]+)/g, (m) => `\\text{${m}}`);
+        // 恢复原有的 \text{...} 内容
+        tempContent = tempContent.replace(/%%PLACEHOLDER(\d+)%%/g, (m, idx) => placeholders[Number(idx)]);
+        return delimiter + tempContent + delimiter;
     });
 }
 
-//任务 2: 占位，原样返回（不处理公式外文字）
-function fixPunctuation(selection) {
-    return selection;
+/**
+ * cleanEmptyLines
+ * Markdown 空行优化：删除多余空行，规范化分页符前的空行
+ */
+function cleanEmptyLines(selection) {
+    return selection
+        .replace(/\n+[\t ]*(\n)+(?!\n*(\||-{3,}))/g, '\n')
+        .replace(/^[\t ]+\n/gm, '\n')
+        .replace(/\n*(\n-{3,})/g, '\n$1');
 }
 
-// 辅助函数：给非 ASCII 字符加上 \text{}, 避免重复处理已存在的 \text{…}
-function addTextForUnicode(content) {
-    let placeholders = [];
-    content = content.replace(/\\text\s*\{[^}]+\}/g, (match) => {
-        placeholders.push(match);
-        return `%%PLACEHOLDER${placeholders.length - 1}%%`;
-    });
-    content = content.replace(/([^\x00-\x7F]+)/g, (m) => `\\text{${m}}`);
-    content = content.replace(/%%PLACEHOLDER(\d+)%%/g, (match, idx) => placeholders[Number(idx)]);
-    return content;
-}
-
-// 让 QuickAdd 执行 Macro
+// QuickAdd Macro 入口：依次执行空行优化与数学公式转换
 module.exports = async (params) => {
     const processed = await processSelectedText([
-        formatText,      // 处理数学公式中的非 ASCII 字符
-        fixPunctuation,  // 占位，不处理公式外文字
+        cleanEmptyLines,   // Markdown 空行优化
+        transformLatex     // 数学公式中非 ASCII 字符包装处理
     ]);
-
     if (processed) {
-        new Notice("Success");
+        new Notice("Text transformation completed.");
     }
 };
