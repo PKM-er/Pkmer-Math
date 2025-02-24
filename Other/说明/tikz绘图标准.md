@@ -113,7 +113,10 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
     `\tdplotsetmaincoords{80}{120}`
 - 实线绘制边缘
 	`\draw[smooth, thick]`, 
-	根据水平旋转角 120°, 绘制另一边120°+180°=300° ,两条边
+	根据水平旋转角 120°, 绘制另一边120°+180°=300° ,两条边.
+- 根据俯仰角, 可能会调整, 如: 
+	- 110度, 按感觉改的, 120°-10°=110°
+	- 另一条边也是因为倾斜视图的原因, 120°+180°+10°=310°
 - 虚线绘制主平面投影
 	`\draw[dashed]`
 - 仅有实体形状才使用加粗`\draw[smooth, thick]`, 如: 圆柱的底部,顶部,边界 用实线绘制, 没有明确指定则不调整颜色
@@ -188,6 +191,32 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
 % 填充阴影区域
 \begin{scope} \clip (0,-1.5) rectangle (1,0); \fill[black!20,opacity=0.7] plot[domain=0.01:1,smooth]({\x}, {ln(\x)}) -- (1,0) -- (0,0) -- cycle; \end{scope}
 ```
+
+```tikz
+\usepackage{tikz-3dplot}
+\begin{document}
+\tdplotsetmaincoords{60}{50}
+\begin{tikzpicture}[tdplot_main_coords,declare function={h=4;r=3;}]
+	\draw[fill=blue!40,fill opacity=0.5] plot[variable=\x,domain=\tdplotmainphi:180,smooth] ({r*cos(\x)},{r*sin(\x)},0)
+ -- plot[variable=\x,domain=180:\tdplotmainphi,smooth] ({r*cos(\x)},{r*sin(\x)},h);
+	\draw[fill=blue!40,fill opacity=0.5] plot[variable=\x,domain=0:\tdplotmainphi,smooth] ({r*cos(\x)},{r*sin(\x)},0)
+ -- plot[variable=\x,domain=\tdplotmainphi:0,smooth] ({r*cos(\x)},{r*sin(\x)},h)
+ -- cycle;
+\end{tikzpicture}
+\end{document}
+```
+
+
+
+
+```
+% 内层
+\draw[fill=red!80,fill opacity=0.5] 
+	plot[variable=\t,domain=\thetaEdgeB:\thetaEdgeA,smooth] ({2*cos(\t)},{2*sin(\t)},{2}) 
+ -- plot[variable=\t,domain=\thetaEdgeA:\thetaEdgeB,smooth] ({cos(\t)},{sin(\t)},{1}) 
+ -- cycle;
+```
+
 
 
 ---
@@ -517,6 +546,81 @@ plot ({\x}, {ln(\x)}) node[right] {$y = \ln(x)$};
 \end{tikzpicture}
 \end{document}
 ```
+
+
+### 标准旋转体填充
+以后旋转体都严格按照这个模式进行
+```tikz
+\usepackage{tikz-3dplot}
+\begin{document}
+
+% 设定旋转体视角角度
+\def\phi{80} %俯仰角
+\def\theta{120}   % 旋转角度
+\def\thetaEdgeA{\theta-10}  % 视角边界角1（120° - 10°）
+\def\thetaEdgeB{\theta+180+10}  % 视角边界角2（120° + 180° + 10°）
+
+\tdplotsetmaincoords{\phi}{\theta}
+\begin{tikzpicture}
+    \begin{scope}[tdplot_main_coords]
+
+        % 坐标轴
+        \draw[->] (0,0,0) -- (4,0,0) node[below right] {$x$};
+        \draw[->] (0,0,0) -- (0,4,0) node[below left] {$y$};
+        \draw[->] (0,0,0) -- (0,0,3) node[above] {$z$};
+
+        % 深灰色圆环（XY 平面上的投影）
+        \fill[black!60,opacity=0.5] (0,0,0) circle (2);
+        \fill[white!100] (0,0,0) circle (1); % 中心填充黑色形成圆环
+        \draw[thick, black] (0,0,0) circle (2);
+		\draw[thick, black] (0,0,0) circle (1);
+
+        % **蓝色填充区域（正确匹配视角边界 110° 和 310°）** 使用两段 fill
+		% 内层
+		\draw[fill=white!70,fill opacity=0.5] 
+			plot[variable=\t,domain=\thetaEdgeB:\thetaEdgeA,smooth] ({2*cos(\t)},{2*sin(\t)},{2}) 
+		 -- plot[variable=\t,domain=\thetaEdgeA:\thetaEdgeB,smooth] ({cos(\t)},{sin(\t)},{1}) 
+		 -- cycle;
+		% 外层
+        \draw[fill=blue!90,fill opacity=0.9] 
+            plot[variable=\t,domain=\thetaEdgeB:\thetaEdgeA+360,smooth] ({2*cos(\t)},{2*sin(\t)},{2}) 
+         -- plot[variable=\t,domain=\thetaEdgeA+360:\thetaEdgeB,smooth] ({cos(\t)},{sin(\t)},{1}) 
+         -- cycle;
+
+        % **虚线轮廓（XOZ, YOZ 平行边界）**
+        \draw[dashed] (0,0,0) -- (2,0,2);
+        \draw[dashed] (0,0,0) -- (0,2,2);
+		\draw[dashed] (0,0,0) -- (-2,0,2);
+        \draw[dashed] (0,0,0) -- (0,-2,2);
+
+        % **真实视角边缘轮廓线（\thetaEdgeA 和 \thetaEdgeB 实线）**
+        \foreach \angle in {\thetaEdgeA, \thetaEdgeB} {
+            \draw[thick] (0,0,0) -- ({2*cos(\angle)},{2*sin(\angle)},2);
+        }
+
+        % 顶部圆形（r=2 边界）
+        \draw[smooth] (2,0,2) arc[start angle=0,end angle=360,x radius=2,y radius=2];
+        \draw[smooth] (1,0,1) arc[start angle=0,end angle=360,x radius=1,y radius=1];
+
+		% **法向量（起点在 r=1.5, z=1.5, 朝向 XOZ 平面外）**
+        \draw[->,thick] (1.5,0,1.5) -- (2,0,1) node[left] {$\mathbf{n}$};
+
+        % 标注点
+        \node[below left] at (0,0,0) {$O$};
+        \node[right] at (0,1,0) {$1$};
+        \node[right] at (0,2,0) {$2$};
+        \node[right] at (0,0,1) {$1$};
+        \node[right] at (0,0,2) {$2$};
+        
+        % 标注方程
+	    \node[right] at (0,1.5,1) {\large $z=\sqrt{x^2+y^2}$};
+
+    \end{scope}
+\end{tikzpicture}
+\end{document}
+```
+
+
 
 ## 树状图
 ### 纵向
