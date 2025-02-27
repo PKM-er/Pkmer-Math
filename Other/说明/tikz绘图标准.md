@@ -2,6 +2,7 @@
 tags:
   - 数学
 ---
+# 简介
 ## 环境配置
 代码类型: tikz 
 ```
@@ -37,6 +38,7 @@ The following packages are available in `\usepackage{}`:
 会导致报错
 
 ---
+# 配置项
 ## 颜色
 TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色可以直接引用，也可以通过 `xcolor` 包扩展。以下是主要内置颜色方案：
 ### 常用颜色
@@ -186,7 +188,6 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
 ---
 ## 颜色填充
 
-大多数情况都失败了, 但是有一次看到了一个偶然的成功案例
 ```
 % 填充阴影区域
 \begin{scope} \clip (0,-1.5) rectangle (1,0); \fill[black!20,opacity=0.7] plot[domain=0.01:1,smooth]({\x}, {ln(\x)}) -- (1,0) -- (0,0) -- cycle; \end{scope}
@@ -228,6 +229,88 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
 ✅ **阴影：尽量 `filldraw` 而非 `clip`，减少 TikzJax 解析负担**
 
 
+
+---
+## Polygon
+
+You can use the geometric shapes given by the shapes.geometric library
+
+```latex
+\usetikzlibrary{shapes.geometric}
+
+\begin{tikzpicture}[mystyle/.style={draw,shape=circle,fill=blue}]
+\def\ngon{5}
+\node[regular polygon,regular polygon sides=\ngon,minimum size=3cm] (p) {};
+\foreach\x in {1,...,\ngon}{\node[mystyle] (p\x) at (p.corner \x){};}
+\foreach\x in {1,...,\numexpr\ngon-1\relax}{
+  \foreach\y in {\x,...,\ngon}{
+    \draw (p\x) -- (p\y);
+  }
+}
+\end{tikzpicture}
+```
+
+---
+One short tikz code without use of a library.
+
+```latex
+\documentclass[border=7mm]{standalone}
+\usepackage{tikz}
+\begin{document}
+\foreach \n in {3,...,7}
+  \tikz\foreach \i in {1,...,\n}
+    \fill (\i*360/\n:1) coordinate (n\i) circle(2 pt)
+      \ifnum \i>1 foreach \j in {\i,...,1}{(n\i) edge (n\j)} \fi;
+\end{document}
+```
+
+---
+For fun, a short code with `pst-poly` gets the desired result:
+
+```latex
+\documentclass[svgnames]{standalone}
+
+\usepackage{pst-poly}
+\usepackage{auto-pst-pdf}
+\begin{document}
+
+\psset{unit=3.5cm, dimen=middle, linejoin=1, dotsize=12pt}
+\begin{pspicture}(-1,-1)(1,1)
+    \providecommand{\PstPolygonNode}{\psdots[dotsize=12pt, linecolor=SteelBlue](1;\INode)
+    }
+    \rput(0,0){\PstPentagon[PolyName=A, linecolor=LightSteelBlue, linewidth=1.2pt] }
+    \rput(0,0){\PstPentagon[PolyName=A, PolyOffset=2] }
+\end{pspicture}
+
+\end{document}
+```
+
+**Upgrade:** An improved version, which itself calculate all necessary data from given number of nodes and angle of the first node position:
+```latex
+\documentclass[border=3mm,tikz]{standalone}
+
+\begin{document}
+\begin{tikzpicture}[
+ every node/.style={draw,shape=circle,fill=blue,text=white}]
+%%%% variable data data
+\def\numpoly{8}%number of nodes
+\def\startangle{30}%direction of the first node
+\def\pradious{33mm}
+%------- calculations of the positions angles
+\pgfmathparse{int(\startangle+360/\numpoly)}%
+    \let\nextangle=\pgfmathresult
+\pgfmathparse{int(\startangle-360/\numpoly+360)}%
+    \let\endtangle=\pgfmathresult
+%--- nodes
+    \foreach \i [count=\ii from 1] in {\startangle,\nextangle,...,\endtangle}
+\path (\i:\pradious) node (p\ii) {\ii};
+%--- interconnections
+    \foreach \x in {1,...,\numpoly}
+        \foreach \y in {\x,...,\numpoly}
+\draw (p\y) -- (p\x);
+    \end{tikzpicture}
+\end{document}
+```
 
 ---
 # 案例
@@ -762,7 +845,104 @@ child {node {$y$}}
 ```
 
 
+## Automaton
 
+### tikz绘制自动机的状态转移图示例: 
+
+```tikz
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}
+
+  % 定义状态
+  \node (p0) at (0, 0) [circle, draw, double] {$p_0$}; % 接受状态
+  \node (p1) at (3, 0) [circle, draw] {$p_1$};
+  \node (p2) at (3, -3) [circle, draw] {$p_2$};
+  \node (p3) at (0, -3) [circle, draw] {$p_3$};
+
+  % 转移路径
+  \draw[->] (p0) to[loop above] node {0} ();
+  \draw[->] (p0) to[bend left] node[midway, above] {1} (p1);
+  \draw[->] (p0) to[bend left=15] node[midway, right] {2} (p2);
+  \draw[->] (p0) to[bend right] node[midway, left] {3} (p3);
+
+  \draw[->] (p1) to[loop above] node {0} ();
+  \draw[->] (p1) to[bend left] node[midway, right] {1} (p2);
+  \draw[->] (p1) to[bend left=15] node[midway, right] {2} (p3);
+  \draw[->] (p1) to[bend right] node[midway, above] {3} (p0);
+
+  \draw[->] (p2) to[loop below] node {0} ();
+  \draw[->] (p2) to[bend left] node[midway, below] {1} (p3);
+  \draw[->] (p2) to[bend left=15] node[midway, left] {2} (p0);
+  \draw[->] (p2) to[bend right] node[midway, right] {3} (p1);
+
+  \draw[->] (p3) to[loop below] node {0} ();
+  \draw[->] (p3) to[bend left] node[midway, left] {1} (p0);
+  \draw[->] (p3) to[bend left=15] node[midway, left] {2} (p1);
+  \draw[->] (p3) to[bend right] node[midway, below] {3} (p2);
+
+\end{tikzpicture}
+\end{document}
+```
+### 多边形
+```tikz
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}[mystyle/.style={draw, shape=circle, text=white, minimum size=6mm}
+]
+
+% Define the center of the pentagon
+\coordinate (center) at (0, 0);
+
+% Define nodes at equal angles around the center
+\foreach \i in {1, 2, 3, 4, 5} {
+    \node[mystyle] (q\i) at ({72*\i-72}:2cm) {$q_{\i}$}; % 72° spacing for pentagon
+}
+
+% Draw transitions between nodes
+\foreach \i [evaluate={\j=int(mod(\i,5)+1)}] in {1, 2, 3, 4, 5} {
+    \draw[->] (q\i) -- (q\j); % Connect nodes in a closed loop
+}
+
+\end{tikzpicture}
+\end{document}
+
+```
+
+### example
+```tikz
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}[->, shorten >=1pt, auto, node distance=1.5cm, thick]
+
+  % Define the states
+  \node (q2) at (180:1.5cm) [circle, draw, double] {$q_2$}; % q2 at 180° (leftmost point)
+
+  % Define the pentagon nodes using polar coordinates around q2
+  \foreach \i in {1, 2, 3, 4} {
+    \node (q\the\numexpr\i+2\relax) at ({180 - 72*\i}:1.5cm) [circle, draw] {$q_{\the\numexpr\i+2\relax}$};
+  }
+  \node (q1) [circle, draw, left of=q2] {$q_1$};
+  \node (q0) [circle, draw, left of=q1] {$q_0$};
+
+  % Draw the transitions
+  \path (q0) edge node {0} (q1)
+        (q1) edge node {0} (q2)
+        (q2) edge node {0} (q3)
+        (q3) edge node {0} (q4)
+        (q4) edge node {0} (q5)
+        (q5) edge node {0} (q6)
+        (q6) edge node {0} (q2);
+
+  % Start state arrow
+  \draw[->] (-5.5, -1) -- (q0);
+
+\end{tikzpicture}
+\end{document}
+```
 
 
 ---
