@@ -21,7 +21,7 @@
 !.obsidian/plugins/templater-obsidian
 # !.obsidian/plugins/obsidian-git/
 # !.obsidian/plugins/obsidian-linter/
-# !.obsidian/plugins/quickadd/
+!.obsidian/plugins/quickadd/
 # !.obsidian/plugins/obsidian-outliner/
 # !.obsidian/plugins/table-editor-obsidian/
 # !.obsidian/plugins/obsidian-latex-suite/
