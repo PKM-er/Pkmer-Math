@@ -105,6 +105,19 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
     ```
 通过这些内置和扩展颜色，几乎可以满足大多数绘图需求
 
+## 方向参数
+- above
+- below
+- left
+- right
+
+
+## 定义变量
+定义: `\def\angleA{30}`
+使用: `\draw[thick] (0,0) -- ({1*cos(\angleA)},{1*sin(\angleA)});`
+
+
+
 ---
 ## 2D图
 - 定义变量$x$的范围: `\draw[domain= 0:1,smooth,variable=\x]`
