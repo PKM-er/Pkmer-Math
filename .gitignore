@@ -54,3 +54,6 @@ package-lock.json
 
 # mcp相关
 *mcp*
+
+# 日志文件
+*.log
