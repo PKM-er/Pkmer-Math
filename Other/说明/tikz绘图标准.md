@@ -139,8 +139,38 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
 
 
 ---
+# **填充方法**
+
+在 TikzJax 环境中，不同的填充有不同的最佳实践：
+#### **A. 纯色填充 (Solid Color Fills)**
+原则：优先使用 \fill 或 \filldraw。
+说明：对于简单的封闭图形（如 circle, rectangle 或 ... -- cycle 路径），直接使用 \fill 命令填充颜色。这比 clip 方式更直接，解析负担更小。
+示例：
+代码段
+```
+% 正确做法
+\fill[blue!50] (0,0) rectangle (2,2);
+\draw[thick, red] (0,0) -- (1,1) -- (0,1) -- cycle;
+```
+#### **B. 斜线/图案填充 (Hatching/Pattern Fills)**
+原则：必须使用 \clip 配合 \foreach。
+说明：这是在 TikzJax 中实现图案填充的唯一标准方法。先用 \clip 和一个精确的封闭路径来定义剪裁区域，然后在这个区域内部用 \foreach 绘制一系列足够大的平行线。
+示例：
+代码段
+```
+% 这是实现斜线填充的【标准范式】
+\begin{scope}
+  \clip (0,0) circle (1); % 1. 用精确路径剪裁
+  \foreach \i in {-1.5,-1.2,...,1.5} { % 2. 在内部绘制足够大的线条
+    \draw[red!70] (-1.5,\i) -- (1.5,\i);
+  }
+\end{scope}
+\draw (0,0) circle (1); % 3. 最后绘制边界
+```
+
+
 ## 斜线填充
-在 **Obsidian 的 TikZ 环境（tikzjax）** 下，斜线填充不能使用 `\foreach` 循环或者 `patterns`，因此可以用 `\clip` 加 `\fill` 来手动绘制斜线填充。下面是修正后的 **tikzjax 兼容代码**：
+这类多边形斜线填充的核心实现方法是：**使用 `\clip` 限定填充区域，再用 `\foreach` 搭配 `\draw` 逐条绘制平行斜线**。
 ```tikz
 \begin{document}
 \begin{tikzpicture}
@@ -161,7 +191,7 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
 \end{tikzpicture}
 \end{document}
 ```
-
+### 三角形
 ```tikz
 \begin{document}
 \begin{tikzpicture}
@@ -173,7 +203,7 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
     % 斜线填充
     \begin{scope}
         \clip (1,0) -- (0,1) -- (0,0) -- cycle;
-        \foreach \i in {0.1,0.2,...,0.9} {
+        \foreach \i in {0.1,0.3,...,0.9} {
             \draw[red!50] (0,\i) -- (\i,0);
         }
     \end{scope}
@@ -186,6 +216,44 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
 \end{tikzpicture}
 \end{document}
 ``` 
+### 不规则多边形填充
+利用指定轮廓线进行 `clip`, 从而避免了不规范的遮挡操作
+```tikz
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[scale=1]
+% 参数定义
+\def\R{1.3}   % 外圆半径
+\def\r{0.7}   % 内圆半径
+\def\aOne{210} % 起始角度
+\def\aTwo{90}  % 结束角度
+\def\dx{2.2}  % 横线绘制范围 (确保足够宽)
+
+% ===== 使用精确轮廓剪裁并填充 =====
+\begin{scope}
+  % 1. 使用精确的环形扇区路径作为剪裁区域
+  % 这个路径与你最后绘制边界的路径完全相同
+  \clip ({\R*cos(\aOne)},{\R*sin(\aOne)})
+        arc[start angle=\aOne,end angle=\aTwo,radius=\R] --
+        ({\r*cos(\aTwo)},{\r*sin(\aTwo)})
+        arc[start angle=\aTwo,end angle=\aOne,radius=\r] -- cycle;
+
+  % 2. 在剪裁区域内用 \foreach 绘制横线
+  % 这是在 TikzJax 环境下实现填充的标准方法
+  \foreach \y in {-1.3,-1.1,...,1.3} {
+    \draw[red, thin] (-\dx,\y) -- (\dx,\y);
+  }
+\end{scope}
+
+% 3. 绘制边界线 (此路径与剪裁路径完全相同)
+\draw[thick]
+  ({\R*cos(\aOne)},{\R*sin(\aOne)})
+  arc[start angle=\aOne,end angle=\aTwo,radius=\R] --
+  ({\r*cos(\aTwo)},{\r*sin(\aTwo)})
+  arc[start angle=\aTwo,end angle=\aOne,radius=\r] -- cycle;
+\end{tikzpicture}
+\end{document}
+```
 
 
 ### 代码优化点：
@@ -194,8 +262,6 @@ TikZ 内置了一些常见的颜色方案，方便绘图时使用。这些颜色
     - 这里的 `\foreach \y in {-1.5,-1.2,...,1.5}` 产生 **从左到右的斜线**。
 2. **旋转箭头**：
     - 直接用 `arc[start angle=0,end angle=45]` 绘制 **顺时针旋转的小箭头**。
-
-
 
 
 ---
@@ -959,7 +1025,7 @@ child {node {$y$}}
 
 
 ---
-# TikZ 绘图失败原因与解决方案总结
+## 绘图失败原因汇总
 #### **1. 计算溢出**
 - **问题**：高次幂、多项式计算导致 TikzJax 计算失败。
 - **解决方案**：
@@ -999,19 +1065,16 @@ child {node {$y$}}
 - **解决方案**：
     - 使用 `\node[below]` 明确标注关键点（如 `x=1,2,3,4`）。
     - 方程统一放置在右上角：`\node[anchor=west]`。
-
 #### 9. 忘记导入3d包
 - **问题**：忘记导入3d包，导致无法加载3d图形。
 - **解决方案**：使用  `\usepackage{tikz-3dplot}` 导入tikz-3dplot包
-
-
 #### 10. 坐标轴
 - 坐标轴绘制, 不要使用白色: `\draw[->,white]` 在黑暗模式下会看不清
 
 
 
 
-# **TikZJax 绘图经验总结**
+# **绘图经验总结**
 ## **1. 轴刻度**
 - **X 轴、Y 轴刻度需完整标注**，避免遗漏关键点：
     ```
@@ -1048,5 +1111,3 @@ child {node {$y$}}
     \begin{tikzpicture}[scale=1]
     ```
 
-
----
