@@ -1,9 +1,9 @@
 {
   "enabledCssSnippets": [
     "cyletix-pdf-reverse",
-    "cyletix-appendix-icon",
-    "cyletix-md-icon"
+    "cyletix-md-icon",
+    "cyletix-appendix-icon"
   ],
-  "cssTheme": "Vanilla AMOLED",
+  "cssTheme": "",
   "theme": "obsidian"
 }
