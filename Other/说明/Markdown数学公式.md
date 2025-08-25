@@ -442,18 +442,18 @@ $$
 $$
 ```
 
-| 符号                    | Markdown             |
-| --------------------- | -------------------- |
-| $[]$                  |                      |
-| $<>$                  |                      |
-| $\|\|$                | （可选）\lvert或\rvert    |
-| $\{\}$                |                      |
-| $\lgroup x \rgroup$   | \lgroup x \rgroup    |
-| $\lVert a \rVert$     | \lVert a \rVert      |
-| $\lceil 2.6 \rceil$   | \lceil 2.6 \rceil    |
-| $\lfloor 1.2 \rfloor$ | \lfloor 1.2 \rfloor  |
-| $\ulcorner \urcorner$ | \ulcorner  \urcorner |
-| $\llcorner \lrcorner$ | \llcorner  \lrcorner |
+| 符号                    | Markdown                 |
+| --------------------- | ------------------------ |
+| $[]$                  |                          |
+| $<>$                  |                          |
+| $\{\}$                |                          |
+| $\lvert \rvert$       | `\lvert` `\rvert`        |
+| $\lVert \rVert$       | `\lVert`  `\rVert`       |
+| $\lgroup x \rgroup$   | `\lgroup` `\rgroup`      |
+| $\lceil 2.6 \rceil$   | `\lceil` 2.6 `\rceil`    |
+| $\lfloor 1.2 \rfloor$ | `\lfloor` 1.2 `\rfloor`  |
+| $\ulcorner \urcorner$ | `\ulcorner`  `\urcorner` |
+| $\llcorner \lrcorner$ | `\llcorner`  `\lrcorner` |
 
 ## 矩阵分割线
 水平分割线
