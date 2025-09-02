@@ -1,0 +1,20 @@
+/* Hide properties and titles in embedded notes */
+/* 1. 隐藏笔记属性 (Properties) */
+.internal-embed .metadata-container {
+    display: none !important;
+}
+
+/* 2. 隐藏嵌入笔记的文件名 (当引用整个文件时) */
+.internal-embed .markdown-embed-title {
+    display: none !important;
+}
+
+/* 3. 隐藏段落引用中的标题 (例如 "Sentence") */
+.internal-embed[src*="#"] div[class^="el-h"] {
+    display: none !important;
+}
+
+/* 4. (新) 移除紧跟在隐藏标题后的第一个段落的上边距 */
+.internal-embed[src*="#"] div[class^="el-h"] + div[class^="el-p"] {
+    margin-block-start: 0 !important;
+}
