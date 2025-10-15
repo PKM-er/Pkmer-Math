@@ -54,5 +54,5 @@ def process_files(base_dir):
         print(f'Processed: {file_path}')
 
 if __name__ == '__main__':
-    base_dir = Path('d:/OneDrive/Notebook/Library/Science/Math')
+    base_dir = Path('d:/OneDrive/Notebook/Library/Math')
     process_files(base_dir)
