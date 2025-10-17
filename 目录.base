@@ -1,0 +1,25 @@
+filters:
+  and:
+    - file.basename.startsWith("-")
+    - file.basename.endsWith("-")
+views:
+  - type: table
+    name: 表格
+    order:
+      - file.name
+      - aliases
+      - file.path
+      - chapter
+      - dlink
+      - finished
+      - author
+      - file.tags
+    sort:
+      - property: file.name
+        direction: DESC
+      - property: file.path
+        direction: ASC
+      - property: chapter
+        direction: ASC
+    columnSize:
+      note.aliases: 80
