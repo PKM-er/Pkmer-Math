@@ -6,8 +6,8 @@ dlink:
   - "[[组合数学]]"
 urlink: https://en.wikipedia.org/wiki/Basis_of_a_matroid
 ---
+(**超纲内容**)
 拟阵的基是一个最大独立集，即一个独立集且不被包含在任何其他独立集中的集合。
-
 ## 示例
 在二维欧几里得平面 $\mathbb{R}^2$ 上的拟阵中，考虑以下独立集：
 $$

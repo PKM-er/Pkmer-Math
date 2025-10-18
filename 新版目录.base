@@ -1,0 +1,100 @@
+formulas:
+  未命名: ""
+views:
+  - type: table
+    name: 总览
+    order:
+      - file.name
+      - aliases
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: dlink
+        direction: ASC
+      - property: chapter
+        direction: ASC
+      - property: file.path
+        direction: ASC
+    columnSize: {}
+  - type: table
+    name: 微积分
+    filters:
+      and:
+        - file.path.startsWith("微积分/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: file.tags
+        direction: DESC
+      - property: chapter
+        direction: ASC
+    columnSize: {}
+  - type: table
+    name: 线性代数
+    filters:
+      and:
+        - file.path.startsWith("线性代数/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: file.tags
+        direction: DESC
+      - property: chapter
+        direction: ASC
+    columnSize: {}
+  - type: table
+    name: 概率论
+    filters:
+      and:
+        - file.path.startsWith("概率论/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: file.tags
+        direction: DESC
+      - property: chapter
+        direction: ASC
+    columnSize: {}
+  - type: table
+    name: 极限与连续
+    filters:
+      and:
+        - file.path.startsWith("微积分/极限/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: DESC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
