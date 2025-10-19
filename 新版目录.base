@@ -1,15 +1,18 @@
+filters:
+  and:
+    - file.tags.contains("数学")
 formulas:
   未命名: ""
 views:
   - type: table
     name: 总览
     order:
+      - finished
       - file.name
-      - aliases
       - chapter
       - dlink
+      - aliases
       - author
-      - finished
       - file.path
       - file.tags
     sort:
@@ -24,7 +27,7 @@ views:
     name: 微积分
     filters:
       and:
-        - file.path.startsWith("微积分/")
+        - file.path.contains("微积分/")
     order:
       - file.name
       - chapter
@@ -34,16 +37,18 @@ views:
       - file.path
       - file.tags
     sort:
-      - property: file.tags
-        direction: DESC
       - property: chapter
         direction: ASC
+      - property: file.name
+        direction: ASC
+      - property: file.tags
+        direction: DESC
     columnSize: {}
   - type: table
     name: 线性代数
     filters:
       and:
-        - file.path.startsWith("线性代数/")
+        - file.path.contains("线性代数/")
     order:
       - file.name
       - chapter
@@ -53,16 +58,16 @@ views:
       - file.path
       - file.tags
     sort:
-      - property: file.tags
-        direction: DESC
       - property: chapter
         direction: ASC
+      - property: file.path
+        direction: DESC
     columnSize: {}
   - type: table
     name: 概率论
     filters:
       and:
-        - file.path.startsWith("概率论/")
+        - file.path.contains("概率论/")
     order:
       - file.name
       - chapter
