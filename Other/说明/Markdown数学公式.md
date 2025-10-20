@@ -1,6 +1,9 @@
 ---
 tags:
   - markdown
+  - 数学
+  - 公式
+  - 规则
 urlink:
   - https://www.jianshu.com/p/e74eb43960a1
   - https://blog.csdn.net/m0_37167788/article/details/78603307
@@ -9,7 +12,6 @@ author:
   - Cyletix
   - SituChengxiang
   - ArcherReilly
-
 ---
 # 一、基本符号
 ## 行内与独行

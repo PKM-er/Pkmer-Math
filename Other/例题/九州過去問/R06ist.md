@@ -5,6 +5,8 @@ tags:
 dlink:
   - "[[R06ist.pdf]]"
 datetime: 2024-12-13 10:10:36
+author:
+  - Cyletix
 ---
 # 数学
 

@@ -2,9 +2,12 @@
 tags:
   - 過去問
   - 例题
+  - 数学
 dlink:
   - "[[R03ist.pdf]]"
 datetime: 2024-12-10 01:22:51
+author:
+  - Cyletix
 ---
 # 数学
 ## 線形代数

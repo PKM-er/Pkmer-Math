@@ -2,9 +2,12 @@
 tags:
   - 例题
   - 過去問
+  - 数学
 dlink:
   - "[[R05ist.pdf]]"
 datetime: 2024-12-13 10:09:43
+author:
+  - Cyletix
 ---
 # 数学 
 
