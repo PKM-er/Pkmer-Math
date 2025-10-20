@@ -1,6 +1,25 @@
+summaries:
+  Empty: values.filter(value.isType("null")).length
 filters:
-  and:
-    - file.tags.contains("数学")
+  or:
+    - and:
+        - file.path.contains("Math/")
+        - or:
+            - file.path.contains("微积分/")
+            - file.path.contains("线性代数/")
+            - file.path.contains("概率论/")
+            - file.path.contains("Other/")
+        - file.ext == "md"
+        - file.tags.contains("数学")
+    - and:
+        - '!file.path.contains("Math/")'
+        - or:
+            - file.path.startsWith("微积分/")
+            - file.path.startsWith("线性代数/")
+            - file.path.startsWith("概率论/")
+            - file.path.startsWith("Other/")
+        - file.ext == "md"
+        - file.tags.contains("数学")
 formulas:
   未命名: ""
 views:
@@ -10,18 +29,26 @@ views:
       - finished
       - file.name
       - chapter
-      - dlink
-      - aliases
       - author
+      - dlink
+      - file.backlinks
+      - tags
+      - aliases
       - file.path
       - file.tags
+      - file.folder
+      - file.embeds
     sort:
-      - property: dlink
-        direction: ASC
-      - property: chapter
-        direction: ASC
+      - property: file.folder
+        direction: DESC
       - property: file.path
         direction: ASC
+      - property: file.backlinks
+        direction: DESC
+      - property: file.name
+        direction: DESC
+      - property: dlink
+        direction: DESC
     columnSize: {}
   - type: table
     name: 微积分
