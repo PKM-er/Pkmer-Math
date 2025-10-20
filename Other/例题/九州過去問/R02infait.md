@@ -5,6 +5,8 @@ tags:
 datetime: 2024-11-28 17:33:20
 dlink:
   - "[[R02infait.pdf]]"
+author:
+  - Cyletix
 ---
 # 数学
 6选3
