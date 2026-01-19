@@ -24,7 +24,7 @@ author:
 
 
 ## 汉字、字体与格式
-1. 汉字形式, 符号: `\mbox{}`, 如: $V_{\mbox{初始}}$
+1. 汉字形式, 符号: `\mbox{}`, 如: $V_{\mbox{init}}$
 2. 字体控制, 符号: `\displaystyle`, 如: $\displaystyle \frac{x+y}{y+z}$
 3. 下划线符号, 符号: `\underline`, 如: $\underline{x+y}$
 4. 标签, 符号`\tag{数字}`, 如: $\tag{11}$
@@ -641,8 +641,8 @@ $$
 
 | Symbol                | Script              |
 | --------------------- | ------------------- |
-| $a’$ $a^{\prime}$     | a` a^{\prime}       |
-| $a’’$                 | a’’                 |
+| $a'$ $a^{\prime}$     | a` a^{\prime}       |
+| $a''$                 | a''                 |
 | $\hat{a}$             | hat{a}              |
 | $\bar{a}$             | \bar{a}             |
 | $\grave{a}$           | \grave{a}           |
@@ -653,7 +653,7 @@ $$
 | $\mathring{a}$        | \mathring{a}        |
 | $\overrightarrow{AB}$ | \overrightarrow{AB} |
 | $\overleftarrow{AB}$  | \overleftarrow{AB}  |
-| $a’’’$                | a’’’                |
+| $a'''$                | a'''                |
 | $\overline{aaa}$      | \overline{aaa}      |
 | $\check{a}$           | \check{a}           |
 | $\vec{a}$             | \vec{a}             |
