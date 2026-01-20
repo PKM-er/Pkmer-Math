@@ -132,10 +132,10 @@ $$
 	\oiint
 	\oiiint
 	$$
-	4. 闭线积分:一种不需要额外符号包的方法: 
-	$$\int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}$$
+	4. 闭线积分:提供一种不需要额外符号包的方法, 参考[[闭曲面积分符号的表示方法]]
+	$$\displaystyle\int\hspace{-0.95em}\bigcirc\hspace{-1em}\int$$
 ```
-\int\kern{-17mu}{\unicode{x25CB}}\kern{-20mu}\int_{C}
+\displaystyle\int\hspace{-0.95em}\bigcirc\hspace{-1em}\int
 ```
 
  11. 微分运算, 符号: `\partial`, 如: $\frac{\partial x}{\partial y}$

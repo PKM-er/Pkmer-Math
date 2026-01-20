@@ -3,7 +3,7 @@
 
 传统教材是线性的, 而数学概念是错综复杂的网络. 本库除了提供**线性目录**外, 还利用 Obsidian 的双向链接, 将知识点互相连接, 构建动态互联的**数学知识图谱**, 让学习者能够顺着思路学习, 而不仅仅是顺着章节学习. 内容上致力于以通俗易懂的语言梳理高等数学的主要知识点. **最终目的: 取代防自学教材**. 
 
-**本仓库的一切都优先建立在本地Obsidian仓库使用**, 文档遵循 Obsidian-Enhanced Markdown 规范, 充分利用 Obsidian 特色语法. 
+**本仓库的一切都优先建立在本地Obsidian仓库使用**, 文档遵循 [Obsidian Flavored Markdown](https://help.obsidian.md/obsidian-flavored-markdown) 规范, 充分利用 Obsidian 特色语法. 
 同时感谢[LincZero](https://github.com/LincZero)提供的网页部署: https://pkm-er.github.io/Pkmer-Math/
 
 由于开发者精力有限, 难免有内容疏漏和错误, 如果你完全没有高数的学习经历, 在使用本仓库学习时遇到知识断点, 请勿吝啬于提Issue, 或在QQ群里提出, 我会评估和修改文档, 补充必要的知识点, 让知识更连贯. 希望共同开发的场合, 请参阅**说明文档.** 
