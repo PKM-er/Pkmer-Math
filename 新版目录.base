@@ -29,7 +29,6 @@ views:
       - finished
       - file.name
       - chapter
-      - author
       - dlink
       - file.backlinks
       - aliases
@@ -38,6 +37,10 @@ views:
       - file.folder
       - file.embeds
     sort:
+      - property: dlink
+        direction: ASC
+      - property: chapter
+        direction: ASC
       - property: author
         direction: ASC
       - property: file.folder
@@ -48,9 +51,8 @@ views:
         direction: DESC
       - property: file.name
         direction: DESC
-      - property: dlink
-        direction: DESC
     columnSize:
+      file.backlinks: 597
       note.aliases: 139
   - type: table
     name: 微积分
