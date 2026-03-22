@@ -82,7 +82,7 @@ jobs:
 
       - name: 文档 - 构建
         env:
-          NODE_OPTIONS: --max_old_space_size=20480
+          NODE_OPTIONS: --max_old_space_size=4096
         run: |-
           node -e 'console.log(v8.getHeapStatistics())'
           pnpm run docs:build
