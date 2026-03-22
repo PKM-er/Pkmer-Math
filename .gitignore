@@ -1,0 +1,75 @@
+# 开发配置
+
+## 首先排除自己, 每个人的插件和配置文件不一样, 如需单独配置则添加此项并在后面添加自己的配置文件
+.gitignore 
+.gitmodules
+.vscode
+.github/skills
+.github/copilot-instructions.md
+.clinerules
+.codex
+node_modules
+.venv
+
+## 针对Mac系统的忽略
+.DS_Store
+
+## package.json和包锁文件
+package.json
+package-lock.json
+
+## mcp相关
+*mcp*
+
+## 日志文件
+*.log
+
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+
+
+
+# 同步.obsidian文件夹下指定的子文件夹,名称前加"!", 这些插件都暂时没有用到, 将来找机会剔除
+.obsidian/*
+.obsidian/app.json
+!.obsidian/appearance.json
+.obsidian/bookmarks.json
+!.obsidian/community-plugins.json
+!.obsidian/core-plugins.json
+!.obsidian/graph.json
+!.obsidian/hotkeys.json
+.obsidian/graph.json
+.obsidian/types.json
+.obsidian/workspace.json
+
+!.obsidian/snippets
+!.obsidian/plugins/*
+!.obsidian/plugins/dataview
+!.obsidian/plugins/templater-obsidian
+# !.obsidian/plugins/obsidian-git/
+# !.obsidian/plugins/obsidian-linter/
+!.obsidian/plugins/quickadd/
+# !.obsidian/plugins/obsidian-outliner/
+# !.obsidian/plugins/table-editor-obsidian/
+# !.obsidian/plugins/obsidian-latex-suite/
+.trash
+.history
+
+
+
+
+# 内容文件夹 (Obsidian本地工具, 不参与VuePress构建)
+# _assets_/*
+_assets_/草稿
+_assets_/QuickAdd
+_assets_/scripts
+_assets_/Template
+_assets_/todo
+_assets_/dataview查询
+
+Maki-Math测试库/
+
