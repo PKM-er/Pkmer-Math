@@ -1,0 +1,26 @@
+{
+  "accentColor": "",
+  "translucency": false,
+  "baseFontSize": 16,
+  "textFontFamily": "微软雅黑,Consolas",
+  "theme": "obsidian",
+  "cssTheme": "Vanilla AMOLED",
+  "enabledCssSnippets": [
+    "custom-folder-icon",
+    "my-custom-appendix",
+    "pdf-reverse",
+    "vscode搜索替换框",
+    "my-custom-appendix-icon copy",
+    "my-custom-appendix-icon",
+    "my-custom-md-icon",
+    "cyletix-md-icon",
+    "cyletix-appendix-icon",
+    "cyletix-folder-arrow",
+    "hide-embed-props",
+    "cyletix-pdf-background",
+    "cyletix-pdf-reverse"
+  ],
+  "nativeMenus": false,
+  "baseFontSizeAction": false,
+  "showRibbon": true
+}

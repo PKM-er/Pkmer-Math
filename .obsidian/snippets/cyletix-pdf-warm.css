@@ -1,0 +1,7 @@
+.theme-dark .canvasWrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(140, 130, 0, 0.3); /* 半透明米黄色蒙层 */
+  pointer-events: none;
+}

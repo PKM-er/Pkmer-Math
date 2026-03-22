@@ -1,0 +1,17 @@
+.callout {
+    --callout-border-width: 1px; /* 边框宽度 */
+    --callout-border-opacity: 0.1; /* 边框透明度 */
+    --callout-padding: 2px; /* 内部填充 */
+    --callout-radius: 6px; /* 圆角大小 */
+}
+
+.callout-title {
+    --callout-title-size: 16px; /* 标题字体大小 */
+    --callout-title-padding: 1px; /* 标题填充 */
+    --callout-title-weight: 400; /* 标题字体粗细 */
+}
+
+.callout-content {
+    --callout-content-padding: 2px; /* 内容填充 */
+}
+

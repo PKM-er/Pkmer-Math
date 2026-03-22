@@ -1,0 +1,64 @@
+/*  
+@collecte : 咖啡豆  
+@contact  : https://obsidian.vip/  
+@File     : coffeebean-显示h标题等级.css  
+@Software : vscode  
+@Date     : 2022-11-12  
+@upDate   : 2022-11-12  
+@Desc     : 显示h标题等级（在标题前端，在实时预览模式中）  
+*/  
+  
+.is-live-preview div.cm-contentContainer > div > div:not(.HyperMD-header.HyperMD-header-1.cm-line.cm-active) > span.cm-header.cm-header-1::before{  
+    content: 'H1';  
+    color: #6b6d6f;  
+    margin-right: 0px;  
+    font-size: 0.8rem;  
+    margin-right: 5px;  
+    font-weight: normal;  
+  }  
+    
+  .is-live-preview div.cm-contentContainer > div > div:not(.HyperMD-header.HyperMD-header-2.cm-line.cm-active) > span.cm-header.cm-header-2::before{  
+    content: 'H2';  
+    color: #6b6d6f;  
+    margin-right: 0px;  
+    font-size: 0.8rem;  
+    margin-right: 5px;  
+    font-weight: normal;  
+  }  
+    
+  .is-live-preview div.cm-contentContainer > div > div:not(.HyperMD-header.HyperMD-header-3.cm-line.cm-active) > span.cm-header.cm-header-3::before{  
+    content: 'H3';  
+    color: #6b6d6f;  
+    margin-right: 0px;  
+    font-size: 0.8rem;  
+    margin-right: 5px;  
+    font-weight: normal;  
+  }  
+    
+  .is-live-preview div.cm-contentContainer > div > div:not(.HyperMD-header.HyperMD-header-4.cm-line.cm-active) > span.cm-header.cm-header-4::before{  
+    content: 'H4';  
+    color: #6b6d6f;  
+    margin-right: 0px;  
+    font-size: 0.8rem;  
+    margin-right: 5px;  
+    font-weight: normal;  
+  }  
+    
+  .is-live-preview div.cm-contentContainer > div > div:not(.HyperMD-header.HyperMD-header-5.cm-line.cm-active) > span.cm-header.cm-header-5::before{  
+    content: 'H5';  
+    color: #6b6d6f;  
+    margin-right: 0px;  
+    font-size: 0.8rem;  
+    margin-right: 5px;  
+    font-weight: normal;  
+  }  
+    
+  .is-live-preview div.cm-contentContainer > div > div:not(.HyperMD-header.HyperMD-header-6.cm-line.cm-active) > span.cm-header.cm-header-6::before{  
+    content: 'H6';  
+    color: #6b6d6f;  
+    margin-right: 0px;  
+    font-size: 0.8rem;  
+    margin-right: 5px;  
+    font-weight: normal;  
+  }
+  
