@@ -4,7 +4,7 @@
   "baseFontSize": 16,
   "textFontFamily": "微软雅黑,Consolas",
   "theme": "obsidian",
-  "cssTheme": "Vanilla AMOLED",
+  "cssTheme": "GitHub Theme",
   "enabledCssSnippets": [
     "custom-folder-icon",
     "my-custom-appendix",
