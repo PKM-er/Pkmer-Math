@@ -73,3 +73,6 @@ _assets_/dataview查询
 
 Maki-Math测试库/
 
+# 大型二进制文件 (PDF参考资料不参与VuePress构建, 仅本地查阅)
+Other/pdf参考资料/
+

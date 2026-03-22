@@ -80,9 +80,19 @@ jobs:
           rm -rf temp_repo
           # git clone --depth 1 https://github.com/${GITHUB_REPOSITORY}.git # 如果有多个clone项则替换成这个，避免冲突
 
+      # 清理不参与 VuePress 构建的文件，降低内存占用
+      - name: 文档 - 清理非构建文件
+        working-directory: ./src/
+        run: |
+          rm -rf "Other/pdf参考资料"
+          rm -rf .obsidian
+          rm -rf .git .gitignore .gitattributes .gitmodules
+          echo "cleaned, remaining src size:"
+          du -sh .
+
       - name: 文档 - 构建
         env:
-          NODE_OPTIONS: --max_old_space_size=10240
+          NODE_OPTIONS: --max-old-space-size=4096
         run: |-
           node -e 'console.log(v8.getHeapStatistics())'
           pnpm run docs:build
