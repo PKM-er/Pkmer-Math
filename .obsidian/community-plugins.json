@@ -2,11 +2,12 @@
   "pkmer",
   "open-vscode",
   "obsidian-view-mode-by-frontmatter",
-  "dataview",
   "templater-obsidian",
   "callout-integrator",
   "obsidian-linter",
   "quickadd",
   "obsidian-tikzjax",
-  "tag-wrangler"
+  "tag-wrangler",
+  "obsidian-git",
+  "obsidian-plotly"
 ]

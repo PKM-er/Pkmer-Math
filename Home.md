@@ -1,58 +1,97 @@
 > [!example] [[-高等数学-|总目录]]
 
 > [!example]- 微积分
->```dataview
->list 
->from #数学
->where regexmatch("-.*-" ,file.name)
->and contains(file.path, "微积分")
->sort chapter
->```
+> ```base
+> filters:
+>   and:
+>     - file.hasTag("数学")
+>     - file.name.startsWith("-")
+>     - file.name.endsWith("-")
+>     - file.path.contains("微积分")
+> views:
+>   - type: list
+>     name: 列表
+>     order:
+>       - file.name
+>     sort:
+>       - property: chapter
+>         direction: ASC
+> ```
 
 > [!example]- 线性代数
->```dataview
->list 
->from #数学
->where regexmatch("-.*-" ,file.name)
->and contains(file.path, "线性代数")
->sort chapter
->```
+> ```base
+> filters:
+>   and:
+>     - file.hasTag("数学")
+>     - file.name.startsWith("-")
+>     - file.name.endsWith("-")
+>     - file.path.contains("线性代数")
+> views:
+>   - type: list
+>     name: 列表
+>     order:
+>       - file.name
+>     sort:
+>       - property: chapter
+>         direction: ASC
+> ```
 
 > [!example]- 概率论
->```dataview
->list
->from #数学
->where regexmatch("-.*-" ,file.name)
->and contains(file.path, "概率论")
->sort chapter
->```
+> ```base
+> filters:
+>   and:
+>     - file.hasTag("数学")
+>     - file.name.startsWith("--")
+>     - file.name.endsWith("--")
+>     - file.path.contains("概率论")
+> views:
+>   - type: list
+>     name: 列表
+>     order:
+>       - file.name
+>     sort:
+>       - property: chapter
+>         direction: ASC
+> ```
 
 > [!note]+ 最近编辑
->```dataview
->table WITHOUT ID file.link AS "标题", file.mtime
->from #数学 and !"模板" and !"kanban"
->where regextest("(微积分|概率论|线性代数|Other)", file.path)
->sort file.mtime desc
->limit 16
->```
+> ```base
+> filters:
+>   and:
+>     - file.hasTag("数学")
+>     - '!file.folder.contains("模板")'
+>     - '!file.folder.contains("kanban")'
+>     - /(微积分|概率论|线性代数|Other)/.matches(file.path)
+> views:
+>   - type: table
+>     name: 列表
+>     order:
+>       - file.name
+>       - file.mtime
+>     sort:
+>       - property: file.mtime
+>         direction: DESC
+>     limit: 16
+> ```
 
 > [!todo]-
-> ```dataview
-> task
-> where (contains(file.path,"_assets_/todo/")
-> and !fullyCompleted)
+> ```base
+> filters:
+>   and:
+>     - file.hasTag("数学")
+>     - finished == false
+> views:
+>   - type: list
+>     name: 列表
 > ```
->```dataview
->list
->from #数学 
->where finished=false
->```
 
 > [!warning]- 同步冲突
-> 
-> ```dataview
-> list
-> WHERE regextest("conflict \d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}",file.name)
+> ```base
+> filters:
+>   - '/conflict \d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}/.matches(file.name)'
+> views:
+>   - type: list
+> 	name: 列表
 > ```
 
 > [!tip]+ 参考
@@ -68,4 +107,3 @@
 >[!quote] 名言
 >人类对连续世界的三种基本抽象 
 >**变化** × **结构** × **可能性**
-

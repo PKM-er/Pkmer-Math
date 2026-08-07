@@ -1,60 +1,150 @@
 {
-  "outline:open-for-current": [],
-  "editor:open-search-replace": [
+  "editor:insert-table": [
     {
       "modifiers": [
         "Mod"
       ],
-      "key": "R"
+      "key": "T"
     }
   ],
-  "workspace:toggle-pin": [
+  "workspace:new-tab": [],
+  "editor:insert-mathblock": [
     {
       "modifiers": [
-        "Alt"
+        "Mod"
       ],
-      "key": "P"
-    }
-  ],
-  "obsidian-excalidraw-plugin:insert-link-to-element": [],
-  "easy-typing-obsidian:easy-typing-format-switch": [],
-  "easy-typing-obsidian:easy-typing-insert-codeblock": [],
-  "easy-typing-obsidian:easy-typing-delete-blank-line": [],
-  "editor:set-heading-2": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "2"
-    }
-  ],
-  "meld-encrypt:meld-encrypt": [
-    {
-      "modifiers": [
-        "Alt",
-        "Mod",
-        "Shift"
-      ],
-      "key": "R"
+      "key": "M"
     }
   ],
   "insert-current-time": [
     {
       "modifiers": [
-        "Alt"
+        "Alt",
+        "Mod"
       ],
       "key": "T"
     }
   ],
-  "insert-current-date": [
+  "editor:save-file": [],
+  "obsidian-excalidraw-plugin:save": [],
+  "remotely-save:start-sync": [
     {
       "modifiers": [
-        "Alt"
+        "Mod"
+      ],
+      "key": "S"
+    }
+  ],
+  "obsidian-excalidraw-plugin:insert-link-to-element": [],
+  "markdown:add-metadata-property": [],
+  "table-editor-obsidian:table-control-bar": [],
+  "workspace:goto-last-tab": [],
+  "workspace:next-tab": [],
+  "workspace:previous-tab": [],
+  "workspace:goto-tab-1": [],
+  "workspace:goto-tab-2": [],
+  "workspace:goto-tab-3": [],
+  "workspace:goto-tab-4": [],
+  "workspace:goto-tab-5": [],
+  "workspace:goto-tab-7": [],
+  "workspace:goto-tab-6": [],
+  "workspace:goto-tab-8": [],
+  "app:go-back": [],
+  "app:go-forward": [],
+  "app:open-settings": [],
+  "switcher:open": [],
+  "workspace:edit-file-title": [],
+  "global-search:open": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "F"
+    }
+  ],
+  "obsidian-linter:lint-file": [],
+  "templater-obsidian:replace-in-file-templater": [],
+  "templater-obsidian:insert-templater": [],
+  "templater-obsidian:jump-to-next-cursor-location": [],
+  "templater-obsidian:create-new-note-from-template": [],
+  "workspace:close": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "W"
+    }
+  ],
+  "graph:open": [],
+  "editor:toggle-checklist-status": [],
+  "editor:open-link-in-new-leaf": [],
+  "editor:open-link-in-new-window": [],
+  "editor:open-link-in-new-split": [],
+  "file-explorer:new-file-in-new-pane": [],
+  "workspace:undo-close-pane": [],
+  "easy-typing-obsidian:easy-typing-format-article": [],
+  "easy-typing-obsidian:easy-typing-insert-codeblock": [],
+  "easy-typing-obsidian:easy-typing-format-selection": [],
+  "easy-typing-obsidian:easy-typing-format-switch": [],
+  "easy-typing-obsidian:easy-typing-delete-blank-line": [],
+  "easy-typing-obsidian:easy-typing-paste-without-format": [],
+  "theme:use-light": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "L"
+    }
+  ],
+  "theme:use-dark": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
       ],
       "key": "D"
     }
   ],
-  "editor:focus": [
+  "workspace:close-window": [],
+  "editor:toggle-source": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "S"
+    }
+  ],
+  "zenmode:toggle-zen-mode": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "Z"
+    }
+  ],
+  "webviewer:search": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "P"
+    }
+  ],
+  "theme:toggle-light-dark": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "L"
+    }
+  ],
+  "easy-typing-obsidian:easy-typing-toggle-comment": [],
+  "obsidian-excalidraw-plugin:toggle-excalidraw-view": [
     {
       "modifiers": [
         "Alt"
@@ -62,244 +152,8 @@
       "key": "E"
     }
   ],
-  "insert-template": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "Insert"
-    }
-  ],
-  "editor:set-heading-1": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "1"
-    }
-  ],
-  "editor:set-heading-3": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "3"
-    }
-  ],
-  "editor:set-heading-4": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "4"
-    }
-  ],
-  "editor:set-heading-5": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "5"
-    }
-  ],
-  "editor:set-heading-6": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "6"
-    }
-  ],
-  "zk-prefixer": [
-    {
-      "modifiers": [
-        "Alt",
-        "Mod"
-      ],
-      "key": "N"
-    }
-  ],
-  "editor:swap-line-up": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "ArrowUp"
-    }
-  ],
-  "editor:swap-line-down": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "ArrowDown"
-    }
-  ],
-  "dbfolder:active-database-folder-go-previous-page": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "PageUp"
-    }
-  ],
-  "dbfolder:active-database-folder-go-next-page": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "PageDown"
-    }
-  ],
-  "editor:delete-paragraph": [],
-  "app:delete-file": [
-    {
-      "modifiers": [
-        "Alt",
-        "Mod",
-        "Shift"
-      ],
-      "key": "Delete"
-    }
-  ],
-  "app:toggle-right-sidebar": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "R"
-    }
-  ],
-  "app:toggle-left-sidebar": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "W"
-    }
-  ],
-  "templater-obsidian:replace-in-file-templater": [],
-  "templater-obsidian:insert-templater": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "I"
-    }
-  ],
-  "obsidian-textgenerator-plugin:generate-text-with-metadata": [],
-  "workspace:next-tab": [],
-  "workspace:previous-tab": [
-    {
-      "modifiers": [
-        "Ctrl",
-        "Shift"
-      ],
-      "key": "Tab"
-    }
-  ],
-  "editor:toggle-source": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "V"
-    }
-  ],
-  "file-explorer:new-file": [],
-  "slides:start": [
-    {
-      "modifiers": [
-        "Alt",
-        "Shift"
-      ],
-      "key": "P"
-    }
-  ],
-  "editor:set-heading-0": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "0"
-    }
-  ],
-  "editor:set-heading": [
-    {
-      "modifiers": [
-        "Alt",
-        "Shift"
-      ],
-      "key": "T"
-    }
-  ],
-  "callout-integrator:callout-integrate": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "."
-    }
-  ],
-  "callout-integrator:callout-unintegrate": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": ","
-    }
-  ],
-  "quickadd:choice:1974a892-8fa6-48de-bad8-287a299cefc3": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "T"
-    }
-  ],
-  "editor:fold-less": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "ArrowRight"
-    }
-  ],
-  "editor:fold-more": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "ArrowLeft"
-    }
-  ],
-  "canvas-mindmap-helper:new-child-node": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "Tab"
-    }
-  ],
-  "canvas-mindmap-helper:focus-down": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "ArrowDown"
-    }
-  ],
-  "canvas-mindmap-helper:focus-up": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "ArrowUp"
-    }
-  ],
-  "canvas-mindmap-helper:new-node": [
+  "switcher:open": [],
+  "quickadd:runQuickAdd": [
     {
       "modifiers": [
         "Mod"
@@ -307,104 +161,29 @@
       "key": "Enter"
     }
   ],
-  "editor:toggle-code": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "B"
-    }
-  ],
-  "quickadd:choice:1d4ab943-d4d7-4668-a99d-3a0358893b78": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "L"
-    }
-  ],
-  "editor:toggle-highlight": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "="
-    }
-  ],
-  "quickadd:runQuickAdd": [
+  "easy-typing-obsidian:easy-typing-goto-new-line-after-cur-line": [],
+  "media-extended:fast-forward-2x": [
     {
       "modifiers": [
         "Mod"
       ],
-      "key": "Q"
+      "key": "ArrowRight"
     }
   ],
-  "fuzzy-chinese-pinyin:open-search": [
+  "media-extended:take-timestamp": [
     {
       "modifiers": [
         "Alt"
       ],
-      "key": "Q"
+      "key": "T"
     }
   ],
-  "editor:open-link-in-new-leaf": [],
-  "file-explorer:reveal-active-file": [
+  "media-extended:take-screenshot": [
     {
       "modifiers": [
         "Alt"
       ],
-      "key": "F"
-    }
-  ],
-  "editor:toggle-checklist-status": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "C"
-    }
-  ],
-  "editor:cycle-list-checklist": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "L"
-    }
-  ],
-  "edge-tts:read-selected-text": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "A"
-    }
-  ],
-  "open-with-default-app:show": [
-    {
-      "modifiers": [
-        "Alt",
-        "Shift"
-      ],
-      "key": "R"
-    }
-  ],
-  "fuzzy-chinese-pinyin:move-file": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "M"
-    }
-  ],
-  "metadata-menu:field_options": [
-    {
-      "modifiers": [
-        "Mod",
-        "Shift"
-      ],
-      "key": "M"
+      "key": "S"
     }
   ],
   "switcher:open": [

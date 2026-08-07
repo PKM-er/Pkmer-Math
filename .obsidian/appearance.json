@@ -1,9 +1,9 @@
 {
   "accentColor": "",
   "translucency": false,
-  "baseFontSize": 16,
+  "baseFontSize": 20,
   "textFontFamily": "微软雅黑,Consolas",
-  "theme": "obsidian",
+  "theme": "system",
   "cssTheme": "GitHub Theme",
   "enabledCssSnippets": [
     "custom-folder-icon",
@@ -14,11 +14,11 @@
     "my-custom-appendix-icon",
     "my-custom-md-icon",
     "cyletix-md-icon",
-    "cyletix-appendix-icon",
     "cyletix-folder-arrow",
     "hide-embed-props",
     "cyletix-pdf-background",
-    "cyletix-pdf-reverse"
+    "cyletix-pdf-reverse",
+    "cyletix-appendix-icon"
   ],
   "nativeMenus": false,
   "baseFontSizeAction": false,
