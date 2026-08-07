@@ -1,6 +1,7 @@
 ---
 tags:
   - 数学
+  - AI
 dlink:
   - "[[---矩阵---]]"
 aliases:
