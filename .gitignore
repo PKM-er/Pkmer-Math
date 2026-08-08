@@ -1,7 +1,8 @@
 # 开发配置
 
-## 首先排除自己, 每个人的插件和配置文件不一样, 如需单独配置则添加此项并在后面添加自己的配置文件
-.gitignore 
+## Obsidian 个人配置一律不上传
+.obsidian/
+
 .gitmodules
 .vscode
 .github/skills
@@ -29,9 +30,6 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# .obsidian/ 个人配置一律不上传，默认配置单独打包提供
-.obsidian/
 
 .trash
 .history
