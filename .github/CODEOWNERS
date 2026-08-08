@@ -1,0 +1,4 @@
+# 这些文件的任何 PR 修改都必须经过你审批
+.gitignore @Cyletix
+.obsidian/ @Cyletix
+CODEOWNERS @Cyletix
