@@ -30,33 +30,9 @@ __pycache__/
 *.pyo
 *.pyd
 
-# === .obsidian/ 只同步默认配置，个人修改请用本地 .git/info/exclude ===
-.obsidian/*
-.obsidian/app.json
-!.obsidian/appearance.json
-.obsidian/bookmarks.json
-!.obsidian/community-plugins.json
-!.obsidian/core-plugins.json
-.obsidian/graph.json
-!.obsidian/hotkeys.json
-.obsidian/types.json
-.obsidian/workspace.json
+# .obsidian/ 个人配置一律不上传，默认配置单独打包提供
+.obsidian/
 
-!.obsidian/snippets/
-!.obsidian/snippets/*
-!.obsidian/plugins/
-!.obsidian/plugins/dataview/
-!.obsidian/plugins/templater-obsidian/
-!.obsidian/plugins/quickadd/
-!.obsidian/plugins/obsidian-tikzjax/
-!.obsidian/plugins/pkmer/
-!.obsidian/plugins/open-vscode/
-!.obsidian/plugins/obsidian-view-mode-by-frontmatter/
-!.obsidian/plugins/callout-integrator/
-!.obsidian/plugins/obsidian-linter/
-!.obsidian/plugins/tag-wrangler/
-!.obsidian/plugins/obsidian-git/
-!.obsidian/plugins/obsidian-plotly/
 .trash
 .history
 
