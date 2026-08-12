@@ -2,7 +2,7 @@
 tags:
   - 数学
 dlink:
-  - "[[群|group]]"
+  - "[[群]]"
 aliases:
   - 逆元
 author:
