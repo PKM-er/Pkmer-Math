@@ -80,12 +80,23 @@ jobs:
           rm -rf temp_repo
           # git clone --depth 1 https://github.com/${GITHUB_REPOSITORY}.git # 如果有多个clone项则替换成这个，避免冲突
 
+      # 不改变 VuePress 配置或网页功能，只给内存峰值留出缓冲。
+      - name: 环境 - 构建内存缓冲
+        run: |
+          df -h /
+          free -h
+          sudo fallocate -l 4G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
+
       - name: 文档 - 构建
         env:
           NODE_OPTIONS: --max_old_space_size=20480
         run: |-
           node -e 'console.log(v8.getHeapStatistics())'
-          pnpm run docs:build
+          /usr/bin/time -v pnpm run docs:build
           > src/.vuepress/dist/.nojekyll
 
       - name: 文档 - 部署
