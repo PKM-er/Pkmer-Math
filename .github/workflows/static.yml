@@ -80,15 +80,10 @@ jobs:
           rm -rf temp_repo
           # git clone --depth 1 https://github.com/${GITHUB_REPOSITORY}.git # 如果有多个clone项则替换成这个，避免冲突
 
-      # 不改变 VuePress 配置或网页功能，只给内存峰值留出缓冲。
-      - name: 环境 - 构建内存缓冲
+      # 只记录 runner 资源，不改变 VuePress 配置或网页功能。
+      - name: 环境 - 构建资源诊断
         run: |
           df -h /
-          free -h
-          sudo fallocate -l 4G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
           free -h
 
       - name: 文档 - 构建
