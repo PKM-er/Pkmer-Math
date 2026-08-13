@@ -1,1 +1,8 @@
 .obsidian/** merge=ours
+# release 源码包瘦身：export-ignore 只影响 git archive / 下载 zip，
+# 不影响 git clone、跟踪、同步。2026-08-14 由用户确认。
+Other/pdf参考资料/** export-ignore
+Other/数学分类/** export-ignore
+.github/** export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore
