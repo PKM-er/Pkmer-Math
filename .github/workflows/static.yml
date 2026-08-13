@@ -96,9 +96,9 @@ jobs:
 
       - name: 文档 - 构建
         env:
-          # 标准 runner 只有约 15 GiB RAM；20 GiB 上限会让 V8 挤占 runner。
-          # 历史 10 GiB 不足，先以 13 GiB 触发更早 GC，保持构建功能不变。
-          NODE_OPTIONS: --max_old_space_size=13312
+          # 实测 13 GiB 会在 Vite 编译阶段触发 V8 heap OOM；暂时恢复原上限。
+          # 这不能突破 runner 的物理内存，长期仍需更大 runner 或上游构建优化。
+          NODE_OPTIONS: --max_old_space_size=20480
         run: |-
           node -e 'console.log(v8.getHeapStatistics())'
           /usr/bin/time -v pnpm run docs:build
