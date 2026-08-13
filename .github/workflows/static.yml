@@ -23,7 +23,8 @@ jobs:
         with:
           fetch-depth: 1
           repository: LincZero/LincZero.github.io
-          ref: 'main' # 分支，旧raw
+          # 固定到最近成功构建实际使用的版本，避免外部 main 漂移。
+          ref: '54cdc975bfad38ccd60244430afecc511d4592e1'
           
       - name: 环境 - 安装 pnpm
         uses: pnpm/action-setup@v4
@@ -66,7 +67,14 @@ jobs:
           cat ./scripts/git_config.json
           rm -f ./src/.vuepress/config_cover.js
           rm -f ./src/.vuepress/theme_cover.js
+          # generate_config.cjs 只读取这两个文件并打印可选插件提示。
+          # 使用 CI 临时空配置消除误导性 ENOENT；不复用或发布个人 Obsidian 配置。
+          mkdir -p ./src/.obsidian
+          printf '{}\n' > ./src/.obsidian/core-plugins.json
+          printf '[]\n' > ./src/.obsidian/community-plugins.json
           pnpm run gen-config
+          rm -f ./src/.obsidian/core-plugins.json ./src/.obsidian/community-plugins.json
+          rmdir ./src/.obsidian
 
       # 文档的克隆、构建、部署。注意 `clone --depth 1` 只拉最近一次提交，减少时间
       - name: 文档 - 文档库克隆
@@ -88,7 +96,9 @@ jobs:
 
       - name: 文档 - 构建
         env:
-          NODE_OPTIONS: --max_old_space_size=20480
+          # 标准 runner 只有约 15 GiB RAM；20 GiB 上限会让 V8 挤占 runner。
+          # 历史 10 GiB 不足，先以 13 GiB 触发更早 GC，保持构建功能不变。
+          NODE_OPTIONS: --max_old_space_size=13312
         run: |-
           node -e 'console.log(v8.getHeapStatistics())'
           /usr/bin/time -v pnpm run docs:build
