@@ -88,10 +88,22 @@ jobs:
           rm -rf temp_repo
           # git clone --depth 1 https://github.com/${GITHUB_REPOSITORY}.git # 如果有多个clone项则替换成这个，避免冲突
 
-      # 只记录 runner 资源，不改变 VuePress 配置或网页功能。
-      - name: 环境 - 构建资源诊断
+      # 构建峰值已超过标准 runner 的物理内存；使用一次性磁盘交换空间，
+      # 不改变 VuePress 配置或网页功能。runner 销毁时该文件会一并消失。
+      - name: 环境 - 扩展构建交换空间
         run: |
-          df -h /
+          swap_path=/mnt/pkmer-build.swap
+          available_kb=$(df --output=avail -k /mnt | tail -n 1)
+          required_kb=$((12 * 1024 * 1024))
+          if (( available_kb < required_kb )); then
+            echo "::error::可用磁盘不足 12 GiB，拒绝创建 8 GiB 构建交换文件。"
+            exit 1
+          fi
+          sudo fallocate -l 8G "$swap_path"
+          sudo chmod 600 "$swap_path"
+          sudo mkswap "$swap_path"
+          sudo swapon "$swap_path"
+          df -h /mnt
           free -h
 
       - name: 文档 - 构建
