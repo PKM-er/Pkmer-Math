@@ -68,6 +68,8 @@ views:
       - file.path
       - file.tags
     sort:
+      - property: finished
+        direction: ASC
       - property: chapter
         direction: ASC
       - property: file.name
@@ -108,10 +110,10 @@ views:
       - file.path
       - file.tags
     sort:
-      - property: file.tags
-        direction: DESC
       - property: chapter
         direction: ASC
+      - property: file.tags
+        direction: DESC
     columnSize: {}
   - type: table
     name: 极限与连续
@@ -128,7 +130,511 @@ views:
       - file.tags
     sort:
       - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
         direction: DESC
+    columnSize: {}
+  - type: table
+    name: 导数
+    filters:
+      and:
+        - file.path.startsWith("微积分/导数/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 微分
+    filters:
+      and:
+        - file.path.startsWith("微积分/微分/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 积分
+    filters:
+      and:
+        - file.path.startsWith("微积分/积分/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 微分方程
+    filters:
+      and:
+        - file.path.startsWith("微积分/微分方程/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 解析几何
+    filters:
+      and:
+        - file.path.startsWith("微积分/解析几何/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 多元函数微分
+    filters:
+      and:
+        - file.path.startsWith("微积分/多元函数微分/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 重积分
+    filters:
+      and:
+        - file.path.startsWith("微积分/重积分/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 曲线曲面积分
+    filters:
+      and:
+        - file.path.startsWith("微积分/曲线曲面积分/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 级数
+    filters:
+      and:
+        - file.path.startsWith("微积分/级数/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 行列式
+    filters:
+      and:
+        - file.path.startsWith("线性代数/行列式/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 矩阵
+    filters:
+      and:
+        - file.path.startsWith("线性代数/矩阵/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 线性方程组
+    filters:
+      and:
+        - file.path.startsWith("线性代数/线性方程组/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 向量组
+    filters:
+      and:
+        - file.path.startsWith("线性代数/向量组/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 相似变换
+    filters:
+      and:
+        - file.path.startsWith("线性代数/相似变换/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 线性空间
+    filters:
+      and:
+        - file.path.startsWith("线性代数/线性空间/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 概率论基础
+    filters:
+      and:
+        - file.path.startsWith("概率论/概率论基础/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 随机变量
+    filters:
+      and:
+        - file.path.startsWith("概率论/随机变量/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 随机变量函数
+    filters:
+      and:
+        - file.path.startsWith("概率论/随机变量函数/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 极限定理
+    filters:
+      and:
+        - file.path.startsWith("概率论/极限定理/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 抽样分布
+    filters:
+      and:
+        - file.path.startsWith("概率论/抽样分布/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 参数估计
+    filters:
+      and:
+        - file.path.startsWith("概率论/参数估计/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 假设检验
+    filters:
+      and:
+        - file.path.startsWith("概率论/假设检验/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 方差分析及回归
+    filters:
+      and:
+        - file.path.startsWith("概率论/方差分析及回归/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
+      - property: dlink
+        direction: ASC
+      - property: file.tags
+        direction: DESC
+    columnSize: {}
+  - type: table
+    name: 随机过程
+    filters:
+      and:
+        - file.path.startsWith("概率论/随机过程/")
+    order:
+      - file.name
+      - chapter
+      - dlink
+      - author
+      - finished
+      - file.path
+      - file.tags
+    sort:
+      - property: chapter
+        direction: ASC
       - property: dlink
         direction: ASC
       - property: file.tags
