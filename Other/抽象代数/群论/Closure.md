@@ -1,0 +1,13 @@
+---
+tags:
+  - 数学
+dlink:
+  - "[[---群论---]]"
+  - "[[群]]"
+aliases:
+  - 闭合性
+  - 封闭性
+author:
+  - Cyletix
+---
+[[群]]的公理之一：for all $g,h \in G$ , $g\cdot h \in G$
