@@ -10,4 +10,8 @@ aliases:
 author:
   - Cyletix
 ---
-[[群]]的公理之一：there is $e \in G$, for all $g \in G$, $e\cdot g=g\cdot e=g$
+[[群]]的公理之一：存在 $e\in G$，使对任意 $g\in G$ 有
+$$e\cdot g=g\cdot e=g$$
+
+> [!info] 直觉
+> 单位元是"不做任何改变"的元素：加法中对应 $0$，乘法中对应 $1$，映射复合中对应恒等映射。群中单位元**唯一**。

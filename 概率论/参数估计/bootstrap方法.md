@@ -23,5 +23,5 @@ bootstrap 方法是一种基于**重抽样**的统计推断方法，通过对原
 ## 应用
 
 - 估计标准误差：$SE(\hat{\theta}) \approx \sqrt{\frac{1}{B-1} \sum_{b=1}^B (\hat{\theta}_b^* - \bar{\theta}^*)^2}$
-- 构造置信区间（分位数法、BCa 法等）
+- 构造[[置信区间]]（分位数法、BCa 法等）
 - 假设检验

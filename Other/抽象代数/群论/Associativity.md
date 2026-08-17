@@ -9,4 +9,8 @@ aliases:
 author:
   - Cyletix
 ---
-[[群]]的公理之一：for all $g, h, k \in G$, $(g\cdot h)\cdot k=g\cdot(h\cdot k)$
+[[群]]的公理之一：对任意 $g,h,k\in G$，有
+$$(g\cdot h)\cdot k=g\cdot(h\cdot k)$$
+
+> [!info] 直觉
+> 结合律保证"先算哪两个都一样"，是[[群]]、[[环]]、[[域]]等[[代数结构]]共同要求的运算性质，函数复合天然满足。**减法与除法不满足结合律**：$(5-3)-2=0\ne5-(3-2)=4$。

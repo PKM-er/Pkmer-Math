@@ -9,4 +9,8 @@ aliases:
 author:
   - Cyletix
 ---
-[[群]]的公理之一：for all $g \in G$, there is $h \in G$, $g\cdot h=h\cdot g=e$
+[[群]]的公理之一：对每个 $g\in G$ 存在 $h\in G$，使
+$$g\cdot h=h\cdot g=e$$
+
+> [!info] 直觉
+> 逆元使运算"可还原"：加法中 $-a$，乘法中 $1/a$，复合中逆映射。逆元**唯一**（$h=g^{-1}$），且 $(ab)^{-1}=b^{-1}a^{-1}$。
