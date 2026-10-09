@@ -29,7 +29,7 @@ filters:
         - 'file.hasProperty("dlink") && dlink.contains(this.file.name)'
 views:
   - type: list
-	name: 列表
+    name: 列表
 ```
 
 # 孤立笔记
@@ -44,5 +44,5 @@ filters:
         - '!dlink.contains(this)'
 views:
   - type: list
-	name: 列表
+    name: 列表
 ```

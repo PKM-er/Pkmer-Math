@@ -6,6 +6,7 @@ dlink:
 author:
   - Cyletix
   - GPT-4
+  - GPT-6
 ---
 对于大多数常见函数，混合偏导数是相等的。这由 **Schwarz 定理**（Schwarz's theorem）或称 **Clairaut 定理**（Clairaut's theorem）所保证。该定理表明，如果一个函数的混合偏导数在一个点及其附近连续，那么这两个混合偏导数是相等的。
 ## 定理陈述
@@ -30,10 +31,10 @@ $$
 f_{yy} = \frac{\partial^2 f}{\partial y^2} = 4
 $$
 $$
-f_{xy} = \frac{\partial^2 f}{\partial x \partial y} = \frac{\partial}{\partial y}(4x^3 - 4y) = -4
+f_{xy} = \frac{\partial^2 f}{\partial y \partial x} = \frac{\partial}{\partial y}(4x^3 - 4y) = -4
 $$
 $$
-f_{yx} = \frac{\partial^2 f}{\partial y \partial x} = \frac{\partial}{\partial x}(-4x + 4y) = -4
+f_{yx} = \frac{\partial^2 f}{\partial x \partial y} = \frac{\partial}{\partial x}(-4x + 4y) = -4
 $$
 我们可以看到，混合偏导数 $f_{xy}$ 和 $f_{yx}$ 是相等的，即：
 $$
@@ -41,3 +42,7 @@ $$
 $$
 ### 例外情况
 在某些特殊情况下，如果函数的二阶偏导数不连续或不存在，Schwarz 定理可能不适用。在这些情况下，混合偏导数可能不相等。不过，在实数域内的多数实际应用中，函数通常满足所需的条件，因此混合偏导数相等。
+
+## 为什么需要条件
+
+本库下标 $f_{xy}$ 表示先对 $x$、再对 $y$ 求导，即 $\partial_y(\partial_xf)$。令 $f(x,y)=xy(x^2-y^2)/(x^2+y^2)$（非原点），$f(0,0)=0$。直接按定义得 $f_x(0,y)=-y$、$f_y(x,0)=x$，所以 $f_{xy}(0,0)=-1$，$f_{yx}(0,0)=1$。二阶混合偏导存在，仍不必相等；不能仅凭它们的存在把[[海塞矩阵]]视为对称矩阵。
